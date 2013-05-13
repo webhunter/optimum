@@ -13,7 +13,7 @@
 @implementation JoinLayer
 {
     MatchmakingClient *_matchmakingClient;
-    QuitReason _quitReason;
+    QuitReason _quitReason; 
 }
 
 @synthesize delegate = _delegate;
