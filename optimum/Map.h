@@ -13,15 +13,15 @@
 #import "OptimumRessource.h"
 #import "UnitSprite.h"
 
-#import "FreezeMap.h"
 #import "FreezeScreen.h"
 
 #import "NSString+TimeFormatted.h"
 #import "UIColor+RVB255.h"
 #import "Meteor.h"
-//#import "CCTMXLayer+TileLifeLayer.h"
+#import "CCTMXLayer+TileLifeLayer.h"
 
 #import "Mapquake.h"
+#import "Meteor.h"
 
 enum
 {
@@ -37,7 +37,6 @@ enum
     NSMutableArray *stackElementRight;
     CCLabelTTF *countdownLabel; //Texte contenant décompte du chronomètre
     int countdown; //Chronomètre
-    CCSprite *hitbox;
     
     //Variables de test
     CCLabelTTF *scoreLabelLeft;

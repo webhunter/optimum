@@ -11,7 +11,7 @@
 
 #import "CCTMXLayer+TileLifeLayer.h"
 
-
+#import "TeamLayer.h"
 
 
 @implementation Map
@@ -75,11 +75,6 @@
         
 		self.isTouchEnabled = YES;
         
-        CCTMXTiledMap* tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"maquette-map.tmx"];
-        tileMap.scale = CC_CONTENT_SCALE_FACTOR();
-        [self centerIntoScreen:tileMap];
-//        [self addChild:tileMap z:-1 tag:TileMapTag];
-        
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
         [self centerIntoScreen:map];
         [self addChild:map z:-1 tag:TileMapTag];
@@ -127,24 +122,11 @@
         emitter2.autoRemoveOnFinish = YES;
         
         
-        for (int i = 0; i < 9; i++) {
-            
-            Meteor *truc = [[Meteor alloc] init];
-//            [self addChild:truc];
-        }
         
         //Hitbox
-        hitbox = [self createSpriteRectangleWithSize:CGSizeMake(100, 100)];
-//        [self centerIntoScreen:hitbox];
-        hitbox.position = ccp(330, 330);
-        hitbox.color = ccc3(197, 229, 232);
-        hitbox.anchorPoint = ccp(.5, .5);
-        hitbox.rotation = 45;
-        hitbox.skewY = 15;
+
         
         [self schedule: @selector(outOfScreen:) interval:1];
-     
-//        [self addChild:hitbox z:0];
 	}
 	return self;
 }
@@ -154,8 +136,6 @@
 - (void) outOfScreen: (ccTime) dt
 {
     [self actions];
-//    [self actionAtCoordinate:ccp(0, 0)];
-//    [self actionAtCoordinate:ccp(0, 1)];
 }
 
 
@@ -173,7 +153,7 @@
 
 - (void) generateOptimum: (ccTime) dt
 {
-    for (int i = 0; i <= 2; i++) {
+    for (int i = 0; i <= 1; i++) {
         [self addOptimum];
     }
     
@@ -181,7 +161,7 @@
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
     if (countdown <= 0) {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] withColor:ccGREEN]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TeamLayer scene] withColor:ccGREEN]];
     }
 }
 
@@ -229,7 +209,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * 1;
+    countdown = 60 * 3;
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)
@@ -447,7 +427,7 @@
     NSDictionary *parameters = [[NSDictionary alloc]
                                 initWithObjects:objectsProperties
                                 forKeys:keysProperties];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer sceneWithParameters:parameters] withColor:ccORANGE]];
+//    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer sceneWithParameters:parameters] withColor:ccORANGE]];
 }
 
 #pragma mark - Évènements Négatifs
@@ -580,7 +560,10 @@
             break;
         
         case 1:
-            [self meteors];
+//            [self meteors];
+//            Meteor *truc = [[Meteor alloc] init];
+//            [self addChild:truc];
+
             break;
         
         case 2: //Vide
@@ -609,25 +592,19 @@
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	// get the position in tile coordinates from the touch location
-	CGPoint touchLocation = [self locationFromTouches:touches];
-    
-    CCNode* node = [self getChildByTag:TileMapTag];
-	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-    
-    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-    
-    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-    
-//    CCLOG(@"trc : %i", [layer unitAt:tileCord].HPMax);
-    CCLOG(@"%i", [layer unitAt:tileCord].HP);
-    CCLOG(@"%i", [layer tileGIDAt:tileCord]);
-//    CCLOG(@"tileGIDAt : %i", [layer tileGIDAt:tileCord]);
-    
-}
+//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//	// get the position in tile coordinates from the touch location
+//	CGPoint touchLocation = [self locationFromTouches:touches];
+//    
+//    CCNode* node = [self getChildByTag:TileMapTag];
+//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+//    
+//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+//    
+//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+//}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches
@@ -1011,7 +988,7 @@
 	// cocos2d will automatically release all the children (Label)
 	
 	// don't forget to call "super dealloc"
-	[super dealloc];
+	
 }
 
 @end

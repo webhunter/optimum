@@ -9,6 +9,8 @@
 #import "TeamLayer.h"
 #import "CCSlider.h"
 
+#import "Map.h"
+
 
 @implementation TeamLayer
 
@@ -68,7 +70,39 @@
             if (scale > 1.0)
             {
                 // IPAD RETINA SCREEN
+                // ask director for the window size
+                CGSize size = [[CCDirector sharedDirector] winSize];
                 
+                // Bouton back
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Carte" target:self selector:@selector(onNewGame:)];
+                buttonOne.color = ccRED;
+                
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, buttonOne, nil];
+                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                button_back.scale = CC_CONTENT_SCALE_FACTOR();
+                
+                [self addChild:menu_back];
+                
+                [menu_back alignItemsVertically];
+                [menu_back alignItemsVerticallyWithPadding:10];	// 10px of padding around each button
+                [menu_back alignItemsHorizontally];
+                [menu_back alignItemsHorizontallyWithPadding:20];	// 20px of padding around each button
+                
+                //Slider
+                CCSlider *slider1 = [CCSlider sliderWithBackgroundFile: @"slide.png"
+                                                             thumbFile: @"ville.png"];
+                [slider1 setPosition:ccp( size.width/2, size.height/2 + 170)];
+                
+                [self addChild:slider1];
+                
+                CCSlider *slider2 = [CCSlider sliderWithBackgroundFile: @"slide.png"
+                                                             thumbFile: @"nature.png"];
+                [slider2 setPosition:ccp( size.width/2, size.height/2 - 170)];
+                slider1.scale = CC_CONTENT_SCALE_FACTOR();
+                slider2.scale = CC_CONTENT_SCALE_FACTOR();
+                
+                [self addChild:slider2];
             }
             else
             {
@@ -79,10 +113,18 @@
                 // Bouton back
                 CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
                 
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
+                CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Carte" target:self selector:@selector(onNewGame:)];
+                buttonOne.color = ccRED;
+                
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, buttonOne, nil];
                 [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
                 
                 [self addChild:menu_back];
+                
+                [menu_back alignItemsVertically];
+                [menu_back alignItemsVerticallyWithPadding:10];	// 10px of padding around each button
+                [menu_back alignItemsHorizontally];
+                [menu_back alignItemsHorizontallyWithPadding:20];	// 20px of padding around each button
                 
                 //Slider
                 CCSlider *slider1 = [CCSlider sliderWithBackgroundFile: @"slide.png"
@@ -101,6 +143,14 @@
         }
     }
 	return self;
+}
+
+- (void) onNewGame: (CCMenuItem  *) menuItem{
+    
+    [[CCDirector sharedDirector]
+     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+                                                     scene:[Map sceneWithParameters:YES]
+                   ]];
 }
 
 // on "dealloc" you need to release all your retained objects

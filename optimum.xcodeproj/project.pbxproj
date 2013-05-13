@@ -25,6 +25,9 @@
 		1A9141141741505300D3CDD5 /* island.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141131741505300D3CDD5 /* island.png */; };
 		1A9141161741506600D3CDD5 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141151741506600D3CDD5 /* fire.png */; };
 		1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */; };
+		1A91411F1741516100D3CDD5 /* Meteor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91411E1741516100D3CDD5 /* Meteor.m */; };
+		1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141211741519000D3CDD5 /* FreezeScreen.m */; };
+		1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141231741524D00D3CDD5 /* ice-pattern.png */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
 		900038DC1740EDAF008B350D /* archipel_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D81740EDAF008B350D /* archipel_2.png */; };
 		900038DD1740EDAF008B350D /* archipel_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D91740EDAF008B350D /* archipel_3.png */; };
@@ -211,6 +214,11 @@
 		1A9141151741506600D3CDD5 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
 		1A9141171741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTMXLayer+TileLifeLayer.h"; sourceTree = "<group>"; };
 		1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTMXLayer+TileLifeLayer.m"; sourceTree = "<group>"; };
+		1A91411D1741516100D3CDD5 /* Meteor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meteor.h; sourceTree = "<group>"; };
+		1A91411E1741516100D3CDD5 /* Meteor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meteor.m; sourceTree = "<group>"; };
+		1A9141201741519000D3CDD5 /* FreezeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreezeScreen.h; sourceTree = "<group>"; };
+		1A9141211741519000D3CDD5 /* FreezeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreezeScreen.m; sourceTree = "<group>"; };
+		1A9141231741524D00D3CDD5 /* ice-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ice-pattern.png"; sourceTree = "<group>"; };
 		900038D71740EDAF008B350D /* archipel_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_1.png; sourceTree = "<group>"; };
 		900038D81740EDAF008B350D /* archipel_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_2.png; sourceTree = "<group>"; };
 		900038D91740EDAF008B350D /* archipel_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_3.png; sourceTree = "<group>"; };
@@ -545,6 +553,7 @@
 		1A9140EF17414F6500D3CDD5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				1A9141231741524D00D3CDD5 /* ice-pattern.png */,
 				1A9141151741506600D3CDD5 /* fire.png */,
 				1A9141131741505300D3CDD5 /* island.png */,
 				1A91410117414FCC00D3CDD5 /* tiled-maquette.png */,
@@ -562,6 +571,10 @@
 		1A91410317414FEC00D3CDD5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1A9141201741519000D3CDD5 /* FreezeScreen.h */,
+				1A9141211741519000D3CDD5 /* FreezeScreen.m */,
+				1A91411D1741516100D3CDD5 /* Meteor.h */,
+				1A91411E1741516100D3CDD5 /* Meteor.m */,
 				1A9141101741504400D3CDD5 /* Mapquake.h */,
 				1A9141111741504400D3CDD5 /* Mapquake.m */,
 				1A91410A1741500C00D3CDD5 /* OptimumRessource.h */,
@@ -1211,6 +1224,7 @@
 				1A91410217414FCC00D3CDD5 /* tiled-maquette.png in Resources */,
 				1A9141141741505300D3CDD5 /* island.png in Resources */,
 				1A9141161741506600D3CDD5 /* fire.png in Resources */,
+				1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,6 +1363,8 @@
 				1A91410F1741502000D3CDD5 /* NSString+TimeFormatted.m in Sources */,
 				1A9141121741504400D3CDD5 /* Mapquake.m in Sources */,
 				1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */,
+				1A91411F1741516100D3CDD5 /* Meteor.m in Sources */,
+				1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1406,7 +1422,7 @@
 				GCC_PREFIX_HEADER = optimum/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"optimum/libs/kazmath/include\"";
 				INFOPLIST_FILE = optimum/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1426,7 +1442,7 @@
 				GCC_PREFIX_HEADER = optimum/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"optimum/libs/kazmath/include\"";
 				INFOPLIST_FILE = optimum/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
