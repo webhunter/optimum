@@ -110,6 +110,9 @@
  */
 -(void) releaseMap;
 
+-(NSInteger) vertexZForPos:(CGPoint)pos;
+-(NSUInteger) atlasIndexForExistantZ:(NSUInteger)z;
+
 /** returns the tile (CCSprite) at a given a tile coordinate.
  The returned CCSprite will be already added to the CCTMXLayer. Don't add it again.
  The CCSprite can be treated like any other CCSprite: rotated, scaled, translated, opacity, color, etc.

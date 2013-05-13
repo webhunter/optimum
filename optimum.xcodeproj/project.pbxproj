@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A9140EE17414F1D00D3CDD5 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9140ED17414F1D00D3CDD5 /* Map.m */; };
+		1A9140F117414F7100D3CDD5 /* maquette-map-2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */; };
+		1A9140F317414F9A00D3CDD5 /* maquette-unites-sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F217414F9A00D3CDD5 /* maquette-unites-sprite.png */; };
+		1A9140F517414FA100D3CDD5 /* maquette-unites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F417414FA100D3CDD5 /* maquette-unites.plist */; };
+		1A9140F817414FB100D3CDD5 /* UIColor+RVB255.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9140F717414FB100D3CDD5 /* UIColor+RVB255.m */; };
+		1A9140FD17414FC400D3CDD5 /* optimum-alpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F917414FC400D3CDD5 /* optimum-alpha.png */; };
+		1A9140FE17414FC400D3CDD5 /* optimum-beta.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140FA17414FC400D3CDD5 /* optimum-beta.png */; };
+		1A9140FF17414FC400D3CDD5 /* optimum-enigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140FB17414FC400D3CDD5 /* optimum-enigma.png */; };
+		1A91410017414FC400D3CDD5 /* optimum-sigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140FC17414FC400D3CDD5 /* optimum-sigma.png */; };
+		1A91410217414FCC00D3CDD5 /* tiled-maquette.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A91410117414FCC00D3CDD5 /* tiled-maquette.png */; };
+		1A91410817414FFE00D3CDD5 /* UnitSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410517414FFE00D3CDD5 /* UnitSprite.m */; };
+		1A91410917414FFE00D3CDD5 /* UnitSpriteMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */; };
+		1A91410C1741500C00D3CDD5 /* OptimumRessource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410B1741500C00D3CDD5 /* OptimumRessource.m */; };
+		1A91410F1741502000D3CDD5 /* NSString+TimeFormatted.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410E1741502000D3CDD5 /* NSString+TimeFormatted.m */; };
+		1A9141121741504400D3CDD5 /* Mapquake.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141111741504400D3CDD5 /* Mapquake.m */; };
+		1A9141141741505300D3CDD5 /* island.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141131741505300D3CDD5 /* island.png */; };
+		1A9141161741506600D3CDD5 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141151741506600D3CDD5 /* fire.png */; };
+		1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
 		900038DC1740EDAF008B350D /* archipel_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D81740EDAF008B350D /* archipel_2.png */; };
 		900038DD1740EDAF008B350D /* archipel_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D91740EDAF008B350D /* archipel_3.png */; };
@@ -167,6 +185,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A9140EC17414F1D00D3CDD5 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		1A9140ED17414F1D00D3CDD5 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
+		1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "maquette-map-2.tmx"; sourceTree = "<group>"; };
+		1A9140F217414F9A00D3CDD5 /* maquette-unites-sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "maquette-unites-sprite.png"; sourceTree = "<group>"; };
+		1A9140F417414FA100D3CDD5 /* maquette-unites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "maquette-unites.plist"; sourceTree = "<group>"; };
+		1A9140F617414FB100D3CDD5 /* UIColor+RVB255.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RVB255.h"; sourceTree = "<group>"; };
+		1A9140F717414FB100D3CDD5 /* UIColor+RVB255.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RVB255.m"; sourceTree = "<group>"; };
+		1A9140F917414FC400D3CDD5 /* optimum-alpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optimum-alpha.png"; sourceTree = "<group>"; };
+		1A9140FA17414FC400D3CDD5 /* optimum-beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optimum-beta.png"; sourceTree = "<group>"; };
+		1A9140FB17414FC400D3CDD5 /* optimum-enigma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optimum-enigma.png"; sourceTree = "<group>"; };
+		1A9140FC17414FC400D3CDD5 /* optimum-sigma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optimum-sigma.png"; sourceTree = "<group>"; };
+		1A91410117414FCC00D3CDD5 /* tiled-maquette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiled-maquette.png"; sourceTree = "<group>"; };
+		1A91410417414FFE00D3CDD5 /* UnitSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSprite.h; sourceTree = "<group>"; };
+		1A91410517414FFE00D3CDD5 /* UnitSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSprite.m; sourceTree = "<group>"; };
+		1A91410617414FFE00D3CDD5 /* UnitSpriteMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSpriteMap.h; sourceTree = "<group>"; };
+		1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSpriteMap.m; sourceTree = "<group>"; };
+		1A91410A1741500C00D3CDD5 /* OptimumRessource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptimumRessource.h; sourceTree = "<group>"; };
+		1A91410B1741500C00D3CDD5 /* OptimumRessource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptimumRessource.m; sourceTree = "<group>"; };
+		1A91410D1741502000D3CDD5 /* NSString+TimeFormatted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeFormatted.h"; sourceTree = "<group>"; };
+		1A91410E1741502000D3CDD5 /* NSString+TimeFormatted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeFormatted.m"; sourceTree = "<group>"; };
+		1A9141101741504400D3CDD5 /* Mapquake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapquake.h; sourceTree = "<group>"; };
+		1A9141111741504400D3CDD5 /* Mapquake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mapquake.m; sourceTree = "<group>"; };
+		1A9141131741505300D3CDD5 /* island.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = island.png; sourceTree = "<group>"; };
+		1A9141151741506600D3CDD5 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
+		1A9141171741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTMXLayer+TileLifeLayer.h"; sourceTree = "<group>"; };
+		1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTMXLayer+TileLifeLayer.m"; sourceTree = "<group>"; };
 		900038D71740EDAF008B350D /* archipel_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_1.png; sourceTree = "<group>"; };
 		900038D81740EDAF008B350D /* archipel_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_2.png; sourceTree = "<group>"; };
 		900038D91740EDAF008B350D /* archipel_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_3.png; sourceTree = "<group>"; };
@@ -498,6 +542,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A9140EF17414F6500D3CDD5 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				1A9141151741506600D3CDD5 /* fire.png */,
+				1A9141131741505300D3CDD5 /* island.png */,
+				1A91410117414FCC00D3CDD5 /* tiled-maquette.png */,
+				1A9140F917414FC400D3CDD5 /* optimum-alpha.png */,
+				1A9140FA17414FC400D3CDD5 /* optimum-beta.png */,
+				1A9140FB17414FC400D3CDD5 /* optimum-enigma.png */,
+				1A9140FC17414FC400D3CDD5 /* optimum-sigma.png */,
+				1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */,
+				1A9140F217414F9A00D3CDD5 /* maquette-unites-sprite.png */,
+				1A9140F417414FA100D3CDD5 /* maquette-unites.plist */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		1A91410317414FEC00D3CDD5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1A9141101741504400D3CDD5 /* Mapquake.h */,
+				1A9141111741504400D3CDD5 /* Mapquake.m */,
+				1A91410A1741500C00D3CDD5 /* OptimumRessource.h */,
+				1A91410B1741500C00D3CDD5 /* OptimumRessource.m */,
+				1A91410417414FFE00D3CDD5 /* UnitSprite.h */,
+				1A91410517414FFE00D3CDD5 /* UnitSprite.m */,
+				1A91410617414FFE00D3CDD5 /* UnitSpriteMap.h */,
+				1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		900038D51740ECAE008B350D /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +593,8 @@
 				904EC7FD1731479100F7297B /* GameLayer.m */,
 				9000393117411F62008B350D /* TeamLayer.h */,
 				9000393217411F62008B350D /* TeamLayer.m */,
+				1A9140EC17414F1D00D3CDD5 /* Map.h */,
+				1A9140ED17414F1D00D3CDD5 /* Map.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -579,8 +657,14 @@
 		902A5A651732640000161015 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				1A9140F617414FB100D3CDD5 /* UIColor+RVB255.h */,
+				1A9140F717414FB100D3CDD5 /* UIColor+RVB255.m */,
 				903D7BD21733AC7C0023AD53 /* NSData+Additions.h */,
 				903D7BD31733AC7C0023AD53 /* NSData+Additions.m */,
+				1A91410D1741502000D3CDD5 /* NSString+TimeFormatted.h */,
+				1A91410E1741502000D3CDD5 /* NSString+TimeFormatted.m */,
+				1A9141171741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.h */,
+				1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -656,6 +740,7 @@
 				904EC7FF17314A8A00F7297B /* Data Model */,
 				90E4144D172E846900D63E0B /* Networking */,
 				900038D51740ECAE008B350D /* View */,
+				1A91410317414FEC00D3CDD5 /* Classes */,
 				90FDD6F5172D390B009A20E5 /* Resources */,
 				90FDD70F172D390B009A20E5 /* libs */,
 				90FDD868172D390D009A20E5 /* Supporting Files */,
@@ -666,6 +751,7 @@
 		90FDD6F5172D390B009A20E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A9140EF17414F6500D3CDD5 /* Map */,
 				90003934174127CC008B350D /* Slider */,
 				9000393017411E6C008B350D /* SplashScreen */,
 				900038F5174112D9008B350D /* icon */,
@@ -1115,6 +1201,16 @@
 				90003938174127F2008B350D /* nature.png in Resources */,
 				90003939174127F2008B350D /* slide.png in Resources */,
 				9000393A174127F2008B350D /* ville.png in Resources */,
+				1A9140F117414F7100D3CDD5 /* maquette-map-2.tmx in Resources */,
+				1A9140F317414F9A00D3CDD5 /* maquette-unites-sprite.png in Resources */,
+				1A9140F517414FA100D3CDD5 /* maquette-unites.plist in Resources */,
+				1A9140FD17414FC400D3CDD5 /* optimum-alpha.png in Resources */,
+				1A9140FE17414FC400D3CDD5 /* optimum-beta.png in Resources */,
+				1A9140FF17414FC400D3CDD5 /* optimum-enigma.png in Resources */,
+				1A91410017414FC400D3CDD5 /* optimum-sigma.png in Resources */,
+				1A91410217414FCC00D3CDD5 /* tiled-maquette.png in Resources */,
+				1A9141141741505300D3CDD5 /* island.png in Resources */,
+				1A9141161741506600D3CDD5 /* fire.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1245,6 +1341,14 @@
 				900730A1173FCB8B00877745 /* PacketServerReady.m in Sources */,
 				9000392E17411E07008B350D /* CCSlider.m in Sources */,
 				9000393317411F62008B350D /* TeamLayer.m in Sources */,
+				1A9140EE17414F1D00D3CDD5 /* Map.m in Sources */,
+				1A9140F817414FB100D3CDD5 /* UIColor+RVB255.m in Sources */,
+				1A91410817414FFE00D3CDD5 /* UnitSprite.m in Sources */,
+				1A91410917414FFE00D3CDD5 /* UnitSpriteMap.m in Sources */,
+				1A91410C1741500C00D3CDD5 /* OptimumRessource.m in Sources */,
+				1A91410F1741502000D3CDD5 /* NSString+TimeFormatted.m in Sources */,
+				1A9141121741504400D3CDD5 /* Mapquake.m in Sources */,
+				1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

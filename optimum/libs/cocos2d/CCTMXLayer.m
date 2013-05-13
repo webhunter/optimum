@@ -61,10 +61,10 @@ int compareInts (const void * a, const void * b);
 -(void) parseInternalProperties;
 - (void) setupTileSprite:(CCSprite*) sprite position:(CGPoint)pos withGID:(uint32_t)gid;
 
--(NSInteger) vertexZForPos:(CGPoint)pos;
+//-(NSInteger) vertexZForPos:(CGPoint)pos;
 
 // index
--(NSUInteger) atlasIndexForExistantZ:(NSUInteger)z;
+//-(NSUInteger) atlasIndexForExistantZ:(NSUInteger)z;
 -(NSUInteger) atlasIndexForNewZ:(NSUInteger)z;
 @end
 

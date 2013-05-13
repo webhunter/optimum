@@ -146,7 +146,7 @@
                 
                 [self addChild:archipel1Name];
                 
-                CCLabelTTF *didactitiel = [CCLabelTTF labelWithString:@"Didactitiel" fontName:@"Marker Felt" fontSize:24];
+                CCLabelTTF *didactitiel = [CCLabelTTF labelWithString:@"Didacticiel" fontName:@"Marker Felt" fontSize:24];
                 didactitiel.position = ccp( size.width/2 - 300, size.height/2 - 200);
                 
                 [self addChild:didactitiel];

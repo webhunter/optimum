@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="7" height="7" tilewidth="120" tileheight="60">
+ <tileset firstgid="1" name="tiled-maquette" tilewidth="120" tileheight="115">
+  <image source="tiled-maquette.png" width="1200" height="460"/>
+ </tileset>
+ <layer name="Ground" width="7" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxTYGBgUBjiGABlYgYh
+  </data>
+ </layer>
+ <layer name="HighlightLeft" width="7" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxTZBj6AAAaCAAi
+  </data>
+ </layer>
+ <layer name="HighlightRight" width="7" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxTZBj6AAAaCAAi
+  </data>
+ </layer>
+ <layer name="Tiles" width="7" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxTZBj6AAAaCAAi
+  </data>
+ </layer>
+</map>
