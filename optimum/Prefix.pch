@@ -1,0 +1,27 @@
+//
+// Prefix header for all source files of the 'Test' target in the 'Test' project
+//
+
+#import <Availability.h>
+
+//name of gamekit session
+#define SESSION_ID @"OPTI"
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <GameKit/GameKit.h>
+#endif
+
+typedef enum
+{
+	QuitReasonNoNetwork,          // no Wi-Fi or Bluetooth
+	QuitReasonConnectionDropped,  // communication failure with server
+	QuitReasonUserQuit,           // the user terminated the connection
+	QuitReasonServerQuit,         // the server quit the game (on purpose)
+}
+QuitReason;
