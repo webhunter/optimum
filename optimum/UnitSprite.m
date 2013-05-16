@@ -42,18 +42,19 @@
     CCSpriteFrameCache *cache = [CCSpriteFrameCache sharedSpriteFrameCache];
     [cache addSpriteFramesWithFile:@"maquette-unites.plist"];
     NSArray *unitsTypeArray = [[NSArray alloc] initWithObjects:
+                               //niveau 1
                                @"tiled-m_0031_UVL1S1.png",
                                @"tiled-m_0028_UNL1S1.png",
-                               
+                               //niveau 2
                                @"tiled-m_0025_UVL2S1.png",
                                @"tiled-m_0022_UNL2S1.png",
-                               
+                               //niveau 3
                                @"tiled-m_0019_UVL3S1.png",
                                @"tiled-m_0016_UNL3S1.png",
-                               
+                               //niveau 4
                                @"tiled-m_0013_UVL4S1.png",
                                @"tiled-m_0010_UNL4S1.png",
-                               
+                               //niveau 5
                                @"tiled-m_0007_UVL5S1.png",
                                @"tiled-m_0004_UNL5S1.png",
                                nil];
@@ -79,7 +80,6 @@
     
     hasUnits = YES;
     self.units = 42; //On met une valeur par défaut
-    
     
     [self schedule: @selector(hasUnits:) interval:0.5];
     

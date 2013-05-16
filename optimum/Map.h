@@ -44,11 +44,7 @@ enum
     CCSprite *rightStackBar;
     CCSprite *leftStackBar;
     
-    CCLabelTTF *numberOfUnitLeftLabel;
-    CCLabelTTF *numberOfUnitRightLabel;
-    
-    int numberOfUnitLeft;
-    int numberOfUnitRight;
+    int timeElapse;
     
     
     //Gestion des unités
@@ -75,7 +71,6 @@ enum
     CCLabelTTF *level3UnitRightLabel;
     CCLabelTTF *level4UnitRightLabel;
     CCLabelTTF *level5UnitRightLabel;
-    
 }
 
 + (CCScene *) scene;

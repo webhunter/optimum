@@ -22,30 +22,35 @@
             case 2:
                 self.HP = self.HPMax = 200;
                 self.attackPoint = 10;
+                self.frequency = 1;
                 break;
                 
             case 3:
             case 4:
                 self.HP = self.HPMax = 400;
                 self.attackPoint = 20;
+                self.frequency = 2;
                 break;
                 
             case 5:
             case 6:
                 self.HP = self.HPMax = 600;
                 self.attackPoint = 35;
+                self.frequency = 3;
                 break;
                 
             case 7:
             case 8:
                 self.HP = self.HPMax = 750;
                 self.attackPoint = 50;
+                self.frequency = 3;
                 break;
                 
             case 9:
             case 0:
                 self.HP = self.HPMax = 1000;
                 self.attackPoint = 100;
+                self.frequency = 4;
                 break;
                 
             default:
