@@ -218,8 +218,11 @@ GameState;
 			if (_state == GameStateWaitingForReady)
 			{
 				_players = ((PacketServerReady *)packet).players;
-                
 				NSLog(@"the players are: %@", _players);
+                Packet *packet = [Packet packetWithType:PacketTypeClientReady];
+                [self sendPacketToServer:packet];
+                [self beginGame];
+                
 			}
 			break;
             
@@ -227,6 +230,13 @@ GameState;
 			NSLog(@"Client received unexpected packet: %@", packet);
 			break;
 	}
+}
+
+- (void)beginGame
+{
+    _state = GameStateDealing;
+    [self.delegate gameDidBegin:self];
+    
 }
 
 - (void)serverReceivedPacket:(Packet *)packet fromPlayer:(Player *)player
@@ -247,6 +257,12 @@ GameState;
 				}
 			}
 			break;
+        
+        case PacketTypeClientReady:
+            if (_state == GameStateWaitingForReady && [self receivedResponsesFromAllPlayers])
+            {
+                [self beginGame];
+            }
             
 		default:
 			NSLog(@"Server received unexpected packet: %@", packet);

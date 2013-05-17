@@ -74,6 +74,10 @@ const size_t PACKET_HEADER_SIZE = 10;
 			packet = [Packet packetWithType:packetType];
 			break;
             
+        case PacketTypeClientReady:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
 		case PacketTypeSignInResponse:
 			packet = [PacketSignInResponse packetWithData:data];
 			break;

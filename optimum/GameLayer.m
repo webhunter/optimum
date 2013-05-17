@@ -51,7 +51,7 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        _message = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
+                        _message = [CCLabelTTF labelWithString:@"Waiting for game to start..." fontName:@"Marker Felt" fontSize:24];
                         _message.position = ccp( size.width/2, size.height/2 );
                         
                         [self addChild:_message];
@@ -73,7 +73,7 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        _message = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
+                        _message = [CCLabelTTF labelWithString:@"Waiting for game to start..." fontName:@"Marker Felt" fontSize:24];
                         _message.position = ccp( size.width/2, size.height/2 );
                         
                         [self addChild:_message];
@@ -316,6 +316,68 @@
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason
 {
 	[self.delegate gameViewController:nil didQuitWithReason:reason];
+}
+
+- (void)gameDidBegin:(Game *)game
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if ([UIScreen instancesRespondToSelector:@selector(scale)])
+        {
+            CGFloat scale = [[UIScreen mainScreen] scale];
+            if (scale > 1.0)
+            {
+                if ([[UIScreen mainScreen] bounds].size.height == 568)
+                {
+                    // IPHONE 5
+                    // ask director for the window size
+                    [_message setVisible:NO];
+                    
+                    CGSize size = [[CCDirector sharedDirector] winSize];
+                    
+                    CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
+                    newMessage.position = ccp( size.width/2, size.height/2 );
+                    
+                    [self addChild:newMessage];
+                    
+                }
+                else
+                {
+                    // IPHONE RETINA SCREEN
+                    // ask director for the window size
+                    [_message setVisible:NO];
+                    
+                    CGSize size = [[CCDirector sharedDirector] winSize];
+                    
+                    CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
+                    newMessage.position = ccp( size.width/2, size.height/2 );
+                    
+                    [self addChild:newMessage];
+                }
+            }
+        }
+        else
+        {
+            // IPHONE SCREEN
+            
+        }
+        
+        
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 }
 
 @end

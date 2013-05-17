@@ -11,6 +11,7 @@
 @protocol GameDelegate <NSObject>
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason;
+- (void)gameDidBegin:(Game *)game;
 
 @end
 
