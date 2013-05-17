@@ -50,6 +50,33 @@ enum
     int numberOfUnitLeft;
     int numberOfUnitRight;
     
+    
+    int timeElapse;
+    
+    //Gestion des unités
+    int level1UnitLeft;
+    int level2UnitLeft;
+    int level3UnitLeft;
+    int level4UnitLeft;
+    int level5UnitLeft;
+    
+    CCLabelTTF *level1UnitLeftLabel;
+    CCLabelTTF *level2UnitLeftLabel;
+    CCLabelTTF *level3UnitLeftLabel;
+    CCLabelTTF *level4UnitLeftLabel;
+    CCLabelTTF *level5UnitLeftLabel;
+    
+    int level1UnitRight;
+    int level2UnitRight;
+    int level3UnitRight;
+    int level4UnitRight;
+    int level5UnitRight;
+    
+    CCLabelTTF *level1UnitRightLabel;
+    CCLabelTTF *level2UnitRightLabel;
+    CCLabelTTF *level3UnitRightLabel;
+    CCLabelTTF *level4UnitRightLabel;
+    CCLabelTTF *level5UnitRightLabel;
 }
 
 + (CCScene *) scene;

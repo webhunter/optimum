@@ -32,19 +32,29 @@
 	return scene;
 }
 
-+ (CCScene *) sceneWithParameters:(BOOL)parameter
++ (CCScene *) sceneWithParameters:(NSString*)parameter
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
+    
 	// 'layer' is an autorelease object.
 	Map *layer = [Map node];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
-//	CCLOG(@"parameter : %i", parameter);
+    
+    //	CCLOG(@"parameter : %i", parameter);
 	// return the scene
 	return scene;
+}
+
++ (id) nodeWithGameLevel:(NSString*)level{
+    return [[self alloc] initWithGameLevel:level];
+}
+
+- (id) initWithGameLevel:(NSString*)level{
+    
+    return self;
 }
 
 // on "init" you need to initialize your instance
@@ -56,18 +66,23 @@
     {
         CGSize size = [[CCDirector sharedDirector] winSize];
         
+        timeElapse = 0;
+        
+        CCLOG(@"trucmuche");
+        
+        
         //Notifications
-            //Gestion du lâcher d'optimum
+        //Gestion du lâcher d'optimum
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                              selector:@selector(optimumRelease:)
-                                              name:@"optimumPosition"
-                                              object:nil];
-            //Gestion du lâcher d'unité
+                                                 selector:@selector(optimumRelease:)
+                                                     name:@"optimumPosition"
+                                                   object:nil];
+        //Gestion du lâcher d'unité
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(unitRelease:)
                                                      name:@"unitPositionEnd"
                                                    object:nil];
-            //Gestion du déplacement d'unité
+        //Gestion du déplacement d'unité
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(unitMove:)
                                                      name:@"unitPositionMove"
@@ -76,6 +91,17 @@
 		self.isTouchEnabled = YES;
         
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
+        
+        CCTMXLayer *layer = [map layerNamed:@"Layer 0"];
+        
+        CGSize s = [layer layerSize];
+        for( int x=0; x<s.width;x++) {
+            for( int y=0; y< s.height; y++ ) {
+                unsigned int tmpgid = [layer tileGIDAt:ccp(x,y)];
+                [layer setTileGID:tmpgid+1 at:ccp(x,y)];
+            }
+        }
+        
         [self centerIntoScreen:map];
         [self addChild:map z:-1 tag:TileMapTag];
         
@@ -85,7 +111,7 @@
         leftStack.color = ccc3(209, 185, 218);
         leftStack.position = ccp(40.5, 384);
         [self addChild:leftStack];
-
+        
         rightStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
         rightStack.color = ccc3(197, 229, 232);
         rightStack.position = ccp((size.width - 40.5), 384);
@@ -101,7 +127,9 @@
         stackElementRight = [[NSMutableArray alloc] init];
         
         [self displayInterface];
-
+        
+        
+        
         
         
         CCParticleMeteor *emitter2 = [[CCParticleMeteor alloc] initWithTotalParticles:150];
@@ -116,7 +144,7 @@
         id emitMove = [CCMoveTo actionWithDuration:1.5 position:ccp(223, 345)];
         
         
-//        [self addChild:emitter2 z:1];
+        //        [self addChild:emitter2 z:1];
         
         [emitter2 runAction:[CCSequence actions:emitMove, nil]];
         emitter2.autoRemoveOnFinish = YES;
@@ -124,19 +152,19 @@
         
         
         //Hitbox
-
         
-        [self schedule: @selector(outOfScreen:) interval:1];
+        
+        [self schedule: @selector(tilesAttacks:) interval:1];
 	}
 	return self;
 }
 
 
-
-- (void) outOfScreen: (ccTime) dt
-{
-    [self actions];
-}
+//Function qui cadence l'attaque des différentes tuiles
+//- (void) tilesAttacks: (ccTime) dt
+//{
+//    [self actions];
+//}
 
 
 - (void) centerIntoScreen:(CCNode*) element
@@ -176,10 +204,10 @@
     
     //Affichage des scores
     scoreLabelLeft = [[CCLabelTTF alloc] initWithString:@"0"
-                                     dimensions:CGSizeMake(120, 120)
-                                     hAlignment:kCCTextAlignmentLeft
-                                     fontName:@"HelveticaNeue-Bold"
-                                     fontSize:42.0f];
+                                             dimensions:CGSizeMake(120, 120)
+                                             hAlignment:kCCTextAlignmentLeft
+                                               fontName:@"HelveticaNeue-Bold"
+                                               fontSize:42.0f];
     scoreLabelLeft.position = ccp(150, 130);
     scoreLabelLeft.color = ccc3(209, 185, 218);
     [self addChild:scoreLabelLeft z: 6000];
@@ -222,30 +250,38 @@
     //Lancement du chronomètre
     [self schedule: @selector(generateOptimum:) interval:1];
     
-    numberOfUnitLeft = 7;
+    level1UnitLeft = 7;
+    level2UnitLeft = 7;
+    level3UnitLeft = 7;
+    level4UnitLeft = 7;
+    level5UnitLeft = 7;
     
-    numberOfUnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", numberOfUnitLeft]
-                                               dimensions:CGSizeMake(150, 130)
-                                               hAlignment:kCCTextAlignmentLeft
-                                               fontName:@"HelveticaNeue-Bold"
-                                               fontSize:31.0f];
-    numberOfUnitLeftLabel.anchorPoint = ccp(0, .5);
-    numberOfUnitLeftLabel.position = ccp(25, 705);
-    numberOfUnitLeftLabel.color = ccc3(197, 229, 232);
-    [self addChild:numberOfUnitLeftLabel z: 6000];
+    level3UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitLeft]
+                                                  dimensions:CGSizeMake(150, 130)
+                                                  hAlignment:kCCTextAlignmentLeft
+                                                    fontName:@"HelveticaNeue-Bold"
+                                                    fontSize:31.0f];
+    level3UnitLeftLabel.anchorPoint = ccp(0, .5);
+    level3UnitLeftLabel.position = ccp(25, 705);
+    level3UnitLeftLabel.color = ccc3(197, 229, 232);
+    [self addChild:level3UnitLeftLabel z: 6000];
+    
+    level1UnitRight = 77;
+    level2UnitRight = 7;
+    level3UnitRight = 7;
+    level4UnitRight = 7;
+    level5UnitRight = 7;
     
     
-    numberOfUnitRight = 7;
-    
-    numberOfUnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", numberOfUnitRight]
-                                                    dimensions:CGSizeMake(150, 130)
-                                                    hAlignment:kCCTextAlignmentLeft
-                                                      fontName:@"HelveticaNeue-Bold"
-                                                      fontSize:31.0f];
-    numberOfUnitRightLabel.anchorPoint = ccp(0, .5);
-    numberOfUnitRightLabel.position = ccp(sprited2.position.x + 30, 705);
-    numberOfUnitRightLabel.color = ccc3(209, 185, 218);
-    [self addChild:numberOfUnitRightLabel z: 6000];
+    level1UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitRight]
+                                                   dimensions:CGSizeMake(150, 130)
+                                                   hAlignment:kCCTextAlignmentLeft
+                                                     fontName:@"HelveticaNeue-Bold"
+                                                     fontSize:31.0f];
+    level1UnitRightLabel.anchorPoint = ccp(0, .5);
+    level1UnitRightLabel.position = ccp(sprited2.position.x + 30, 705);
+    level1UnitRightLabel.color = ccc3(209, 185, 218);
+    [self addChild:level1UnitRightLabel z: 6000];
 }
 
 - (void) displayUnitsNumber{
@@ -283,7 +319,7 @@
     CGRect optimumBoundingBox = [[[notification object] objectForKey:@"position"] CGRectValue];
     NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
     
-    //On récupère les caractérisques du sprite (sous-classe d'OptimumRessource) relâché 
+    //On récupère les caractérisques du sprite (sous-classe d'OptimumRessource) relâché
     CCNode* node = [self getChildByTag:tag];
 	OptimumRessource* spriteTouched = (OptimumRessource*)node;
     
@@ -302,7 +338,7 @@
             [self removeChild:spriteTouched cleanup:YES];
             scoreLabelRight.string = [NSString stringWithFormat:@"%d", [stackElementRight count]];
             
-        /* Camp de droite rose | NO */
+            /* Camp de droite rose | NO */
         }else{
             if ([spriteTouched optimumType] == 3)
             {
@@ -315,13 +351,13 @@
         }
         
         /*
-        // Math simple : 
-        // on divise le nombre d'Optimum récoltés dans un clan
-        // pour ensuite le diviser par le nombre total d'Optimum récoltés par les joueurs...
-        // pour l'autre partie, on sous-trait le chiffre précédemment obtenu à 1
-        //
-        */
-
+         // Math simple :
+         // on divise le nombre d'Optimum récoltés dans un clan
+         // pour ensuite le diviser par le nombre total d'Optimum récoltés par les joueurs...
+         // pour l'autre partie, on sous-trait le chiffre précédemment obtenu à 1
+         //
+         */
+        
         float scale = (float)[stackElementRight count] / (float)([stackElementRight count] + [stackElementLeft count]);
         rightStackBar.scaleX = scale;
         leftStackBar.scaleX = 1 - scale;
@@ -353,28 +389,27 @@
         
         switch (randEvent) {
             case 0: //Ressources infinies
-//                [self addUnitForTeam:team];
-                
-            break;
+                    //                [self addUnitForTeam:team];
+                break;
             case 1: //Ajout d'unité
                 [self addUnitForTeam:team];
-            break;
+                break;
             case 2: //Ajout ressource aléatoire
-//                [self addUnitForTeam:team];
-            break;
+                    //                [self addUnitForTeam:team];
+                break;
             case 3: //Victoire
-//                [self instantVictoryForTeam:team];
-            break;
+                    //                [self instantVictoryForTeam:team];
+                break;
             case 4: //Ressources infinies
-//                [self addUnitForTeam:team];
-            break;
+                    //                [self addUnitForTeam:team];
+                break;
                 
             default:
                 break;
         }
         
     }else{  //L'évèment est négatif
-        //On génère un évènement négatif aléatoire
+            //On génère un évènement négatif aléatoire
         randEvent = arc4random() % [negativeEventsList count];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Évènement" message:[negativeEventsList objectAtIndex:randEvent] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
@@ -393,8 +428,10 @@
                 break;
             case 3: //Area effect change
                     //                [self addUnitForTeam:team];
+                CCLOG(@"Default");
                 break;
             default:
+                CCLOG(@"Default");
                 break;
         }
     }
@@ -405,13 +442,13 @@
 
 - (void) addUnitForTeam:(BOOL)team
 {
-    if (team == NO) { //On retire du camp de gauche
-        numberOfUnitLeft++;
-        [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
-    }else{
-        numberOfUnitRight++;
-        [numberOfUnitRightLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitRight]];
-    }
+    //    if (team == NO) { //On retire du camp de gauche
+    //        numberOfUnitLeft++;
+    //        [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+    //    }else{
+    //        numberOfUnitRight++;
+    //        [numberOfUnitRightLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitRight]];
+    //    }
     
     [self checkUnits];
 }
@@ -427,63 +464,90 @@
     NSDictionary *parameters = [[NSDictionary alloc]
                                 initWithObjects:objectsProperties
                                 forKeys:keysProperties];
-//    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer sceneWithParameters:parameters] withColor:ccORANGE]];
+    //    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer sceneWithParameters:parameters] withColor:ccORANGE]];
 }
 
 #pragma mark - Évènements Négatifs
 
 - (void) removeAllUnitsForTeam:(BOOL)team{
-    if (team == NO) { //On retire du camp de gauche
-        numberOfUnitLeft = 0;
-        [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+    if (team == NO)
+    { //On retire du camp de gauche
+        
+        level1UnitLeft = 0;
+        [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
+        
+        level2UnitLeft = 0;
+        [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level2UnitLeft]];
+        
+        level3UnitLeft = 0;
+        [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level3UnitLeft]];
+        
+        level4UnitLeft = 0;
+        [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level4UnitLeft]];
+        
+        level5UnitLeft = 0;
+        [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level5UnitLeft]];
     }else{
-        numberOfUnitRight = 0;
-        [numberOfUnitRightLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitRight]];
+        level1UnitRight = 0;
+        [level1UnitRightLabel setString:[NSString stringWithFormat:@"%d", level1UnitRight]];
+        
+        level2UnitRight = 0;
+        [level2UnitRightLabel setString:[NSString stringWithFormat:@"%d", level2UnitRight]];
+        
+        level3UnitRight = 0;
+        [level3UnitRightLabel setString:[NSString stringWithFormat:@"%d", level3UnitRight]];
+        
+        level4UnitRight = 0;
+        [level4UnitRightLabel setString:[NSString stringWithFormat:@"%d", level4UnitRight]];
+        
+        level5UnitRight = 0;
+        [level5UnitRightLabel setString:[NSString stringWithFormat:@"%d", level5UnitRight]];
     }
 }
 
 - (void) substractUnitForTeam:(BOOL)team andUnit:(int)unit{
+    
     if (team == NO) { //On retire du camp de gauche
         switch (unit)
         {
-            case 1:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
-                }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
-                break;
-            
             case 2:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                level1UnitLeft--;
+                if (level1UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level1UnitLeft = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
                 break;
                 
-            case 3:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
-                }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
-                break;
-            
             case 4:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                level2UnitLeft--;
+                if (level2UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level2UnitLeft = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level2UnitLeft]];
                 break;
-            
-            case 5:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                
+            case 6:
+                level3UnitLeft--;
+                if (level3UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level3UnitLeft = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level3UnitLeft]];
+                break;
+                
+            case 8:
+                level4UnitLeft--;
+                if (level4UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level4UnitLeft = 0;
+                }
+                [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level4UnitLeft]];
+                break;
+                
+            case 10:
+                level5UnitLeft--;
+                if (level5UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level5UnitLeft = 0;
+                }
+                [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level5UnitLeft]];
                 break;
                 
             default:
@@ -493,55 +557,49 @@
         switch (unit)
         {
             case 1:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                level1UnitRight--;
+                if (level1UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level1UnitRight = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
-                break;
-                
-            case 2:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
-                }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level1UnitRightLabel setString:[NSString stringWithFormat:@"%d", level1UnitRight]];
                 break;
                 
             case 3:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                level2UnitRight--;
+                if (level2UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level2UnitRight = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
-                break;
-                
-            case 4:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
-                }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level2UnitRightLabel setString:[NSString stringWithFormat:@"%d", level2UnitRight]];
                 break;
                 
             case 5:
-                numberOfUnitLeft--;
-                if (numberOfUnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    numberOfUnitLeft = 0;
+                level3UnitRight--;
+                if (level3UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level3UnitRight = 0;
                 }
-                [numberOfUnitLeftLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitLeft]];
+                [level3UnitRightLabel setString:[NSString stringWithFormat:@"%d", level3UnitRight]];
+                break;
+                
+            case 7:
+                level4UnitRight--;
+                if (level4UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level4UnitRight = 0;
+                }
+                [level4UnitRightLabel setString:[NSString stringWithFormat:@"%d", level4UnitRight]];
+                break;
+                
+            case 9:
+                level5UnitRight--;
+                if (level5UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    level5UnitRight = 0;
+                }
+                [level5UnitRightLabel setString:[NSString stringWithFormat:@"%d", level5UnitRight]];
                 break;
                 
             default:
+                
                 break;
         }
-        
-        
-        numberOfUnitRight--;
-        if (numberOfUnitRight <= 0) {
-            numberOfUnitRight = 0;
-        }
-        [numberOfUnitRightLabel setString:[NSString stringWithFormat:@"%d", numberOfUnitRight]];
     }
 }
 
@@ -555,22 +613,23 @@
     
     switch (randomDisaster) {
         case 0:
-//            [self earthquake];
+            //            [self earthquake];
             [self freeze];
             break;
-        
-        case 1:
-//            [self meteors];
-//            Meteor *truc = [[Meteor alloc] init];
-//            [self addChild:truc];
-
-            break;
-        
-        case 2: //Vide
             
+        case 1:
+            //            [self meteors];
+            //            Meteor *truc = [[Meteor alloc] init];
+            //            [self addChild:truc];
+            CCLOG(@"Meteor");
+            break;
+            
+        case 2: //Vide
+            CCLOG(@"Nothing");
             break;
             
         default:
+            CCLOG(@"Default");
             break;
     }
 }
@@ -596,14 +655,16 @@
 //{
 //	// get the position in tile coordinates from the touch location
 //	CGPoint touchLocation = [self locationFromTouches:touches];
-//    
+//
 //    CCNode* node = [self getChildByTag:TileMapTag];
 //	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
 //	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-//    
+//
 //    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-//    
+//
 //    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+//
+//    CCLOG(@"%d", [layer unitAt:tileCord].HP);
 //}
 
 
@@ -632,14 +693,12 @@
         highlightLayer = [tiledMap layerNamed:@"HighlightLeft"];
     }
     
-    CCTMXLayer *tilesLayer = [tiledMap layerNamed:@"Tiles"];
-    
     CGPoint tileCord = [self tilePosFromLocation:sprite.position tileMap:tiledMap];
     CGPoint coords = [self positionForTileCoord:ccp(tileCord.x, tileCord.y-1) tileMap:tiledMap];
     coords.x -= (tiledMap.position.y / 3);
     
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation)){
-        sprite.position = coords;
+        //        sprite.position = coords;
         
         for (NSUInteger y = 0; y < tiledMap.mapSize.height; y++) {
             for (NSUInteger x = 0; x < tiledMap.mapSize.width; x++) {
@@ -660,21 +719,21 @@
                     [[highlightLayer tileAt:p] runAction:repeat];
                 }else{
                     [highlightLayer removeTileAt:p];
-//                    [tilesLayer tileAt:p].opacity = 255;
+                    //                    [tilesLayer tileAt:p].opacity = 255;
                 }
                 
                 //On met en place des helpers pour les trucs cachés
-                if (
-                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:0] CGPointValue]) ||
-                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:1] CGPointValue]) ||
-                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:2] CGPointValue]) ||
-                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:3] CGPointValue]) ||
-                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:4] CGPointValue])
-                    ) {
-                    [tilesLayer tileAt:p].opacity = 127;
-                }else{
-                    [tilesLayer tileAt:p].opacity = 255;
-                }
+                //                if (
+                //                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:0] CGPointValue]) ||
+                //                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:1] CGPointValue]) ||
+                //                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:2] CGPointValue]) ||
+                //                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:3] CGPointValue]) ||
+                //                    CGPointEqualToPoint(p, [[[self getProximityTilesHelpers:tileCord] objectAtIndex:4] CGPointValue])
+                //                    ) {
+                //                    [tilesLayer tileAt:p].opacity = 127;
+                //                }else{
+                //                    [tilesLayer tileAt:p].opacity = 255;
+                //                }
             }
         }
     }else{
@@ -686,11 +745,11 @@
 
 //Lâcher d'unité
 - (void) unitRelease:(NSNotification *)notification {
-
+    
     NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
     CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
     CGPoint initPosition = [[[notification object] objectForKey:@"initPosition"] CGPointValue];
-//    BOOL team = [[[notification object] objectForKey:@"team"] boolValue];
+    //    BOOL team = [[[notification object] objectForKey:@"team"] boolValue];
     
     //On récupère les caractérisques du sprite (sous-classe d'OptimumRessource) relâché
     CCNode* mapNode = [self getChildByTag:TileMapTag];
@@ -701,36 +760,43 @@
     UnitSprite *sprite = (UnitSprite*)unitNode;
     
     CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tiledMap];
-
-    
-//    [tilesLayer unitAt:tileCord].attackPoint = 42;
-    
-    
     tileCord.y -= 1;
     
     [self cleanLayer:@"HighlightLeft"];
     [self cleanLayer:@"HighlightRight"];
     [self opaqueLayer:@"Tiles"];
     
-//    [self actionAtCoordinate:ccp(0, 0)];
+    //    [self actionAtCoordinate:ccp(0, 0)];
     
     
     //Permet de placer à sa place initiale le Sprite sélectionné
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
                                                       position: ccp(initPosition.x, initPosition.y)];
-
+    
+    CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
+                                                     position: ccp(initPosition.x, initPosition.y)];
+    
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation))
     {
         //On vérifie que la tuile sélectionnée est vide
-        if ([tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 0 || [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 33) //9
+        if ([tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 0 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 33 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 34 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 35 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 36 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 37 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 38 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 39 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 40) //9
         {
             [tilesLayer setTileGID:sprite.level at:ccp(tileCord.x, tileCord.y + 1)];
             
-            [sprite runAction:back2InitPosition];
-            
             [self substractUnitForTeam:sprite.team andUnit:sprite.level];
             [self checkUnits];
-//            [self fullMap:tiledMap atLayer:@"Tiles"];
+            
+            [sprite runAction:backInitPosition];
+            
+            //            [self fullMap:tiledMap atLayer:@"Tiles"];
         }else{
             
             [sprite runAction:back2InitPosition];
@@ -747,10 +813,58 @@
     //Vérifie qu'il est toujours possible de placer des tuiles pour une unité donnée
     for (UnitSprite *sprite in self.children) {
         if ([sprite isKindOfClass:[UnitSprite class]]) {
-            if (sprite.team == NO) { //On retire du camp de gauche
-                sprite.units = numberOfUnitLeft;
+            if (sprite.team == NO) //On retire du camp de gauche
+            {
+                switch (sprite.level)
+                {
+                    case 1:
+                        sprite.units = level1UnitLeft;
+                        break;
+                        
+                    case 3:
+                        sprite.units = level2UnitLeft;
+                        break;
+                        
+                    case 5:
+                        sprite.units = level3UnitLeft;
+                        break;
+                        
+                    case 7:
+                        sprite.units = level4UnitLeft;
+                        break;
+                        
+                    case 9:
+                        sprite.units = level5UnitLeft;
+                        break;
+                        
+                    default:
+                        break;
+                }
             }else{
-                sprite.units = numberOfUnitRight;
+                switch (sprite.level) {
+                    case 2:
+                        sprite.units = level1UnitRight;
+                        break;
+                        
+                    case 4:
+                        sprite.units = level2UnitRight;
+                        break;
+                        
+                    case 6:
+                        sprite.units = level3UnitRight;
+                        break;
+                        
+                    case 8:
+                        sprite.units = level4UnitRight;
+                        break;
+                        
+                    case 10:
+                        sprite.units = level5UnitRight;
+                        break;
+                        
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -822,7 +936,7 @@
 
 - (NSArray*) getProximityTiles:(CGPoint)location
 {
-     /*
+    /*
      On récupère la tuile sélectionnée, c'est "location" (X, Y)
      Les tuiles environnantes correspondent aux coordonnées suivantes, en formation + :
      Diagonale H gauche : (X-1, Y)
@@ -909,7 +1023,26 @@
     }
 }
 
-- (void) actions
+//- (void) actions
+- (void) tilesAttacks: (ccTime) dt
+{
+    timeElapse++;
+    CCNode* node = [self getChildByTag:TileMapTag];
+    NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+    CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+    
+    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+    
+    for (NSUInteger y = 0; y < layer.layerSize.height; y++)
+    {
+        for (NSUInteger x = 0; x < layer.layerSize.width; x++)
+        {
+            [self actionAtCoordinate: ccp(x, y)];
+        }
+    }
+}
+
+- (void) actionAtCoordinate:(CGPoint)tile
 {
     CCNode* node = [self getChildByTag:TileMapTag];
     NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
@@ -917,59 +1050,60 @@
     
     CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
     
-    for (NSUInteger y = 0; y < layer.layerSize.height; y++) {
-        for (NSUInteger x = 0; x < layer.layerSize.width; x++) {
-            [self actionAtCoordinate: ccp(x, y)];
-        }
-    }
-}
-
-- (void) actionAtCoordinate:(CGPoint)tile
-{    
-    CCNode* node = [self getChildByTag:TileMapTag];
-    NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-    CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+    //    CCLOG(@"trc : %@", CGPointCreateDictionaryRepresentation(tile));
     
-    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-    
-//    CCLOG(@"trc : %@", CGPointCreateDictionaryRepresentation(tile));
-    
-//    NSLog(@"%i", [layer tileGIDAt:tile]);
-    
-    if ([layer tileGIDAt:tile] != 0) //Il y a un un bâtiment sur cette case
+    //    NSLog(@"%i", [layer tileGIDAt:tile]);
+    //Il y a un un bâtiment sur cette case
+    if ([layer tileGIDAt:tile] != 0 &&
+        [layer tileGIDAt:tile] != 33 &&
+        [layer tileGIDAt:tile] != 34 &&
+        [layer tileGIDAt:tile] != 35 &&
+        [layer tileGIDAt:tile] != 36 &&
+        [layer tileGIDAt:tile] != 37 &&
+        [layer tileGIDAt:tile] != 38 &&
+        [layer tileGIDAt:tile] != 39 &&
+        [layer tileGIDAt:tile] != 40
+        )
     {
         int attackPoint = [layer unitAt:tile].attackPoint;
         BOOL teamTile = [layer unitAt:tile].team;
+        int frequencyAttack = [layer unitAt:tile].frequency;
         
-        //On recupère les tuiles aux alentours
-        NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
+        CCLOG(@"truc : %i, %i, timeElapse : %i", timeElapse % frequencyAttack, frequencyAttack, timeElapse);
         
-        for (int i = 0; i < [arroundTiles count]; i++)
+        // On s'assure que l'unité a le "droit" d'attaquer
+        if (timeElapse % frequencyAttack == 0)
         {
-            CGPoint p = [[arroundTiles objectAtIndex:i] CGPointValue];
-            //On vérifie que l'on ne cible une tuile à l'extérieur de la map et qu'il y a un batîment à cet emplacement
             
+            //On recupère les tuiles aux alentours
+            NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
             
-            if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
+            for (int i = 0; i < [arroundTiles count]; i++)
             {
-                if ([layer tileGIDAt:p] != 0 && [layer unitAt:p].team != teamTile)
+                CGPoint p = [[arroundTiles objectAtIndex:i] CGPointValue];
+                //On vérifie que l'on ne cible une tuile à l'extérieur de la map et qu'il y a un batîment à cet emplacement
+                
+                
+                if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
                 {
-                    if ([layer unitAt:p].HP <= 0)
+                    if ([layer tileGIDAt:p] != 0 && [layer unitAt:p].team != teamTile)
                     {
-                        [layer removeTileAt:p];
-                        //                    [[layer tileAt:p] release];
-                    }else{
-                        [layer unitAt:p].HP -= attackPoint;
-                        //Est-ce qu'on a atteint la moitié de la barre de vie ?
-                        if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/2 && [layer unitAt:p].demi == NO)
+                        if ([layer unitAt:p].HP <= 0)
                         {
-                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer unitAt:p].demi = YES;
-                            //Est-ce qu'on a atteint la tiers de la barre de vie ?
-                        }else if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/3 && [layer unitAt:p].tiers == NO)
-                        {
-                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer unitAt:p].tiers = YES;
+                            [layer removeTileAt:p];
+                        }else{
+                            [layer unitAt:p].HP -= attackPoint;
+                            //Est-ce qu'on a atteint la moitié de la barre de vie ?
+                            if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/2 && [layer unitAt:p].demi == NO)
+                            {
+                                [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+                                [layer unitAt:p].demi = YES;
+                                //Est-ce qu'on a atteint la tiers de la barre de vie ?
+                            }else if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/3 && [layer unitAt:p].tiers == NO)
+                            {
+                                [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+                                [layer unitAt:p].tiers = YES;
+                            }
                         }
                     }
                 }
