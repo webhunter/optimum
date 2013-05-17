@@ -43,6 +43,8 @@ GameState;
 		_players = [NSMutableDictionary dictionaryWithCapacity:4];
 	}
 	return self;
+    
+
 }
 
 #pragma mark - Game Logic

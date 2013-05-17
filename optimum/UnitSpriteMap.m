@@ -16,7 +16,7 @@
     if( (self = [super init]))
     {
         int lastDigit = unitType % 10;
-//        CCLOG(@"lastDigit : %i", unitType);
+
         switch (lastDigit) {
             case 1:
             case 2:
@@ -75,38 +75,6 @@
 
 - (id) initWithUnitType:(int)unitType
 {
-//    int lastDigit = unitType % 10;
-    
-    /*switch (lastDigit) {
-        case 1:
-        case 2:
-            
-            break;
-        
-        case 3:
-        case 4:
-            
-            break;
-        
-        case 5:
-        case 6:
-            
-            break;
-        
-        case 7:
-        case 8:
-            
-            break;
-        
-        case 9:
-        case 10:
-            
-            break;
-            
-        default:
-            break;
-    }*/
-    
     if( (self = [super init]))
     {
         if (unitType % 2 == 0) { //team de droite

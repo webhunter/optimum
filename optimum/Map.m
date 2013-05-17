@@ -149,12 +149,10 @@
         [emitter2 runAction:[CCSequence actions:emitMove, nil]];
         emitter2.autoRemoveOnFinish = YES;
         
-        
-        
         //Hitbox
         
         
-        [self schedule: @selector(tilesAttacks:) interval:1];
+        [self schedule: @selector(tilesAttacks:) interval:2];
 	}
 	return self;
 }
@@ -293,7 +291,7 @@
 {
     CCSprite *sprite = [CCSprite node];
     GLubyte *buffer = malloc(sizeof(GLubyte)*4);
-    for (int i=0;i<4;i++) {buffer[i]=255;}
+    for (int i=0; i<4; i++) { buffer[i]=255; }
     CCTexture2D *tex = [[CCTexture2D alloc] initWithData:buffer pixelFormat:kCCTexture2DPixelFormat_RGB5A1 pixelsWide:1 pixelsHigh:1 contentSize:size];
     [sprite setTexture:tex];
     [sprite setTextureRect:CGRectMake(0, 0, size.width, size.height)];
@@ -385,7 +383,9 @@
         //On génère un évènement positif aléatoire
         randEvent = arc4random() % [positiveEventsList count];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Évènement" message:[positiveEventsList objectAtIndex:randEvent] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+//        [alert show];
+        
+        NSLog(@"%@", [positiveEventsList objectAtIndex:randEvent]);
         
         switch (randEvent) {
             case 0: //Ressources infinies
@@ -412,7 +412,9 @@
             //On génère un évènement négatif aléatoire
         randEvent = arc4random() % [negativeEventsList count];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Évènement" message:[negativeEventsList objectAtIndex:randEvent] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+//        [alert show];
+        
+        NSLog(@"%@", [negativeEventsList objectAtIndex:randEvent]);
         
         int randUnit = (arc4random() % 5) + 1; //Permet de savoir de quelle unité va perdre un élement
         
@@ -769,7 +771,7 @@
     //    [self actionAtCoordinate:ccp(0, 0)];
     
     
-    //Permet de placer à sa place initiale le Sprite sélectionné
+//    Permet de placer à sa place initiale le Sprite sélectionné
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
                                                       position: ccp(initPosition.x, initPosition.y)];
     
@@ -1065,11 +1067,16 @@
         [layer tileGIDAt:tile] != 40
         )
     {
-        int attackPoint = [layer unitAt:tile].attackPoint;
-        BOOL teamTile = [layer unitAt:tile].team;
-        int frequencyAttack = [layer unitAt:tile].frequency;
+        CCLOG(@"tile : %@, %@", [layer unitAt:tile], CGPointCreateDictionaryRepresentation(tile));
         
-        CCLOG(@"truc : %i, %i, timeElapse : %i", timeElapse % frequencyAttack, frequencyAttack, timeElapse);
+        int attackPoint = [layer unitAt:tile].attackPoint;
+        CCLOG(@"attackPoint : %i", attackPoint);
+        BOOL teamTile = [layer unitAt:tile].team;
+        CCLOG(teamTile ? @"Yes" : @"No");
+        int frequencyAttack = [layer unitAt:tile].frequency;
+        CCLOG(@"frequencyAttack : %i", frequencyAttack);
+        
+//        CCLOG(@"attackPoint : %i, %i, timeElapse : %i", timeElapse % frequencyAttack, frequencyAttack, timeElapse);
         
         // On s'assure que l'unité a le "droit" d'attaquer
         if (timeElapse % frequencyAttack == 0)

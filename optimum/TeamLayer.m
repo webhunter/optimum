@@ -55,7 +55,8 @@
                     else
                     {
                         // IPHONE RETINA SCREEN
-
+                        UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                        [truc show];
                     }
                 }
             }
@@ -140,7 +141,6 @@
                 
                 [self addChild:slider2];
             }
-            
         }
     }
 	return self;
@@ -190,9 +190,5 @@
 {
 	
 }
-
-
-
-
 @end
 

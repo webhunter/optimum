@@ -94,6 +94,17 @@ const size_t PACKET_HEADER_SIZE = 10;
 	return packet;
 }
 
+- (void)sendPacketToAllClients:(Packet *)packet
+{
+//	GKSendDataMode dataMode = GKSendDataReliable;
+//	NSData *data = [packet data];
+//	NSError *error;
+//	if (![_session sendDataToAllPeers:data withDataMode:dataMode error:&error])
+//	{
+//		NSLog(@"Error sending data to clients: %@", error);
+//	}
+}
+
 - (void)addPayloadToData:(NSMutableData *)data
 {
 	// base class does nothing

@@ -18,11 +18,9 @@
     UnitSpriteMap *tile = nil;
 	uint32_t gid = [self tileGIDAt:pos];
     
-    
-    
 	// if GID == 0, then no tile is present
     
-    if( gid ) {
+    if( gid != 0 ) {
 		int z = pos.x + pos.y * layerSize_.width;
 		tile = (UnitSpriteMap*) [self getChildByTag:z];
         
