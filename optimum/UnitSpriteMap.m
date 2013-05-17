@@ -70,7 +70,7 @@
         
         [self schedule: @selector(attackFrequency:) interval:1];
     }
-	return [self initWithTexture:texture rect:rect rotated:NO];
+	return self;
 }
 
 - (id) initWithUnitType:(int)unitType

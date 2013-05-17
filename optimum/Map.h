@@ -46,6 +46,8 @@ enum
     
     int timeElapse;
     
+    BOOL trux;
+    
     
     //Gestion des unités
     int level1UnitLeft;
@@ -74,6 +76,6 @@ enum
 }
 
 + (CCScene *) scene;
-+ (CCScene *) sceneWithParameters:(BOOL)parameter;
++ (CCScene *) sceneWithParameters:(NSString*)parameter;
 
 @end

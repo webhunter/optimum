@@ -10,6 +10,7 @@
 #import "CCSlider.h"
 
 #import "Map.h"
+#import "Tips.h"
 
 
 @implementation TeamLayer
@@ -147,10 +148,41 @@
 
 - (void) onNewGame: (CCMenuItem  *) menuItem{
     
+//    [[CCDirector sharedDirector]
+//     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+//                                                     scene:[Map sceneWithParameters:@"string"]
+//                   ]];
+    
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Map", nil];
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                                     scene:[Map sceneWithParameters:YES]
+                                                     scene:[Tips sceneWithNextScene:dict]
                    ]];
+}
+
+-(void) onEnter
+{
+    // Called right after a node’s init method is called.
+    // If using a CCTransitionScene: called when the transition begins.
+    [super onEnter];
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    // Called right after onEnter.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onEnterTransitionDidFinish];
+}
+
+-(void) onExit
+{
+    // Called right before node’s dealloc method is called.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onExit];
 }
 
 // on "dealloc" you need to release all your retained objects
