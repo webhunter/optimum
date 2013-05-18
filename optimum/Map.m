@@ -260,7 +260,7 @@
     level3UnitLeftLabel.color = ccc3(197, 229, 232);
     [self addChild:level3UnitLeftLabel z: 6000];
     
-    level1UnitRight = 77;
+    level1UnitRight = 5;
     level2UnitRight = 7;
     level3UnitRight = 7;
     level4UnitRight = 7;
@@ -504,8 +504,6 @@
 }
 
 - (void) substractUnitForTeam:(BOOL)team andUnit:(int)unit{
-    
-    if (team == NO) { //On retire du camp de gauche
         switch (unit)
         {
             case 2:
@@ -547,13 +545,7 @@
                 }
                 [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level5UnitLeft]];
                 break;
-                
-            default:
-                break;
-        }
-    }else{
-        switch (unit)
-        {
+
             case 1:
                 level1UnitRight--;
                 if (level1UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
@@ -598,7 +590,6 @@
                 
                 break;
         }
-    }
 }
 
 
@@ -649,29 +640,27 @@
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	// get the position in tile coordinates from the touch location
-	CGPoint touchLocation = [self locationFromTouches:touches];
-
-    CCNode* node = [self getChildByTag:TileMapTag];
-	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-
-    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-
-    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-    
-    if (
-        [layer tileGIDAt:tileCord] != 33
-        )
-    {
-        
-        CCLOG(@" tileCord : %i | %@, hp : %i", [layer tileGIDAt:tileCord], [layer unitAt:tileCord], [layer unitAt:tileCord].HPMax);
-    }
-
-    
-}
+//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//	// get the position in tile coordinates from the touch location
+//	CGPoint touchLocation = [self locationFromTouches:touches];
+//
+//    CCNode* node = [self getChildByTag:TileMapTag];
+//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+//
+//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+//
+//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+//    
+//    if (
+//        [layer tileGIDAt:tileCord] != 33
+//        )
+//    {
+//        
+//        CCLOG(@" tileCord : %i | %@, hp : %i", [layer tileGIDAt:tileCord], [layer unitAt:tileCord], [layer unitAt:tileCord].HPMax);
+//    }
+//}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches
@@ -693,6 +682,8 @@
     CCNode* node = [self getChildByTag:TileMapTag];
 	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
     CCTMXLayer *highlightLayer;
+    
+   
     if (sprite.team) { //Equipe de droite
         highlightLayer = [tiledMap layerNamed:@"HighlightRight"];
     }else{
@@ -791,7 +782,7 @@
             )
         {
             [tilesLayer setTileGID:sprite.level at:ccp(tileCord.x, tileCord.y + 1)];
-            CCLOG(@"hpMax = %i", [tilesLayer unitAt:ccp(tileCord.x, tileCord.y + 1)].HPMax);
+            
             [self substractUnitForTeam:sprite.team andUnit:sprite.level];
             [self checkUnits];
             
@@ -813,59 +804,65 @@
 - (void) checkUnits{
     //Vérifie qu'il est toujours possible de placer des tuiles pour une unité donnée
     for (UnitSprite *sprite in self.children) {
+        
         if ([sprite isKindOfClass:[UnitSprite class]]) {
-            if (sprite.team == NO) //On retire du camp de gauche
-            {
+//            CCLOG(@"level : %i", sprite.level);
+//            if (sprite.team == NO) //On retire du camp de gauche
+//            {
+                // Camp de droite
+            
                 switch (sprite.level)
                 {
                     case 1:
-                        sprite.units = level1UnitLeft;
+                        sprite.units = level1UnitRight;
                         break;
                         
                     case 3:
-                        sprite.units = level2UnitLeft;
+                        sprite.units = level2UnitRight;
                         break;
                         
                     case 5:
-                        sprite.units = level3UnitLeft;
+                        sprite.units = level3UnitRight;
                         break;
                         
                     case 7:
-                        sprite.units = level4UnitLeft;
+                        sprite.units = level4UnitRight;
                         break;
                         
                     case 9:
+                        sprite.units = level5UnitRight;
+                        break;
+                        
+//                    default:
+//                        break;
+//                }
+//            }else{
+//                switch (sprite.level) {
+                        
+                    // Camp de gauche
+                    case 2:
+                        sprite.units = level1UnitLeft;
+                        break;
+                        
+                    case 4:
+                        sprite.units = level2UnitLeft;
+                        break;
+                        
+                    case 6:
+                        sprite.units = level3UnitLeft;
+                        break;
+                        
+                    case 8:
+                        sprite.units = level4UnitLeft;
+                        break;
+                        
+                    case 10:
                         sprite.units = level5UnitLeft;
                         break;
                         
                     default:
                         break;
-                }
-            }else{
-                switch (sprite.level) {
-                    case 2:
-                        sprite.units = level1UnitRight;
-                        break;
-                        
-                    case 4:
-                        sprite.units = level2UnitRight;
-                        break;
-                        
-                    case 6:
-                        sprite.units = level3UnitRight;
-                        break;
-                        
-                    case 8:
-                        sprite.units = level4UnitRight;
-                        break;
-                        
-                    case 10:
-                        sprite.units = level5UnitRight;
-                        break;
-                        
-                    default:
-                        break;
-                }
+//                }
             }
         }
     }
@@ -1042,7 +1039,6 @@
                 [layer tileGIDAt:ccp(x, y)] != 33
                 )
             {
-               
                 [self actionAtCoordinate: ccp(x, y)];
             }
         }
