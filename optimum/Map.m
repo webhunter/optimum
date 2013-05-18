@@ -94,13 +94,13 @@
         
         CCTMXLayer *layer = [map layerNamed:@"Layer 0"];
         
-        CGSize s = [layer layerSize];
-        for( int x=0; x<s.width;x++) {
-            for( int y=0; y< s.height; y++ ) {
-                unsigned int tmpgid = [layer tileGIDAt:ccp(x,y)];
-                [layer setTileGID:tmpgid+1 at:ccp(x,y)];
-            }
-        }
+//        CGSize s = [layer layerSize];
+//        for( int x=0; x<s.width;x++) {
+//            for( int y=0; y< s.height; y++ ) {
+//                unsigned int tmpgid = [layer tileGIDAt:ccp(x,y)];
+//                [layer setTileGID:tmpgid+1 at:ccp(x,y)];
+//            }
+//        }
         
         [self centerIntoScreen:map];
         [self addChild:map z:-1 tag:TileMapTag];
@@ -128,10 +128,6 @@
         
         [self displayInterface];
         
-        
-        
-        
-        
         CCParticleMeteor *emitter2 = [[CCParticleMeteor alloc] initWithTotalParticles:150];
         
         emitter2.texture = [[CCTextureCache sharedTextureCache] addImage:@"ice-pattern.png"];
@@ -152,7 +148,7 @@
         //Hitbox
         
         
-        [self schedule: @selector(tilesAttacks:) interval:2];
+        [self schedule: @selector(tilesAttacks:) interval:1];
 	}
 	return self;
 }
@@ -1056,7 +1052,7 @@
     
     //    NSLog(@"%i", [layer tileGIDAt:tile]);
     //Il y a un un bâtiment sur cette case
-    if ([layer tileGIDAt:tile] != 0 &&
+    if ([layer tileGIDAt:tile] != 0  &&
         [layer tileGIDAt:tile] != 33 &&
         [layer tileGIDAt:tile] != 34 &&
         [layer tileGIDAt:tile] != 35 &&
@@ -1067,7 +1063,7 @@
         [layer tileGIDAt:tile] != 40
         )
     {
-        CCLOG(@"tile : %@, %@", [layer unitAt:tile], CGPointCreateDictionaryRepresentation(tile));
+//        CCLOG(@"tile : %@, %@", [layer unitAt:tile], CGPointCreateDictionaryRepresentation(tile));
         
         int attackPoint = [layer unitAt:tile].attackPoint;
         CCLOG(@"attackPoint : %i", attackPoint);
@@ -1079,9 +1075,9 @@
 //        CCLOG(@"attackPoint : %i, %i, timeElapse : %i", timeElapse % frequencyAttack, frequencyAttack, timeElapse);
         
         // On s'assure que l'unité a le "droit" d'attaquer
-        if (timeElapse % frequencyAttack == 0)
-        {
-            
+//        if (timeElapse % frequencyAttack == 0)
+//        {
+        
             //On recupère les tuiles aux alentours
             NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
             
@@ -1089,7 +1085,6 @@
             {
                 CGPoint p = [[arroundTiles objectAtIndex:i] CGPointValue];
                 //On vérifie que l'on ne cible une tuile à l'extérieur de la map et qu'il y a un batîment à cet emplacement
-                
                 
                 if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
                 {
@@ -1114,7 +1109,7 @@
                         }
                     }
                 }
-            }
+//            }
         }
     }
 }

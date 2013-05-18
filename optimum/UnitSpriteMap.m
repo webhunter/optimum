@@ -63,7 +63,6 @@
             self.team = NO;
         }
         
-        
         self.opacity = 255;
         [self setDemi:NO];
         [self setTiers:NO];
@@ -85,10 +84,10 @@
             self.attackPoint = 100;
         }
         
-        self.HP = self.HPMax = 200;
-        self.opacity = 255;
+//        self.HP = self.HPMax = 200;
+//        self.opacity = 255;
         
-        [self schedule: @selector(attackFrequency:) interval:1];
+//        [self schedule: @selector(attackFrequency:) interval:1];
     }
         
     return self;
