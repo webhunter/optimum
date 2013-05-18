@@ -92,7 +92,7 @@
         
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
         
-        CCTMXLayer *layer = [map layerNamed:@"Layer 0"];
+//        CCTMXLayer *layer = [map layerNamed:@"Layer 0"];
         
 //        CGSize s = [layer layerSize];
 //        for( int x=0; x<s.width;x++) {
@@ -649,21 +649,29 @@
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	// get the position in tile coordinates from the touch location
-//	CGPoint touchLocation = [self locationFromTouches:touches];
-//
-//    CCNode* node = [self getChildByTag:TileMapTag];
-//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-//
-//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-//
-//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-//
-//    CCLOG(@"%d", [layer unitAt:tileCord].HP);
-//}
+- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	// get the position in tile coordinates from the touch location
+	CGPoint touchLocation = [self locationFromTouches:touches];
+
+    CCNode* node = [self getChildByTag:TileMapTag];
+	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+
+    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+
+    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+    
+    if (
+        [layer tileGIDAt:tileCord] != 33
+        )
+    {
+        
+        CCLOG(@" tileCord : %i | %@, hp : %i", [layer tileGIDAt:tileCord], [layer unitAt:tileCord], [layer unitAt:tileCord].HPMax);
+    }
+
+    
+}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches
@@ -777,18 +785,13 @@
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation))
     {
         //On vérifie que la tuile sélectionnée est vide
-        if ([tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 0 ||
+        if (
             [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 33 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 34 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 35 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 36 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 37 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 38 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 39 ||
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 40) //9
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 0
+            )
         {
             [tilesLayer setTileGID:sprite.level at:ccp(tileCord.x, tileCord.y + 1)];
-            
+            CCLOG(@"hpMax = %i", [tilesLayer unitAt:ccp(tileCord.x, tileCord.y + 1)].HPMax);
             [self substractUnitForTeam:sprite.team andUnit:sprite.level];
             [self checkUnits];
             
@@ -1035,7 +1038,13 @@
     {
         for (NSUInteger x = 0; x < layer.layerSize.width; x++)
         {
-            [self actionAtCoordinate: ccp(x, y)];
+            if ([layer tileGIDAt:ccp(x, y)] != 0  ||
+                [layer tileGIDAt:ccp(x, y)] != 33
+                )
+            {
+               
+                [self actionAtCoordinate: ccp(x, y)];
+            }
         }
     }
 }
@@ -1048,68 +1057,45 @@
     
     CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
     
-    //    CCLOG(@"trc : %@", CGPointCreateDictionaryRepresentation(tile));
+    int attackPoint = [layer unitAt:tile].attackPoint;
+    BOOL teamTile = [layer unitAt:tile].team;
+    int frequencyAttack = [layer unitAt:tile].frequency;
     
-    //    NSLog(@"%i", [layer tileGIDAt:tile]);
-    //Il y a un un bâtiment sur cette case
-    if ([layer tileGIDAt:tile] != 0  &&
-        [layer tileGIDAt:tile] != 33 &&
-        [layer tileGIDAt:tile] != 34 &&
-        [layer tileGIDAt:tile] != 35 &&
-        [layer tileGIDAt:tile] != 36 &&
-        [layer tileGIDAt:tile] != 37 &&
-        [layer tileGIDAt:tile] != 38 &&
-        [layer tileGIDAt:tile] != 39 &&
-        [layer tileGIDAt:tile] != 40
-        )
-    {
-//        CCLOG(@"tile : %@, %@", [layer unitAt:tile], CGPointCreateDictionaryRepresentation(tile));
-        
-        int attackPoint = [layer unitAt:tile].attackPoint;
-        CCLOG(@"attackPoint : %i", attackPoint);
-        BOOL teamTile = [layer unitAt:tile].team;
-        CCLOG(teamTile ? @"Yes" : @"No");
-        int frequencyAttack = [layer unitAt:tile].frequency;
-        CCLOG(@"frequencyAttack : %i", frequencyAttack);
-        
-//        CCLOG(@"attackPoint : %i, %i, timeElapse : %i", timeElapse % frequencyAttack, frequencyAttack, timeElapse);
-        
         // On s'assure que l'unité a le "droit" d'attaquer
-//        if (timeElapse % frequencyAttack == 0)
-//        {
+    if (timeElapse % frequencyAttack == 0)
+    {
         
-            //On recupère les tuiles aux alentours
-            NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
+        //On recupère les tuiles aux alentours
+        NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
+        
+        for (int i = 0; i < [arroundTiles count]; i++)
+        {
+            CGPoint p = [[arroundTiles objectAtIndex:i] CGPointValue];
+            //On vérifie que l'on ne cible une tuile à l'extérieur de la map et qu'il y a un batîment à cet emplacement
             
-            for (int i = 0; i < [arroundTiles count]; i++)
+            if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
             {
-                CGPoint p = [[arroundTiles objectAtIndex:i] CGPointValue];
-                //On vérifie que l'on ne cible une tuile à l'extérieur de la map et qu'il y a un batîment à cet emplacement
-                
-                if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
+                if ([layer tileGIDAt:p] != 0 && [layer unitAt:p].team != teamTile)
                 {
-                    if ([layer tileGIDAt:p] != 0 && [layer unitAt:p].team != teamTile)
+                    if ([layer unitAt:p].HP <= 0)
                     {
-                        if ([layer unitAt:p].HP <= 0)
+                        [layer removeTileAt:p];
+                    }else{
+                        [layer unitAt:p].HP -= attackPoint;
+                        //Est-ce qu'on a atteint la moitié de la barre de vie ?
+                        if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/2 && [layer unitAt:p].demi == NO)
                         {
-                            [layer removeTileAt:p];
-                        }else{
-                            [layer unitAt:p].HP -= attackPoint;
-                            //Est-ce qu'on a atteint la moitié de la barre de vie ?
-                            if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/2 && [layer unitAt:p].demi == NO)
-                            {
-                                [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                                [layer unitAt:p].demi = YES;
-                                //Est-ce qu'on a atteint la tiers de la barre de vie ?
-                            }else if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/3 && [layer unitAt:p].tiers == NO)
-                            {
-                                [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                                [layer unitAt:p].tiers = YES;
-                            }
+                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+                            [layer unitAt:p].demi = YES;
+                            //Est-ce qu'on a atteint la tiers de la barre de vie ?
+                        }else if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/3 && [layer unitAt:p].tiers == NO)
+                        {
+                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+                            [layer unitAt:p].tiers = YES;
                         }
                     }
                 }
-//            }
+            }
         }
     }
 }

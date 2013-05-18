@@ -10,12 +10,12 @@
  </layer>
  <layer name="HighlightLeft" width="7" height="7">
   <data encoding="base64" compression="zlib">
-   eJxTZBj6AAAaCAAi
+   eJxTYhj6AAAazAAj
   </data>
  </layer>
  <layer name="HighlightRight" width="7" height="7">
   <data encoding="base64" compression="zlib">
-   eJxTZBj6AAAaCAAi
+   eJxTYhj6AAAazAAj
   </data>
  </layer>
  <layer name="Tiles" width="7" height="7">

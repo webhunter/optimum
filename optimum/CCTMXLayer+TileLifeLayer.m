@@ -30,7 +30,7 @@
 			rect = CC_RECT_PIXELS_TO_POINTS(rect);
       
             tile = [[UnitSpriteMap alloc] initWithTexture:self.texture rect:rect WithUnitType:gid];
-
+            
 			[tile setBatchNode:self];
             
             CGPoint p = [self positionAt:pos];

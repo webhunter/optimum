@@ -78,16 +78,9 @@
     {
         if (unitType % 2 == 0) { //team de droite
             self.team = YES;
-            self.attackPoint = 10;
         }else{
             self.team = NO;
-            self.attackPoint = 100;
         }
-        
-//        self.HP = self.HPMax = 200;
-//        self.opacity = 255;
-        
-//        [self schedule: @selector(attackFrequency:) interval:1];
     }
         
     return self;
