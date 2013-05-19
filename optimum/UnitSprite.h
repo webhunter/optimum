@@ -14,7 +14,7 @@
 	CGPoint touchLocation;
     int level;
     CGPoint initPosition;
-    BOOL team; // 0 : left | 1 = right
+    BOOL teamy; // 0 : left | 1 = right
     int units; //Se charge de savoir s'il reste encore des unités
     BOOL hasUnits;
 }
@@ -27,8 +27,8 @@
 - (CGPoint) initPosition;
 - (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position;
 
-- (BOOL) team;
-- (void) setTeam:(BOOL)equipe;
+- (BOOL) teamy;
+- (void) setTeamy:(BOOL)equipe;
 
 - (int) units;
 - (void) setUnits:(int)unit;

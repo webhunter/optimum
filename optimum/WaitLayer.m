@@ -101,7 +101,6 @@
 
 - (void) buttonPressedBack: (id) sender
 {
-
     [[CCDirector sharedDirector] replaceScene:[JoinLayer node]];
 }
 

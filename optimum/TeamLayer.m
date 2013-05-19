@@ -154,7 +154,7 @@
     //                   ]];
     
     NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
-    NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Map", nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Archipelago", nil];
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     

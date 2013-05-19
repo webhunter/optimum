@@ -9,6 +9,8 @@
 #import "GameLayer.h"
 #import "TeamLayer.h"
 
+#import "Archipelago.h"
+
 
 @implementation GameLayer{
     
@@ -270,8 +272,6 @@
                 
                 [self addChild:humain];
                 
-                
-                
             }
             
         }
@@ -292,12 +292,19 @@
 
 - (void) buttonDidactitielPressed: (id) sender
 {
-    
+
 }
 
 - (void) buttonVillePressed: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[TeamLayer node]];
+    NSArray *objects = [[NSArray alloc] initWithObjects:
+                                                    [NSNumber numberWithInt:1],
+                                                    @"ville",
+                        nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"nbrGame", @"universe", nil];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    
+    [[CCDirector sharedDirector] replaceScene:[Archipelago nodeWithParameters:dict]];
 }
 
 - (void) buttonVenusPressed: (id) sender
@@ -363,21 +370,6 @@
         
         
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
 }
 
 @end

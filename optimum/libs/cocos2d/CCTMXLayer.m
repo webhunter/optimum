@@ -275,7 +275,7 @@ int compareInts (const void * a, const void * b);
 		if( ! tile ) {
 			CGRect rect = [tileset_ rectForGID:gid];
 			rect = CC_RECT_PIXELS_TO_POINTS(rect);
-			tile = [[CCSprite alloc] initWithTexture:self.texture rect:rect];
+			tile = [[CCSprite alloc] initWithTexture:self.texture rect:rect WithUnitType:gid];
 			[tile setBatchNode:self];
 
             CGPoint p = [self positionAt:pos];

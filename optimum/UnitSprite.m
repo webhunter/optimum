@@ -192,12 +192,12 @@
     initPosition = position;
 }
 
-- (void) setTeam:(BOOL) equipe{
-    team = equipe;
+- (void) setTeamy:(BOOL) equipe{
+    teamy = equipe;
 }
 
-- (BOOL) team{
-    return team;
+- (BOOL) teamy{
+    return teamy;
 }
 
 - (int) units{

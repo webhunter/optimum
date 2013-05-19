@@ -18,10 +18,8 @@
 #import "NSString+TimeFormatted.h"
 #import "UIColor+RVB255.h"
 #import "Meteor.h"
-#import "CCTMXLayer+TileLifeLayer.h"
 
 #import "Mapquake.h"
-#import "Meteor.h"
 
 enum
 {
@@ -49,7 +47,6 @@ enum
     
     int numberOfUnitLeft;
     int numberOfUnitRight;
-    
     
     int timeElapse;
     
@@ -80,6 +77,6 @@ enum
 }
 
 + (CCScene *) scene;
-+ (CCScene *) sceneWithParameters:(BOOL)parameter;
++ (CCScene *) sceneWithParameters:(NSString*)parameter;
 
 @end

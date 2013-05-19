@@ -7,11 +7,10 @@
 //
 
 #import "Map.h"
-#import "HelloWorldLayer.h"
 
-#import "CCTMXLayer+TileLifeLayer.h"
 
 #import "TeamLayer.h"
+#import "EndGame.h" //Scene appelée lorsque la scene est terminée
 
 
 @implementation Map
@@ -92,15 +91,9 @@
         
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
         
-//        CCTMXLayer *layer = [map layerNamed:@"Layer 0"];
-        
-//        CGSize s = [layer layerSize];
-//        for( int x=0; x<s.width;x++) {
-//            for( int y=0; y< s.height; y++ ) {
-//                unsigned int tmpgid = [layer tileGIDAt:ccp(x,y)];
-//                [layer setTileGID:tmpgid+1 at:ccp(x,y)];
-//            }
-//        }
+        //Permet de compenser le bug lié à la présence d'une tuile sur la case (0, 0)
+        CCTMXLayer *tilesLayer = [map layerNamed:@"Tiles"];
+        [tilesLayer removeTileAt:ccp(0, 0)];
         
         [self centerIntoScreen:map];
         [self addChild:map z:-1 tag:TileMapTag];
@@ -183,7 +176,15 @@
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
     if (countdown <= 0) {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TeamLayer scene] withColor:ccGREEN]];
+        NSArray * lesObjets = [NSArray arrayWithObjects:@"Genève", @"Suisse", @"Europe", nil];
+        NSArray * lesCles = [NSArray arrayWithObjects:@"Ville", @"Pays", @"Continent", nil];
+        
+        
+        NSDictionary * dict = [NSDictionary dictionaryWithObjects:lesObjets forKeys:lesCles];
+        
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
+                                                                    scene:[EndGame sceneWithParameters:dict]
+                                                                    withColor:ccGREEN]];
     }
 }
 
@@ -231,7 +232,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * 3;
+    countdown = 60 * 1;
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)
@@ -640,27 +641,28 @@
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	// get the position in tile coordinates from the touch location
-//	CGPoint touchLocation = [self locationFromTouches:touches];
-//
-//    CCNode* node = [self getChildByTag:TileMapTag];
-//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-//
-//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-//
-//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-//    
-//    if (
-//        [layer tileGIDAt:tileCord] != 33
-//        )
-//    {
-//        
-//        CCLOG(@" tileCord : %i | %@, hp : %i", [layer tileGIDAt:tileCord], [layer unitAt:tileCord], [layer unitAt:tileCord].HPMax);
-//    }
-//}
+- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	// get the position in tile coordinates from the touch location
+	CGPoint touchLocation = [self locationFromTouches:touches];
+
+    CCNode* node = [self getChildByTag:TileMapTag];
+	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+
+    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+
+    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+    
+    if (
+        [layer tileGIDAt:tileCord] != 33 ||
+        [layer tileGIDAt:tileCord] != 0
+        )
+    {
+        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
+        CCLOG(@"%i", [layer tileGIDAt:tileCord]);
+    }
+}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches
@@ -768,10 +770,10 @@
     
 //    Permet de placer à sa place initiale le Sprite sélectionné
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
-                                                      position: ccp(initPosition.x, initPosition.y)];
+                                            position: ccp(initPosition.x, initPosition.y)];
     
     CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
-                                                     position: ccp(initPosition.x, initPosition.y)];
+                                           position: ccp(initPosition.x, initPosition.y)];
     
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation))
     {
@@ -805,12 +807,9 @@
     //Vérifie qu'il est toujours possible de placer des tuiles pour une unité donnée
     for (UnitSprite *sprite in self.children) {
         
-        if ([sprite isKindOfClass:[UnitSprite class]]) {
-//            CCLOG(@"level : %i", sprite.level);
-//            if (sprite.team == NO) //On retire du camp de gauche
-//            {
+        if ([sprite isKindOfClass:[UnitSprite class]])
+        {
                 // Camp de droite
-            
                 switch (sprite.level)
                 {
                     case 1:
@@ -832,13 +831,7 @@
                     case 9:
                         sprite.units = level5UnitRight;
                         break;
-                        
-//                    default:
-//                        break;
-//                }
-//            }else{
-//                switch (sprite.level) {
-                        
+
                     // Camp de gauche
                     case 2:
                         sprite.units = level1UnitLeft;
@@ -862,7 +855,6 @@
                         
                     default:
                         break;
-//                }
             }
         }
     }
@@ -928,9 +920,6 @@
     
     return proximityTiles;
 }
-
-
-
 
 - (NSArray*) getProximityTiles:(CGPoint)location
 {
@@ -1035,8 +1024,9 @@
     {
         for (NSUInteger x = 0; x < layer.layerSize.width; x++)
         {
-            if ([layer tileGIDAt:ccp(x, y)] != 0  ||
-                [layer tileGIDAt:ccp(x, y)] != 33
+            if (
+                [layer tileGIDAt:ccp(x, y)] != 33 ||
+                [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {
                 [self actionAtCoordinate: ccp(x, y)];
@@ -1053,9 +1043,9 @@
     
     CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
     
-    int attackPoint = [layer unitAt:tile].attackPoint;
-    BOOL teamTile = [layer unitAt:tile].team;
-    int frequencyAttack = [layer unitAt:tile].frequency;
+    int attackPoint = [layer tileAt:tile].attackPoint;
+    BOOL teamTile = [layer tileAt:tile].team;
+    int frequencyAttack = [layer tileAt:tile].frequency;
     
         // On s'assure que l'unité a le "droit" d'attaquer
     if (timeElapse % frequencyAttack == 0)
@@ -1071,23 +1061,23 @@
             
             if (p.x >= 0 && p.x < tileMap.mapSize.width && p.y >= 0 && p.y < tileMap.mapSize.height)
             {
-                if ([layer tileGIDAt:p] != 0 && [layer unitAt:p].team != teamTile)
+                if ([layer tileGIDAt:p] != 0 && [layer tileAt:p].team != teamTile)
                 {
-                    if ([layer unitAt:p].HP <= 0)
+                    if ([layer tileAt:p].HP <= 0)
                     {
                         [layer removeTileAt:p];
                     }else{
-                        [layer unitAt:p].HP -= attackPoint;
+                        [layer tileAt:p].HP -= attackPoint;
                         //Est-ce qu'on a atteint la moitié de la barre de vie ?
-                        if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/2 && [layer unitAt:p].demi == NO)
+                        if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/2 && [layer tileAt:p].demi == NO)
                         {
                             [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer unitAt:p].demi = YES;
+                            [layer tileAt:p].demi = YES;
                             //Est-ce qu'on a atteint la tiers de la barre de vie ?
-                        }else if ([layer unitAt:p].HP <= [layer unitAt:p].HPMax/3 && [layer unitAt:p].tiers == NO)
+                        }else if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/3 && [layer tileAt:p].tiers == NO)
                         {
                             [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer unitAt:p].tiers = YES;
+                            [layer tileAt:p].tiers = YES;
                         }
                     }
                 }
@@ -1106,7 +1096,28 @@
 	// cocos2d will automatically release all the children (Label)
 	
 	// don't forget to call "super dealloc"
-	
+}
+
+//A RAJOUTER SUR TOUTES LES SCENES
+-(void) onEnter
+{
+    // Called right after a node’s init method is called.
+    // If using a CCTransitionScene: called when the transition begins.
+    [super onEnter];
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    // Called right after onEnter.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onEnterTransitionDidFinish];
+}
+
+-(void) onExit
+{
+    // Called right before node’s dealloc method is called.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onExit];
 }
 
 @end

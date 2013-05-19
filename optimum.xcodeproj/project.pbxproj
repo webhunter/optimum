@@ -19,16 +19,16 @@
 		1A91410017414FC400D3CDD5 /* optimum-sigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140FC17414FC400D3CDD5 /* optimum-sigma.png */; };
 		1A91410217414FCC00D3CDD5 /* tiled-maquette.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A91410117414FCC00D3CDD5 /* tiled-maquette.png */; };
 		1A91410817414FFE00D3CDD5 /* UnitSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410517414FFE00D3CDD5 /* UnitSprite.m */; };
-		1A91410917414FFE00D3CDD5 /* UnitSpriteMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */; };
 		1A91410C1741500C00D3CDD5 /* OptimumRessource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410B1741500C00D3CDD5 /* OptimumRessource.m */; };
 		1A91410F1741502000D3CDD5 /* NSString+TimeFormatted.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91410E1741502000D3CDD5 /* NSString+TimeFormatted.m */; };
 		1A9141121741504400D3CDD5 /* Mapquake.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141111741504400D3CDD5 /* Mapquake.m */; };
 		1A9141141741505300D3CDD5 /* island.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141131741505300D3CDD5 /* island.png */; };
 		1A9141161741506600D3CDD5 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141151741506600D3CDD5 /* fire.png */; };
-		1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */; };
 		1A91411F1741516100D3CDD5 /* Meteor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91411E1741516100D3CDD5 /* Meteor.m */; };
 		1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141211741519000D3CDD5 /* FreezeScreen.m */; };
 		1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141231741524D00D3CDD5 /* ice-pattern.png */; };
+		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
+		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
 		900038DC1740EDAF008B350D /* archipel_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D81740EDAF008B350D /* archipel_2.png */; };
 		900038DD1740EDAF008B350D /* archipel_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D91740EDAF008B350D /* archipel_3.png */; };
@@ -205,8 +205,6 @@
 		1A91410117414FCC00D3CDD5 /* tiled-maquette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiled-maquette.png"; sourceTree = "<group>"; };
 		1A91410417414FFE00D3CDD5 /* UnitSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSprite.h; sourceTree = "<group>"; };
 		1A91410517414FFE00D3CDD5 /* UnitSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSprite.m; sourceTree = "<group>"; };
-		1A91410617414FFE00D3CDD5 /* UnitSpriteMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSpriteMap.h; sourceTree = "<group>"; };
-		1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSpriteMap.m; sourceTree = "<group>"; };
 		1A91410A1741500C00D3CDD5 /* OptimumRessource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptimumRessource.h; sourceTree = "<group>"; };
 		1A91410B1741500C00D3CDD5 /* OptimumRessource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptimumRessource.m; sourceTree = "<group>"; };
 		1A91410D1741502000D3CDD5 /* NSString+TimeFormatted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeFormatted.h"; sourceTree = "<group>"; };
@@ -215,13 +213,15 @@
 		1A9141111741504400D3CDD5 /* Mapquake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mapquake.m; sourceTree = "<group>"; };
 		1A9141131741505300D3CDD5 /* island.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = island.png; sourceTree = "<group>"; };
 		1A9141151741506600D3CDD5 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
-		1A9141171741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTMXLayer+TileLifeLayer.h"; sourceTree = "<group>"; };
-		1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTMXLayer+TileLifeLayer.m"; sourceTree = "<group>"; };
 		1A91411D1741516100D3CDD5 /* Meteor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meteor.h; sourceTree = "<group>"; };
 		1A91411E1741516100D3CDD5 /* Meteor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meteor.m; sourceTree = "<group>"; };
 		1A9141201741519000D3CDD5 /* FreezeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreezeScreen.h; sourceTree = "<group>"; };
 		1A9141211741519000D3CDD5 /* FreezeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreezeScreen.m; sourceTree = "<group>"; };
 		1A9141231741524D00D3CDD5 /* ice-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ice-pattern.png"; sourceTree = "<group>"; };
+		1ACDC5241748CC2800E6D180 /* EndGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndGame.h; sourceTree = "<group>"; };
+		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
+		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
+		1ACDC52817491A1100E6D180 /* Archipelago.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archipelago.m; sourceTree = "<group>"; };
 		900038D71740EDAF008B350D /* archipel_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_1.png; sourceTree = "<group>"; };
 		900038D81740EDAF008B350D /* archipel_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_2.png; sourceTree = "<group>"; };
 		900038D91740EDAF008B350D /* archipel_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_3.png; sourceTree = "<group>"; };
@@ -584,8 +584,6 @@
 				1A91410B1741500C00D3CDD5 /* OptimumRessource.m */,
 				1A91410417414FFE00D3CDD5 /* UnitSprite.h */,
 				1A91410517414FFE00D3CDD5 /* UnitSprite.m */,
-				1A91410617414FFE00D3CDD5 /* UnitSpriteMap.h */,
-				1A91410717414FFE00D3CDD5 /* UnitSpriteMap.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -611,6 +609,10 @@
 				9000393217411F62008B350D /* TeamLayer.m */,
 				1A9140EC17414F1D00D3CDD5 /* Map.h */,
 				1A9140ED17414F1D00D3CDD5 /* Map.m */,
+				1ACDC52717491A1100E6D180 /* Archipelago.h */,
+				1ACDC52817491A1100E6D180 /* Archipelago.m */,
+				1ACDC5241748CC2800E6D180 /* EndGame.h */,
+				1ACDC5251748CC2800E6D180 /* EndGame.m */,
 				1A903CA5174668260040A907 /* Tips.h */,
 				1A903CA6174668260040A907 /* Tips.m */,
 			);
@@ -681,8 +683,6 @@
 				903D7BD31733AC7C0023AD53 /* NSData+Additions.m */,
 				1A91410D1741502000D3CDD5 /* NSString+TimeFormatted.h */,
 				1A91410E1741502000D3CDD5 /* NSString+TimeFormatted.m */,
-				1A9141171741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.h */,
-				1A9141181741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1363,14 +1363,14 @@
 				1A9140EE17414F1D00D3CDD5 /* Map.m in Sources */,
 				1A9140F817414FB100D3CDD5 /* UIColor+RVB255.m in Sources */,
 				1A91410817414FFE00D3CDD5 /* UnitSprite.m in Sources */,
-				1A91410917414FFE00D3CDD5 /* UnitSpriteMap.m in Sources */,
 				1A91410C1741500C00D3CDD5 /* OptimumRessource.m in Sources */,
 				1A91410F1741502000D3CDD5 /* NSString+TimeFormatted.m in Sources */,
 				1A9141121741504400D3CDD5 /* Mapquake.m in Sources */,
-				1A9141191741507400D3CDD5 /* CCTMXLayer+TileLifeLayer.m in Sources */,
 				1A91411F1741516100D3CDD5 /* Meteor.m in Sources */,
 				1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */,
 				1A903CA7174668260040A907 /* Tips.m in Sources */,
+				1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */,
+				1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
