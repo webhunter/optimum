@@ -48,20 +48,12 @@ enum
     int numberOfUnitLeft;
     int numberOfUnitRight;
     
-    int timeElapse;
+    int timeElapse, nbrGame;
     
     //Gestion des unités
-    int level1UnitLeft;
-    int level2UnitLeft;
-    int level3UnitLeft;
-    int level4UnitLeft;
-    int level5UnitLeft;
+    int level1UnitLeft, level2UnitLeft, level3UnitLeft, level4UnitLeft, level5UnitLeft;
     
-    CCLabelTTF *level1UnitLeftLabel;
-    CCLabelTTF *level2UnitLeftLabel;
-    CCLabelTTF *level3UnitLeftLabel;
-    CCLabelTTF *level4UnitLeftLabel;
-    CCLabelTTF *level5UnitLeftLabel;
+    CCLabelTTF *level1UnitLeftLabel, *level2UnitLeftLabel, *level3UnitLeftLabel, *level4UnitLeftLabel, *level5UnitLeftLabel;
     
     int level1UnitRight;
     int level2UnitRight;
@@ -77,6 +69,6 @@ enum
 }
 
 + (CCScene *) scene;
-+ (CCScene *) sceneWithParameters:(NSString*)parameter;
++ (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
 
 @end

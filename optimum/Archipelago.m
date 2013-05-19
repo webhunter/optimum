@@ -37,6 +37,8 @@
     
     if( self=[super init] )
     {
+        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
+        CCLOG(@"nbrGame : %i", nbrGame);
         // On regarde à quelle manche nous sommes
         switch ([[parameters objectForKey:@"nbrGame"] intValue])
         {
@@ -75,22 +77,23 @@
         
         if ([[parameters objectForKey:@"universe"] isEqualToString:@"ville"])
         {
-            //La gagnant est l'univers de la ville
-            if ([[parameters objectForKey:@"winner"] intValue] == 0)
-            {
-            
-            //La gagnant est l'univers de la nature
-            }else if ([[parameters objectForKey:@"winner"] intValue] == 1){
-            
-            }else{
-                archipel1Img = @"archipel_1.png";
-            }
+            archipel1Img = @"archipel_1.png";
+//            //La gagnant est l'univers de la ville
+//            if ([[parameters objectForKey:@"winner"] intValue] == 0)
+//            {
+//                archipel1Img = @"archipel_1.png";
+//            //La gagnant est l'univers de la nature
+//            }else if ([[parameters objectForKey:@"winner"] intValue] == 1){
+//                archipel1Img = @"archipel_1.png";
+//            }else{
+//                archipel1Img = @"archipel_1.png";
+//            }
         }else{
             
         }
         
         //Archipels
-        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:archipel1Img
+        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png"
                                                       selectedImage:@"archipel_1.png"
                                                       target:self
                                                       selector:@selector(startGame:)];
@@ -141,9 +144,17 @@
 
 - (void) startGame: (id) sender
 {
+    nbrGame++;
+    NSArray *objects = [[NSArray alloc] initWithObjects:
+                        [NSNumber numberWithInt:nbrGame],
+                        nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"nbrGame", nil];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    
+    
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Map sceneWithParameters:nil]
+                                    scene:[Map sceneWithParameters:dict]
                    ]];
 }
 

@@ -9,6 +9,7 @@
 #import "EndGame.h"
 
 #import "Map.h"
+#import "Archipelago.h"
 
 
 @implementation EndGame
@@ -37,6 +38,7 @@
     
     if( (self=[super init]) )
     {
+        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         CGSize size = [[CCDirector sharedDirector] winSize];
         
         CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Manche suivante"
@@ -55,9 +57,15 @@
 
 - (void) nextGame: (id) sender
 {
+    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:nbrGame], nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"nbrGame", nil];
+    
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Map sceneWithParameters:nil]
+                                    scene:[Archipelago sceneWithParameters:dict]
                    ]];
 }
 

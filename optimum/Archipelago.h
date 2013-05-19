@@ -15,6 +15,8 @@
     BOOL canPlayFirstGame;
     BOOL canPlaySecondGame;
     BOOL canPlayThirdGame;
+    
+    int nbrGame;
 }
 
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;

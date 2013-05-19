@@ -31,13 +31,13 @@
 	return scene;
 }
 
-+ (CCScene *) sceneWithParameters:(NSString*)parameter
++ (CCScene *) sceneWithParameters:(NSDictionary*)parameters
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     
 	// 'layer' is an autorelease object.
-	Map *layer = [Map node];
+	Map *layer = [Map nodeWithParameters:parameters];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -47,28 +47,18 @@
 	return scene;
 }
 
-+ (id) nodeWithGameLevel:(NSString*)level{
-    return [[self alloc] initWithGameLevel:level];
++ (id) nodeWithParameters:(NSDictionary*)parameters{
+    return [[self alloc] initWithParameters:parameters];
 }
 
-- (id) initWithGameLevel:(NSString*)level{
+- (id) initWithParameters:(NSDictionary*)parameters{
     
-    return self;
-}
-
-// on "init" you need to initialize your instance
-- (id) init
-{
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
-	if( (self=[super init]) )
+    if( self=[super init] )
     {
         CGSize size = [[CCDirector sharedDirector] winSize];
         
         timeElapse = 0;
-        
-        CCLOG(@"trucmuche");
-        
+        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         
         //Notifications
         //Gestion du lâcher d'optimum
@@ -86,7 +76,6 @@
                                                  selector:@selector(unitMove:)
                                                      name:@"unitPositionMove"
                                                    object:nil];
-        
 		self.isTouchEnabled = YES;
         
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
@@ -97,7 +86,6 @@
         
         [self centerIntoScreen:map];
         [self addChild:map z:-1 tag:TileMapTag];
-        
         
         //Stack d'élements gauche et droite
         leftStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
@@ -142,6 +130,19 @@
         
         
         [self schedule: @selector(tilesAttacks:) interval:1];
+    }
+    
+    return self;
+}
+
+// on "init" you need to initialize your instance
+- (id) init
+{
+	// always call "super" init
+	// Apple recommends to re-assign "self" with the "super's" return value
+	if( (self=[super init]) )
+    {
+
 	}
 	return self;
 }
@@ -176,11 +177,12 @@
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
     if (countdown <= 0) {
-        NSArray * lesObjets = [NSArray arrayWithObjects:@"Genève", @"Suisse", @"Europe", nil];
-        NSArray * lesCles = [NSArray arrayWithObjects:@"Ville", @"Pays", @"Continent", nil];
+#pragma mark - end Game
+        NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:nbrGame], nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"nbrGame", nil];
         
         
-        NSDictionary * dict = [NSDictionary dictionaryWithObjects:lesObjets forKeys:lesCles];
+        NSDictionary * dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
         
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
                                                                     scene:[EndGame sceneWithParameters:dict]

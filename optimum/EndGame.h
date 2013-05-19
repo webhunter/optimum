@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 
 @interface EndGame : CCLayer {
-    
+    int nbrGame;
 }
 
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;

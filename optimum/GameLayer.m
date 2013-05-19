@@ -209,6 +209,7 @@
                 
                 //Archipels
                 CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png" selectedImage:@"archipel_1.png" target:self selector:@selector(buttonDidactitielPressed:)];
+            
                 
                 CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(buttonVillePressed:)];
                 
@@ -241,6 +242,7 @@
                 
                 //archipel 2
                 CCLabelTTF *archipel2Name = [CCLabelTTF labelWithString:@"ARCHIPEL 2" fontName:@"Marker Felt" fontSize:28];
+            
                 archipel2Name.position = ccp( size.width/2 -100, size.height/2 +80 );
                 
                 [self addChild:archipel2Name];
@@ -297,14 +299,45 @@
 
 - (void) buttonVillePressed: (id) sender
 {
+    NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];
+    NSArray *tutorialObjects = [[NSArray alloc] initWithObjects:
+                                                    [NSNumber numberWithBool:YES],
+                                                    [NSNumber numberWithBool:YES],
+                                                nil];
+    NSDictionary *tutorialDict = [[NSDictionary alloc] initWithObjects:tutorialObjects forKeys:tutorialKeys];
+    
+    //Gestion des univers classiques
+    
+    //Archipel Nature vs. Ville
+    NSArray *cityNatureKeys = [[NSArray alloc] initWithObjects:@"nbrGame", @"gameOne", @"gameTwo", @"gameThree", nil];
+    NSArray *cityNatureObjects = [[NSArray alloc] initWithObjects:
+                                                        [NSNumber numberWithInt:1],
+                                                        @"nil",
+                                                        @"nil",
+                                                        @"nil",
+                                                  nil];
+    NSDictionary *cityNatureDict = [[NSDictionary alloc] initWithObjects:cityNatureObjects forKeys:cityNatureKeys];
+    
+    
+    //Ensemble des archipels classiques
+    NSArray *universeKeys = [[NSArray alloc] initWithObjects:@"cityNature", nil];
+    NSArray *universeObjects = [[NSArray alloc] initWithObjects:cityNatureDict, nil];
+    NSDictionary *universeDict = [[NSDictionary alloc] initWithObjects:universeObjects forKeys:universeKeys];
+    
+    
+    //Ensemble de tous les archipels
     NSArray *objects = [[NSArray alloc] initWithObjects:
-                                                    [NSNumber numberWithInt:1],
-                                                    @"ville",
+                                                    tutorialDict,
+                                                    universeDict,
                         nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"nbrGame", @"universe", nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"tutorial", @"universe", nil];
+
+    
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
-    [[CCDirector sharedDirector] replaceScene:[Archipelago nodeWithParameters:dict]];
+    CCLOG(@"%@", [dict valueForKeyPath:@"tutorial.stage1"]);
+    
+//    [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:dict]];
 }
 
 - (void) buttonVenusPressed: (id) sender
