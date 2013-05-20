@@ -79,7 +79,7 @@
     if ([nextScene isEqual: @"Map"]) {
         [[CCDirector sharedDirector] replaceScene:[Map scene]];
     }else if ([nextScene isEqual: @"Archipelago"]){
-        [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:nil]];
+//        [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:nil]];
     }else{
         CCLOG(@"Coucou");
     }

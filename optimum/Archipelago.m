@@ -13,13 +13,13 @@
 
 @implementation Archipelago
 
-+ (CCScene *) sceneWithParameters:(NSDictionary*)parameters
++ (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     
 	// 'layer' is an autorelease object.
-	Archipelago *layer = [Archipelago nodeWithParameters:parameters];
+	Archipelago *layer = [Archipelago nodeWithParameters:parameters andUniverse:universe];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -29,18 +29,21 @@
 	return scene;
 }
 
-+ (id) nodeWithParameters:(NSDictionary*)parameters{
-    return [[self alloc] initWithParameters:parameters];
++ (id) nodeWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
+{
+    return [[self alloc] initWithParameters:parameters andUniverse:universe];
 }
 
-- (id) initWithParameters:(NSDictionary*)parameters{
+- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
+{
     
     if( self=[super init] )
     {
-        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
+        nbrGame = [[[[parameters objectForKey:@"universe"] objectForKey:universe] objectForKey:@"nbrGame"] intValue];
         CCLOG(@"nbrGame : %i", nbrGame);
+     
         // On regarde à quelle manche nous sommes
-        switch ([[parameters objectForKey:@"nbrGame"] intValue])
+        switch (nbrGame)
         {
             case 1:
                 canPlayFirstGame = YES;
@@ -73,27 +76,35 @@
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         
-        NSString *archipel1Img, *archipel2Img, *archipel3Img;
+        NSString *archipel1Img, *archipel2Img, *archipel3Img, *archipalgo,
+                 *winnerOne, *winnerTwo, *winnerThree;
         
-        if ([[parameters objectForKey:@"universe"] isEqualToString:@"ville"])
+        archipalgo = [[parameters objectForKey:universe] objectForKey:@"universe"];
+        winnerOne = [[parameters objectForKey:universe] objectForKey:@"winnerOne"];
+        winnerTwo = [[parameters objectForKey:universe] objectForKey:@"winnerTwo"];
+        winnerThree = [[parameters objectForKey:universe] objectForKey:@"winnerThree"];
+        
+        CCLOG(@"archipelago : %@", archipalgo);
+        
+        //Nous sommes dans une opposition ville contre nature
+        if ([archipalgo isEqualToString:@"cityNature"])
         {
-            archipel1Img = @"archipel_1.png";
-//            //La gagnant est l'univers de la ville
-//            if ([[parameters objectForKey:@"winner"] intValue] == 0)
-//            {
-//                archipel1Img = @"archipel_1.png";
-//            //La gagnant est l'univers de la nature
-//            }else if ([[parameters objectForKey:@"winner"] intValue] == 1){
-//                archipel1Img = @"archipel_1.png";
-//            }else{
-//                archipel1Img = @"archipel_1.png";
-//            }
+            //La gagnant est l'univers de la ville
+            if ([winnerOne isEqualToString:@"city"])
+            {
+                archipel1Img = @"archipel_1.png";
+            //La gagnant est l'univers de la nature
+            }else if ([winnerOne isEqualToString:@"nature"]){
+                archipel1Img = @"archipel_1.png";
+            }else{
+                archipel1Img = @"archipel_1.png";
+            }
         }else{
             
         }
         
         //Archipels
-        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png"
+        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:archipel1Img
                                                       selectedImage:@"archipel_1.png"
                                                       target:self
                                                       selector:@selector(startGame:)];
@@ -145,6 +156,7 @@
 - (void) startGame: (id) sender
 {
     nbrGame++;
+    
     NSArray *objects = [[NSArray alloc] initWithObjects:
                         [NSNumber numberWithInt:nbrGame],
                         nil];

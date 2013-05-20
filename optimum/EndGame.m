@@ -65,7 +65,7 @@
     
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Archipelago sceneWithParameters:dict]
+                                    scene:[Archipelago sceneWithParameters:dict andUniverse:@"cityNature"]
                    ]];
 }
 

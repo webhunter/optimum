@@ -19,8 +19,8 @@
     int nbrGame;
 }
 
-+ (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
-- (id) initWithParameters:(NSDictionary*)parameters;
-+ (id) nodeWithParameters:(NSDictionary*)parameters;
++ (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
+- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
++ (id) nodeWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
 
 @end

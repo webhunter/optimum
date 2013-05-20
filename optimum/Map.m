@@ -176,7 +176,8 @@
     countdown--;
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
-    if (countdown <= 0) {
+    if (countdown <= 0)
+    {
 #pragma mark - end Game
         NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:nbrGame], nil];
         NSArray *keys = [NSArray arrayWithObjects:@"nbrGame", nil];

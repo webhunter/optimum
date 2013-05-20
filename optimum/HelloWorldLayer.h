@@ -18,7 +18,10 @@
 
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer<HostViewDelegate, JoinViewDelegate, GameViewDelegate>
+@interface HelloWorldLayer : CCLayer<HostViewDelegate, JoinViewDelegate, GameViewDelegate>{
+    
+    
+}
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
