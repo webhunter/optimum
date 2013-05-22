@@ -8,6 +8,7 @@
 
 #import "GameLayer.h"
 #import "TeamLayer.h"
+#import "Packet.h"
 
 
 @implementation GameLayer{
@@ -297,7 +298,9 @@
 
 - (void) buttonVillePressed: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[TeamLayer node]];
+    Packet *packet = [Packet packetWithType:PacketTypeDealCards];
+	[self.game sendPacketToAllClients:packet];
+    [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
 }
 
 - (void) buttonVenusPressed: (id) sender

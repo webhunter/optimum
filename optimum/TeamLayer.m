@@ -49,13 +49,23 @@
                     if ([[UIScreen mainScreen] bounds].size.height == 568)
                     {
                         // IPHONE 5
-       
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        newMessage.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:newMessage];
                         
                     }
                     else
                     {
                         // IPHONE RETINA SCREEN
-
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        newMessage.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:newMessage];
                     }
                 }
             }

@@ -11,6 +11,7 @@
 #import "Packet.h"
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
+#import "TeamLayer.h"
 
 typedef enum
 {
@@ -225,6 +226,12 @@ GameState;
                 
 			}
 			break;
+            
+        case PacketTypeDealCards:
+            if (_state == GameStateDealing) {
+                [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
+            }
+            break;
             
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
