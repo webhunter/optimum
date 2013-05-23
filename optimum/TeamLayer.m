@@ -51,6 +51,9 @@
                         // IPHONE 5
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
+                        UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                        [truc show];
+                        
                         CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
                         newMessage.position = ccp( size.width/2, size.height/2 );
                         
