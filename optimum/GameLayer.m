@@ -307,11 +307,11 @@
     {
     //On a sélectionné le didacticiel
         case 0:
-            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"tutorial"] andUniverse:@"cityNature"]];
+//            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"tutorial"] andUniverse:@"cityNature"]];
             break;
             
         case 1:
-            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"universe"] andUniverse:@"cityNature"]];
+            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"cityNature"] andUniverse:@"cityNature"]];
             break;
             
         default:

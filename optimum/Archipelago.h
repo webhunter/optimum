@@ -17,6 +17,7 @@
     BOOL canPlayThirdGame;
     
     int nbrGame;
+    NSString *archipelago;
 }
 
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;

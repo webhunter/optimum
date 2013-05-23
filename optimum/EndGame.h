@@ -11,6 +11,7 @@
 
 @interface EndGame : CCLayer {
     int nbrGame;
+    NSString *archipelago;
 }
 
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;

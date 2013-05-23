@@ -40,57 +40,51 @@
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
-        NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];
-        NSArray *tutorialObjects = [[NSArray alloc] initWithObjects:
-                                    [NSNumber numberWithBool:YES],
-                                    [NSNumber numberWithBool:YES],
-                                    nil];
-        NSDictionary *tutorialDict = [[NSDictionary alloc] initWithObjects:tutorialObjects
-                                                                   forKeys:tutorialKeys];
-        
-        //Gestion des univers classiques
-        
-        //Archipel Nature vs. Ville
-        NSArray *cityNatureKeys = [[NSArray alloc] initWithObjects:
-                                   @"nbrGame",
-                                   @"winnerOne",
-                                   @"winnerTwo",
-                                   @"winnerThree",
-                                   @"universe",
-                                   nil];
-        
-        NSArray *cityNatureObjects = [[NSArray alloc] initWithObjects:
-                                      [NSNumber numberWithInt:1],
-                                      @"nil",
-                                      @"nil",
-                                      @"nil",
-                                      @"cityNature",
-                                      nil];
-        NSDictionary *cityNatureDict = [[NSDictionary alloc] initWithObjects:cityNatureObjects forKeys:cityNatureKeys];
-        
-        
-        //Ensemble des archipels classiques
-        NSArray *universeKeys = [[NSArray alloc] initWithObjects:@"cityNature", nil];
-        NSArray *universeObjects = [[NSArray alloc] initWithObjects:cityNatureDict, nil];
-        NSDictionary *universeDict = [[NSDictionary alloc] initWithObjects:universeObjects forKeys:universeKeys];
-        
-        
-        //Ensemble de tous les archipels
-//        NSArray *objects = [[NSArray alloc] initWithObjects:
-//                            tutorialDict,
-//                            universeDict,
-//                            nil];
-//        NSArray *keys = [[NSArray alloc] initWithObjects:@"tutorial", @"universe", nil];
-//        
-//        
-//        NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-        
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
-        [archipelagosGameSave setObject:tutorialDict forKey:@"tutorial"];
-        [archipelagosGameSave setObject:universeDict forKey:@"universe"];
-        [archipelagosGameSave synchronize];
         
-        
+            
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
+        {
+            NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];
+            NSArray *tutorialObjects = [[NSArray alloc] initWithObjects:
+                                        [NSNumber numberWithBool:YES],
+                                        [NSNumber numberWithBool:YES],
+                                        nil];
+            NSDictionary *tutorialDict = [[NSDictionary alloc] initWithObjects:tutorialObjects
+                                                                       forKeys:tutorialKeys];
+            
+            //Gestion des univers classiques
+            
+            //Archipel Nature vs. Ville
+            NSArray *cityNatureKeys = [[NSArray alloc] initWithObjects:
+                                       @"nbrGame",
+                                       @"winnerOne",
+                                       @"winnerTwo",
+                                       @"winnerThree",
+                                       @"universe",
+                                       @"oddTeam",
+                                       @"evenTeam",
+                                       nil];
+            
+            NSArray *cityNatureObjects = [[NSArray alloc] initWithObjects:
+                                          [NSNumber numberWithInt:1],
+                                          @"nil",
+                                          @"nil",
+                                          @"nil",
+                                          @"cityNature",
+                                          @"city",
+                                          @"nature",
+                                          nil];
+            NSDictionary *cityNatureDict = [[NSDictionary alloc] initWithObjects:cityNatureObjects forKeys:cityNatureKeys];
+            
+            
+            
+            [archipelagosGameSave setObject:tutorialDict forKey:@"tutorial"];
+            [archipelagosGameSave setObject:cityNatureDict forKey:@"cityNature"];
+            [archipelagosGameSave synchronize];
+            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstRun"];
+        }
         
         
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )

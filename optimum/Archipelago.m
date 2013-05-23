@@ -39,8 +39,8 @@
     
     if( self=[super init] )
     {
-        nbrGame = [[[[parameters objectForKey:@"universe"] objectForKey:universe] objectForKey:@"nbrGame"] intValue];
-        CCLOG(@"nbrGame : %i", nbrGame);
+        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
+        CCLOG(@"nbrGame : %@", parameters);
      
         // On regarde à quelle manche nous sommes
         switch (nbrGame)
@@ -64,30 +64,35 @@
                 break;
                 
             default:
-                canPlayFirstGame = YES;
+                canPlayFirstGame = NO;
                 canPlaySecondGame = NO;
                 canPlayThirdGame = NO;
                 break;
         }
+        
+        //On gère la troisième manche | Si les deux manches n'ont pas le même nom de vainqueur
+        if ([[parameters valueForKeyPath:@"winnerOne"] isEqualToString:[parameters valueForKeyPath:@"winnerTwo"]] && ![[parameters valueForKeyPath:@"winnerOne"] isEqualToString:@"nil"] && nbrGame == 3)
+        {
+            CCLOG(@"winnerOne : %@", [parameters objectForKey:@"winnerOne"]);
+            canPlayFirstGame = NO;
+            canPlaySecondGame = NO;
+            canPlayThirdGame = NO;
+        }
+        
         //Gestion des manches
-//        canPlayFirstGame = [[parameters objectForKey:@"firstGame"] boolValue];
-//        canPlaySecondGame = [[parameters objectForKey:@"secondGame"] boolValue];
-//        canPlayThirdGame = [[parameters objectForKey:@"thirdGame"] boolValue];
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         
-        NSString *archipel1Img, *archipel2Img, *archipel3Img, *archipalgo,
+        NSString *archipel1Img, *archipel2Img, *archipel3Img,
                  *winnerOne, *winnerTwo, *winnerThree;
         
-        archipalgo = [[parameters objectForKey:universe] objectForKey:@"universe"];
-        winnerOne = [[parameters objectForKey:universe] objectForKey:@"winnerOne"];
-        winnerTwo = [[parameters objectForKey:universe] objectForKey:@"winnerTwo"];
-        winnerThree = [[parameters objectForKey:universe] objectForKey:@"winnerThree"];
-        
-        CCLOG(@"archipelago : %@", archipalgo);
+        archipelago = [parameters objectForKey:@"universe"];
+        winnerOne = [parameters objectForKey:@"winnerOne"];
+        winnerTwo = [parameters objectForKey:@"winnerTwo"];
+        winnerThree = [parameters objectForKey:@"winnerThree"];
         
         //Nous sommes dans une opposition ville contre nature
-        if ([archipalgo isEqualToString:@"cityNature"])
+        if ([archipelago isEqualToString:@"cityNature"])
         {
             //La gagnant est l'univers de la ville
             if ([winnerOne isEqualToString:@"city"])
@@ -155,18 +160,13 @@
 
 - (void) startGame: (id) sender
 {
-    nbrGame++;
     
-    NSArray *objects = [[NSArray alloc] initWithObjects:
-                        [NSNumber numberWithInt:nbrGame],
-                        nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"nbrGame", nil];
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     
-    
+    //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Map sceneWithParameters:dict]
+                                    scene:[Map sceneWithParameters:[archipelagosGameSave objectForKey:archipelago]]
                    ]];
 }
 

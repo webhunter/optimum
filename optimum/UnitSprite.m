@@ -68,6 +68,7 @@
     self.tag = arc4random() % 10000;
     self.level = unitType + 1;
     
+    //Team gauche
     if (unitType % 2 == 0)
     {
         self.team = YES;

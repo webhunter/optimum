@@ -160,7 +160,7 @@
     
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                                     scene:[Tips sceneWithNextScene:dict]
+                                    scene:[Tips sceneWithNextScene:dict]
                    ]];
 }
 

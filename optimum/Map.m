@@ -78,7 +78,17 @@
                                                    object:nil];
 		self.isTouchEnabled = YES;
         
-        Mapquake *map = [[Mapquake alloc] initWithTMXFile:@"maquette-map-2.tmx"];
+        archipelago = [parameters objectForKey:@"universe"];
+        NSString *mapType = @"";
+        
+        if ([archipelago isEqualToString:@"cityNature"])
+        {
+            mapType = @"maquette-map-2.tmx";
+        }else{
+            mapType = @"maquette-map-2.tmx";
+        }
+        
+        Mapquake *map = [[Mapquake alloc] initWithTMXFile:mapType];
         
         //Permet de compenser le bug lié à la présence d'une tuile sur la case (0, 0)
         CCTMXLayer *tilesLayer = [map layerNamed:@"Tiles"];
@@ -130,30 +140,13 @@
         
         
         [self schedule: @selector(tilesAttacks:) interval:1];
+        
+        //Récupère le nombre d'unité détruites pour chaque clan
+        unitLeftDestroyed = 0, unitRightDestroyed = 0;
     }
     
     return self;
 }
-
-// on "init" you need to initialize your instance
-- (id) init
-{
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
-	if( (self=[super init]) )
-    {
-
-	}
-	return self;
-}
-
-
-//Function qui cadence l'attaque des différentes tuiles
-//- (void) tilesAttacks: (ccTime) dt
-//{
-//    [self actions];
-//}
-
 
 - (void) centerIntoScreen:(CCNode*) element
 {
@@ -176,19 +169,120 @@
     countdown--;
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
+    
     if (countdown <= 0)
     {
-#pragma mark - end Game
-        NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:nbrGame], nil];
-        NSArray *keys = [NSArray arrayWithObjects:@"nbrGame", nil];
-        
-        
-        NSDictionary * dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-        
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                    scene:[EndGame sceneWithParameters:dict]
-                                                                    withColor:ccGREEN]];
+        [self endGame];
+        [self unschedule:@selector(generateOptimum:)];
     }
+}
+
+#pragma mark - end Game
+
+- (void) endGame
+{
+    CCNode* node = [self getChildByTag:TileMapTag];
+    NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+    CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+    
+    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+    
+    NSMutableDictionary *unitTeamLeft = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *unitTeamRight = [[NSMutableDictionary alloc] init];
+    
+    int unitsLevelOneRight = 0, unitsLevelTwoRight = 0, unitsLevelThreeRight = 0;
+    int unitsLevelFourRight = 0, unitsLevelFiveRight = 0;
+    int unitsRight = 0;
+    
+    int unitsLevelOneLeft = 0, unitsLevelTwoLeft = 0, unitsLevelThreeLeft = 0;
+    int unitsLevelFourLeft = 0, unitsLevelFiveLeft = 0;
+    int unitsLeft = 0;
+    
+    for (NSUInteger y = 0; y < layer.layerSize.height; y++)
+    {
+        for (NSUInteger x = 0; x < layer.layerSize.width; x++)
+        {
+            if (
+                [layer tileGIDAt:ccp(x, y)] != 33 ||
+                [layer tileGIDAt:ccp(x, y)] != 0
+                )
+            {
+                //Team de droite
+                if ([layer tileAt: ccp(x, y)].team == YES)
+                {
+                    switch ([layer tileAt: ccp(x, y)].type)
+                    {
+                        case 1:
+                            unitsLevelOneRight++;
+                            break;
+                        case 2:
+                            unitsLevelTwoRight++;
+                            break;
+                        case 3:
+                            unitsLevelThreeRight++;
+                            break;
+                        case 4:
+                            unitsLevelFourRight++;
+                            break;
+                        case 5:
+                            unitsLevelFiveRight++;
+                            break;
+                        default:
+                            break;
+                    }
+                }else{
+                    switch ([layer tileAt: ccp(x, y)].type)
+                    {
+                        case 1:
+                            unitsLevelOneLeft++;
+                            break;
+                        case 2:
+                            unitsLevelTwoLeft++;
+                            break;
+                        case 3:
+                            unitsLevelThreeLeft++;
+                            break;
+                        case 4:
+                            unitsLevelFourLeft++;
+                            break;
+                        case 5:
+                            unitsLevelFiveLeft++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    
+    unitsLeft = unitsLevelOneLeft + unitsLevelTwoLeft + unitsLevelThreeLeft + unitsLevelFourLeft + unitsLevelFiveLeft;
+    unitsRight = unitsLevelOneRight + unitsLevelTwoRight + unitsLevelThreeRight + unitsLevelFourRight + unitsLevelFiveRight;
+    
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelOneLeft] forKey:@"unitsLevelOne"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelTwoLeft] forKey:@"unitsLevelTwo"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelThreeLeft] forKey:@"unitsLevelThree"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelFourLeft] forKey:@"unitsLevelFour"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelFiveLeft] forKey:@"unitsLevelFive"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLeft] forKey:@"units"];
+    
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelOneRight] forKey:@"unitsLevelOne"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelTwoRight] forKey:@"unitsLevelTwo"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelThreeRight] forKey:@"unitsLevelThree"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelFourRight] forKey:@"unitsLevelFour"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelFiveRight] forKey:@"unitsLevelFive"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsRight] forKey:@"units"];
+    
+    
+    NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", nil];
+     
+    
+    NSDictionary *stats = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
+                                                                scene:[EndGame sceneWithParameters:stats]
+                                                                withColor:ccGREEN]];
 }
 
 - (void) displayInterface{
@@ -235,7 +329,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * 1;
+    countdown = 60 * .25;
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)
@@ -282,9 +376,6 @@
     [self addChild:level1UnitRightLabel z: 6000];
 }
 
-- (void) displayUnitsNumber{
-    
-}
 
 //Permet de générer des rectangles de couleur
 - (CCSprite*) createSpriteRectangleWithSize:(CGSize)size
@@ -1068,6 +1159,11 @@
                 {
                     if ([layer tileAt:p].HP <= 0)
                     {
+                        if ([layer tileAt:p].team == YES) {
+                            unitLeftDestroyed++;
+                        }else{
+                            unitRightDestroyed++;
+                        }
                         [layer removeTileAt:p];
                     }else{
                         [layer tileAt:p].HP -= attackPoint;

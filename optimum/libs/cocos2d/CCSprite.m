@@ -963,6 +963,7 @@
                 self.HP = self.HPMax = 200;
                 self.attackPoint = 10;
                 self.frequency = 1;
+                self.type = 1;
                 break;
                 
             case 3:
@@ -970,6 +971,7 @@
                 self.HP = self.HPMax = 400;
                 self.attackPoint = 20;
                 self.frequency = 2;
+                self.type = 2;
                 break;
                 
             case 5:
@@ -977,6 +979,7 @@
                 self.HP = self.HPMax = 600;
                 self.attackPoint = 35;
                 self.frequency = 3;
+                self.type = 3;
                 break;
                 
             case 7:
@@ -984,6 +987,7 @@
                 self.HP = self.HPMax = 750;
                 self.attackPoint = 50;
                 self.frequency = 3;
+                self.type = 4;
                 break;
                 
             case 9:
@@ -991,12 +995,14 @@
                 self.HP = self.HPMax = 1000;
                 self.attackPoint = 100;
                 self.frequency = 4;
+                self.type = 5;
                 break;
                 
             default:
                 self.HP = self.HPMax = 0;
                 self.attackPoint = 0;
                 self.frequency = 0;
+                self.type = 0;
                 break;
         }
         
@@ -1009,8 +1015,7 @@
         self.opacity = 255;
         [self setDemi:NO];
         [self setTiers:NO];
-        
-        [self schedule: @selector(attackFrequency:) interval:1];
+
     }
 	return [self initWithTexture:texture rect:rect rotated:NO];
 }
@@ -1081,17 +1086,6 @@
     return attackPoint;
 }
 
-- (void) attackFrequency: (ccTime) dt
-{
-    if ((int)dt % 2 == 0){
-        
-        
-    }else if ((int)dt % 3 == 0){
-        
-    }else if ((int)dt % 4 == 0) {
-        
-    }
-}
 
 
 #pragma mark - Divers
@@ -1123,6 +1117,16 @@
 - (BOOL) tiers
 {
     return tiers;
+}
+
+- (int) type
+{
+    return type;
+}
+
+- (void) setType:(int)theType
+{
+    type = theType;
 }
 
 @end

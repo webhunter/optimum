@@ -35,6 +35,7 @@ enum
     NSMutableArray *stackElementRight;
     CCLabelTTF *countdownLabel; //Texte contenant décompte du chronomètre
     int countdown; //Chronomètre
+    NSString *archipelago; //Archipel sélectionné, cela influe sur la map et les unités
     
     //Variables de test
     CCLabelTTF *scoreLabelLeft;
@@ -66,6 +67,9 @@ enum
     CCLabelTTF *level3UnitRightLabel;
     CCLabelTTF *level4UnitRightLabel;
     CCLabelTTF *level5UnitRightLabel;
+    
+    int unitLeftDestroyed;
+    int unitRightDestroyed;
 }
 
 + (CCScene *) scene;
