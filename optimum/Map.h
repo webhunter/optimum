@@ -43,18 +43,32 @@ enum
     CCSprite *rightStackBar;
     CCSprite *leftStackBar;
     
-    CCLabelTTF *numberOfUnitLeftLabel;
-    CCLabelTTF *numberOfUnitRightLabel;
+    int timeElapse;
     
-    int numberOfUnitLeft;
-    int numberOfUnitRight;
+    BOOL trux;
     
+<<<<<<< HEAD
     int timeElapse, nbrGame;
     
     //Gestion des unités
     int level1UnitLeft, level2UnitLeft, level3UnitLeft, level4UnitLeft, level5UnitLeft;
     
     CCLabelTTF *level1UnitLeftLabel, *level2UnitLeftLabel, *level3UnitLeftLabel, *level4UnitLeftLabel, *level5UnitLeftLabel;
+=======
+    
+    //Gestion des unités
+    int level1UnitLeft;
+    int level2UnitLeft;
+    int level3UnitLeft;
+    int level4UnitLeft;
+    int level5UnitLeft;
+    
+    CCLabelTTF *level1UnitLeftLabel;
+    CCLabelTTF *level2UnitLeftLabel;
+    CCLabelTTF *level3UnitLeftLabel;
+    CCLabelTTF *level4UnitLeftLabel;
+    CCLabelTTF *level5UnitLeftLabel;
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
     
     int level1UnitRight;
     int level2UnitRight;
@@ -67,6 +81,7 @@ enum
     CCLabelTTF *level3UnitRightLabel;
     CCLabelTTF *level4UnitRightLabel;
     CCLabelTTF *level5UnitRightLabel;
+<<<<<<< HEAD
     
     int unitLeftDestroyed;
     int unitRightDestroyed;
@@ -74,5 +89,11 @@ enum
 
 + (CCScene *) scene;
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
+=======
+}
+
++ (CCScene *) scene;
++ (CCScene *) sceneWithParameters:(NSString*)parameter;
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 
 @end

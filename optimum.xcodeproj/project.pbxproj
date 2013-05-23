@@ -27,8 +27,12 @@
 		1A91411F1741516100D3CDD5 /* Meteor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91411E1741516100D3CDD5 /* Meteor.m */; };
 		1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141211741519000D3CDD5 /* FreezeScreen.m */; };
 		1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141231741524D00D3CDD5 /* ice-pattern.png */; };
+
 		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
 		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
+
+		1AD21A8F1746215200660EED /* Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD21A8E1746215200660EED /* Tips.m */; };
+
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
 		900038DC1740EDAF008B350D /* archipel_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D81740EDAF008B350D /* archipel_2.png */; };
 		900038DD1740EDAF008B350D /* archipel_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D91740EDAF008B350D /* archipel_3.png */; };
@@ -218,10 +222,15 @@
 		1A9141201741519000D3CDD5 /* FreezeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreezeScreen.h; sourceTree = "<group>"; };
 		1A9141211741519000D3CDD5 /* FreezeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreezeScreen.m; sourceTree = "<group>"; };
 		1A9141231741524D00D3CDD5 /* ice-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ice-pattern.png"; sourceTree = "<group>"; };
+
 		1ACDC5241748CC2800E6D180 /* EndGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndGame.h; sourceTree = "<group>"; };
 		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
 		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
 		1ACDC52817491A1100E6D180 /* Archipelago.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archipelago.m; sourceTree = "<group>"; };
+
+		1AD21A8D1746215200660EED /* Tips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tips.h; sourceTree = "<group>"; };
+		1AD21A8E1746215200660EED /* Tips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tips.m; sourceTree = "<group>"; };
+
 		900038D71740EDAF008B350D /* archipel_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_1.png; sourceTree = "<group>"; };
 		900038D81740EDAF008B350D /* archipel_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_2.png; sourceTree = "<group>"; };
 		900038D91740EDAF008B350D /* archipel_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_3.png; sourceTree = "<group>"; };
@@ -611,10 +620,15 @@
 				9000393217411F62008B350D /* TeamLayer.m */,
 				1A9140EC17414F1D00D3CDD5 /* Map.h */,
 				1A9140ED17414F1D00D3CDD5 /* Map.m */,
+
 				1ACDC52717491A1100E6D180 /* Archipelago.h */,
 				1ACDC52817491A1100E6D180 /* Archipelago.m */,
 				1ACDC5241748CC2800E6D180 /* EndGame.h */,
 				1ACDC5251748CC2800E6D180 /* EndGame.m */,
+
+				1AD21A8D1746215200660EED /* Tips.h */,
+				1AD21A8E1746215200660EED /* Tips.m */,
+
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1368,9 +1382,13 @@
 				1A9141121741504400D3CDD5 /* Mapquake.m in Sources */,
 				1A91411F1741516100D3CDD5 /* Meteor.m in Sources */,
 				1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */,
+
 				1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */,
 				1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */,
 				1A0BA107174EAA6F00896753 /* Tips.m in Sources */,
+
+				1AD21A8F1746215200660EED /* Tips.m in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

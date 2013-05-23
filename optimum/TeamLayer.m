@@ -51,9 +51,12 @@
                         // IPHONE 5
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
+<<<<<<< HEAD
                         UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                         [truc show];
                         
+=======
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
                         CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
                         newMessage.position = ccp( size.width/2, size.height/2 );
                         
@@ -63,17 +66,23 @@
                     else
                     {
                         // IPHONE RETINA SCREEN
+<<<<<<< HEAD
 
                         UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                         [truc show];
 
+=======
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
                         CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
                         newMessage.position = ccp( size.width/2, size.height/2 );
                         
                         [self addChild:newMessage];
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
                     }
                 }
             }
@@ -165,6 +174,7 @@
 
 - (void) onNewGame: (CCMenuItem  *) menuItem{
     
+<<<<<<< HEAD
     //    [[CCDirector sharedDirector]
     //     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
     //                                                     scene:[Map sceneWithParameters:@"string"]
@@ -173,16 +183,54 @@
     NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Archipelago", nil];
 
+=======
+//    [[CCDirector sharedDirector]
+//     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+//                                                     scene:[Map sceneWithParameters:@"string"]
+//                   ]];
+    
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Map", nil];
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+<<<<<<< HEAD
                                     scene:[Tips sceneWithNextScene:dict]
+=======
+                                                     scene:[Tips sceneWithNextScene:dict]
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
                    ]];
 }
 
 -(void) onEnter
+<<<<<<< HEAD
+=======
+{
+    // Called right after a node’s init method is called.
+    // If using a CCTransitionScene: called when the transition begins.
+    [super onEnter];
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    // Called right after onEnter.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onEnterTransitionDidFinish];
+}
+
+-(void) onExit
+{
+    // Called right before node’s dealloc method is called.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onExit];
+}
+
+// on "dealloc" you need to release all your retained objects
+- (void) dealloc
+>>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 {
     // Called right after a node’s init method is called.
     // If using a CCTransitionScene: called when the transition begins.
