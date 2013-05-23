@@ -9,11 +9,9 @@
 #import "GameLayer.h"
 #import "TeamLayer.h"
 #import "Packet.h"
-<<<<<<< HEAD
+
 
 #import "Archipelago.h"
-=======
->>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 
 
 @implementation GameLayer{
@@ -309,15 +307,13 @@
     
 }
 
-<<<<<<< HEAD
-=======
+
 - (void) buttonVillePressed: (id) sender
 {
     Packet *packet = [Packet packetWithType:PacketTypeDealCards];
 	[self.game sendPacketToAllClients:packet];
     [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
 }
->>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 
 - (void) archipalgoPressed: (CCMenuItem*) sender
 {

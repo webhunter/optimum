@@ -11,10 +11,7 @@
 
 //Scenes qui peuvent être chargées
 #import "Map.h"
-<<<<<<< HEAD
 #import "Archipelago.h"
-=======
->>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 
 //Permet de créer des faux écrans de chargement
 
@@ -55,11 +52,7 @@
 
 - (id) initWithParameters:(NSDictionary*)parameters{
     
-<<<<<<< HEAD
     if( self=[super init] )
-=======
-    if( (self=[super init]) )
->>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
     {
         nextScene = [parameters objectForKey:@"NextScene"];
         NSArray *loadingScreenMessages = [[NSArray alloc] initWithObjects:
@@ -81,7 +74,6 @@
 {
 	// Decide which scene to load based on the TargetScenes enum.
 	// You could also use TargetScene to load the same with using a variety of transitions.
-<<<<<<< HEAD
     
     
     if ([nextScene isEqual: @"Map"]) {
@@ -94,19 +86,4 @@
     
 }
 
-=======
-
-            
-    if ([nextScene isEqual: @"Map"]) {
-        [[CCDirector sharedDirector] replaceScene:[Map scene]];
-    }else if ([nextScene isEqual: @"Machin"]){
-        
-    }else{
-        CCLOG(@"Coucou");
-    }
-
-}
-
-
->>>>>>> 79336757177b42f2cdbe07cc8151a89ce0d63ae5
 @end
