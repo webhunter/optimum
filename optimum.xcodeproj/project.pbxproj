@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A903CA7174668260040A907 /* Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A903CA6174668260040A907 /* Tips.m */; };
+		1A0BA107174EAA6F00896753 /* Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0BA106174EAA6F00896753 /* Tips.m */; };
 		1A9140EE17414F1D00D3CDD5 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9140ED17414F1D00D3CDD5 /* Map.m */; };
 		1A9140F117414F7100D3CDD5 /* maquette-map-2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */; };
 		1A9140F317414F9A00D3CDD5 /* maquette-unites-sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F217414F9A00D3CDD5 /* maquette-unites-sprite.png */; };
@@ -189,8 +189,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A903CA5174668260040A907 /* Tips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tips.h; sourceTree = "<group>"; };
-		1A903CA6174668260040A907 /* Tips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tips.m; sourceTree = "<group>"; };
+		1A0BA105174EAA6F00896753 /* Tips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tips.h; sourceTree = "<group>"; };
+		1A0BA106174EAA6F00896753 /* Tips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tips.m; sourceTree = "<group>"; };
 		1A9140EC17414F1D00D3CDD5 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		1A9140ED17414F1D00D3CDD5 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
 		1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "maquette-map-2.tmx"; sourceTree = "<group>"; };
@@ -591,6 +591,8 @@
 		900038D51740ECAE008B350D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1A0BA105174EAA6F00896753 /* Tips.h */,
+				1A0BA106174EAA6F00896753 /* Tips.m */,
 				90FDD872172D390D009A20E5 /* IntroLayer.h */,
 				90FDD873172D390D009A20E5 /* IntroLayer.m */,
 				90FDD86F172D390D009A20E5 /* HelloWorldLayer.h */,
@@ -613,8 +615,6 @@
 				1ACDC52817491A1100E6D180 /* Archipelago.m */,
 				1ACDC5241748CC2800E6D180 /* EndGame.h */,
 				1ACDC5251748CC2800E6D180 /* EndGame.m */,
-				1A903CA5174668260040A907 /* Tips.h */,
-				1A903CA6174668260040A907 /* Tips.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1368,9 +1368,9 @@
 				1A9141121741504400D3CDD5 /* Mapquake.m in Sources */,
 				1A91411F1741516100D3CDD5 /* Meteor.m in Sources */,
 				1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */,
-				1A903CA7174668260040A907 /* Tips.m in Sources */,
 				1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */,
 				1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */,
+				1A0BA107174EAA6F00896753 /* Tips.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1434,6 +1434,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1455,6 +1456,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

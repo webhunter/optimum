@@ -49,14 +49,28 @@
                     if ([[UIScreen mainScreen] bounds].size.height == 568)
                     {
                         // IPHONE 5
-       
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        newMessage.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:newMessage];
                         
                     }
                     else
                     {
                         // IPHONE RETINA SCREEN
+
                         UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                         [truc show];
+
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        newMessage.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:newMessage];
+
                     }
                 }
             }
@@ -155,6 +169,7 @@
     
     NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Archipelago", nil];
+
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
@@ -188,7 +203,10 @@
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
-	
+    // Called right after a node’s init method is called.
+    // If using a CCTransitionScene: called when the transition begins.
+    [super onEnter];
 }
+
 @end
 

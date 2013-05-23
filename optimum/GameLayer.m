@@ -8,6 +8,7 @@
 
 #import "GameLayer.h"
 #import "TeamLayer.h"
+#import "Packet.h"
 
 #import "Archipelago.h"
 
@@ -299,9 +300,19 @@
     [[CCDirector sharedDirector] replaceScene:[JoinLayer node]];
 }
 
+
+- (void) buttonDidactitielPressed: (id) sender
+{
+    
+}
+
+
 - (void) archipalgoPressed: (CCMenuItem*) sender
 {
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    Packet *packet = [Packet packetWithType:PacketTypeDealCards];
+	[self.game sendPacketToAllClients:packet];
+//    [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
     
     switch (sender.tag)
     {

@@ -15,15 +15,24 @@
 - (id) initWithTMXFile:(NSString *)tmxFile
 {
     self = [CCTMXTiledMap tiledMapWithTMXFile:tmxFile];
-    self.scale = CC_CONTENT_SCALE_FACTOR();
+//    self.scale = CC_CONTENT_SCALE_FACTOR();
     
     CCSprite *islandSprite = [CCSprite spriteWithFile:@"island.png"];
-    islandSprite.position = ccp(210.2, 15.3);
+    
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    if (scale > 1.0)
+    {
+        islandSprite.position = ccp(210.2, 15.3);
+    }else{
+        
+        islandSprite.position = ccp(420.2, 30.3);
+    }
+
     islandSprite.anchorPoint = ccp(.5, .5);
+    self.scale = CC_CONTENT_SCALE_FACTOR();
     [self addChild:islandSprite];
     
     return self;
-    
 }
 
 - (void) earthquake{
