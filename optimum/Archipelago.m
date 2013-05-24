@@ -83,7 +83,7 @@
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         
-        NSString *archipel1Img, *archipel2Img, *archipel3Img,
+        NSString *island1Img, *island2Img, *island3Img,
                  *winnerOne, *winnerTwo, *winnerThree;
         
         archipelago = [parameters objectForKey:@"universe"];
@@ -91,26 +91,50 @@
         winnerTwo = [parameters objectForKey:@"winnerTwo"];
         winnerThree = [parameters objectForKey:@"winnerThree"];
         
+        
+        
         //Nous sommes dans une opposition ville contre nature
         if ([archipelago isEqualToString:@"cityNature"])
         {
             //La gagnant est l'univers de la ville
             if ([winnerOne isEqualToString:@"city"])
             {
-                archipel1Img = @"archipel_1.png";
+                island1Img = [parameters objectForKey:@"cityIsland"];
             //La gagnant est l'univers de la nature
             }else if ([winnerOne isEqualToString:@"nature"]){
-                archipel1Img = @"archipel_1.png";
+                island1Img = [parameters objectForKey:@"natureIsland"];
             }else{
-                archipel1Img = @"archipel_1.png";
+                island1Img = @"archipel_1.png";
+            }
+            
+            //La gagnant est l'univers de la ville
+            if ([winnerTwo isEqualToString:@"city"])
+            {
+                island2Img = [parameters objectForKey:@"cityIsland"];
+                //La gagnant est l'univers de la nature
+            }else if ([winnerOne isEqualToString:@"nature"]){
+                island2Img = [parameters objectForKey:@"natureIsland"];
+            }else{
+                island2Img = @"archipel_2.png";
+            }
+            
+            //La gagnant est l'univers de la ville
+            if ([winnerThree isEqualToString:@"city"])
+            {
+                island3Img = [parameters objectForKey:@"cityIsland"];
+                //La gagnant est l'univers de la nature
+            }else if ([winnerOne isEqualToString:@"nature"]){
+                island3Img = [parameters objectForKey:@"natureIsland"];
+            }else{
+                island3Img = @"archipel_3.png";
             }
         }else{
             
         }
         
         //Archipels
-        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:archipel1Img
-                                                      selectedImage:@"archipel_1.png"
+        CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:island1Img
+                                                      selectedImage:island1Img
                                                       target:self
                                                       selector:@selector(startGame:)];
         if (canPlayFirstGame == NO) {
@@ -121,8 +145,8 @@
             archipel1.opacity = 255;
         }
         
-        CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png"
-                                                      selectedImage:@"archipel_2.png"
+        CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:island2Img
+                                                      selectedImage:island2Img
                                                       target:self
                                                       selector:@selector(startGame:)];
         
@@ -134,8 +158,8 @@
             archipel2.opacity = 255;
         }
         
-        CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png"
-                                                      selectedImage:@"archipel_3.png"
+        CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:island3Img
+                                                      selectedImage:island3Img
                                                       target:self
                                                       selector:@selector(startGame:)];
         if (canPlayThirdGame == NO) {
@@ -152,11 +176,38 @@
         [menuArchipel setPosition:ccp( size.width/2, size.height/2 - 60)];
         
         [self addChild:menuArchipel];
+        
+        // Désignation du vainqueur de la partie
+        if ([[parameters objectForKey:@"winnerOne"] isEqualToString:[parameters objectForKey:@"winnerTwo"]]) {
+            CCLOG(@"%@", [parameters objectForKey:@"winnerOne"]);
+        }
+        
+        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitialiser archipel"
+                                                            target:self
+                                                          selector:@selector(resetArchipelago:)];
+        buttonOne.color = ccRED;
+        
+        CCMenu *menu_back = [CCMenu menuWithItems: buttonOne, nil];
+        [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+        [self addChild:menu_back];
     }
     
     return self;
 }
 
+- (void) resetArchipelago: (id) sender
+{
+    
+    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    nbrGame = 1;
+    [[archipelagosGameSave objectForKey:archipelago] setObject:[NSNumber numberWithInt:nbrGame] forKey:@"nbrGame"];
+    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerOne"];
+    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerTwo"];
+    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerThree"];
+    //On envoit toutes les données relatives à cet univers concernant les parties
+    [[CCDirector sharedDirector]
+     replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
+}
 
 - (void) startGame: (id) sender
 {
@@ -169,7 +220,5 @@
                                     scene:[Map sceneWithParameters:[archipelagosGameSave objectForKey:archipelago]]
                    ]];
 }
-
-
 
 @end

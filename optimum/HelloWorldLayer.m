@@ -64,6 +64,8 @@
                                        @"universe",
                                        @"oddTeam",
                                        @"evenTeam",
+                                       @"cityIsland",
+                                       @"natureIsland",
                                        nil];
             
             NSArray *cityNatureObjects = [[NSArray alloc] initWithObjects:
@@ -74,6 +76,8 @@
                                           @"cityNature",
                                           @"city",
                                           @"nature",
+                                          @"archipel_1.png",
+                                          @"archipel_1.png",
                                           nil];
             NSDictionary *cityNatureDict = [[NSDictionary alloc] initWithObjects:cityNatureObjects forKeys:cityNatureKeys];
             
