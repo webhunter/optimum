@@ -24,15 +24,15 @@
         randNum = rand() % (4000 - 1000) + 1000;
         double delay = arc4random() % 20;
         
-        self.scale = CC_CONTENT_SCALE_FACTOR();
+        self.scale = CC_CONTENT_SCALE_FACTOR() + 1;
         self.position = ccp(95 + arc4random() % ((int)size.width - (85*2)), size.height + 50);
         self.anchorPoint = ccp(.5, .5);
         
-        CCParticleSystem* system;
-        system = [CCParticleMeteor node];
-        system.scale = 2;
-        system.position = ccp(0, 768);
-        [self addChild:system z:1 tag:1];
+//        CCParticleSystem* system;
+//        system = [CCParticleMeteor node];
+//        system.scale = 2;
+//        system.position = ccp(0, 768);
+//        [self addChild:system z:1 tag:1];
         
         self.tag = randNum;
         

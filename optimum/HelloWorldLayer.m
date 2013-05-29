@@ -43,8 +43,9 @@
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
         
             
-        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
         {
+            CCLOG(@"string enter");
             NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];
             NSArray *tutorialObjects = [[NSArray alloc] initWithObjects:
                                         [NSNumber numberWithBool:YES],

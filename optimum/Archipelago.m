@@ -84,14 +84,14 @@
         CGSize size = [[CCDirector sharedDirector] winSize];
         
         NSString *island1Img, *island2Img, *island3Img,
-                 *winnerOne, *winnerTwo, *winnerThree;
+                 *winnerOne, *winnerTwo, *winnerThree, *winner;
         
         archipelago = [parameters objectForKey:@"universe"];
         winnerOne = [parameters objectForKey:@"winnerOne"];
         winnerTwo = [parameters objectForKey:@"winnerTwo"];
         winnerThree = [parameters objectForKey:@"winnerThree"];
         
-        
+        NSArray *winners = [[NSArray alloc] initWithObjects:winnerOne, winnerTwo, winnerThree, nil];
         
         //Nous sommes dans une opposition ville contre nature
         if ([archipelago isEqualToString:@"cityNature"])
@@ -177,10 +177,37 @@
         
         [self addChild:menuArchipel];
         
-        // Désignation du vainqueur de la partie
-        if ([[parameters objectForKey:@"winnerOne"] isEqualToString:[parameters objectForKey:@"winnerTwo"]]) {
-            CCLOG(@"%@", [parameters objectForKey:@"winnerOne"]);
+        int occurrences = 0;
+        
+        for(NSString *string in winners)
+        {
+            occurrences += ([string isEqualToString:[parameters objectForKey:@"oddTeam"]] ? 1 : 0);
+            if (occurrences == 2) {
+                winner = [parameters objectForKey:@"oddTeam"];
+            }
         }
+        
+        if (occurrences <= 1)
+        {
+            occurrences = 0;
+            for(NSString *string in winners)
+            {
+                occurrences += ([string isEqualToString:[parameters objectForKey:@"evenTeam"]] ? 1 : 0);
+                if (occurrences == 2)
+                {
+                    winner = [parameters objectForKey:@"evenTeam"];
+                }
+            }
+        }
+        
+        // Désignation du vainqueur de la partie
+        if ( occurrences == 2 )
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Le vainqueur est..." message:winner delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
+            [alert show];
+            
+        }
+        
         
         CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitialiser archipel"
                                                             target:self
@@ -197,13 +224,17 @@
 
 - (void) resetArchipelago: (id) sender
 {
-    
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     nbrGame = 1;
-    [[archipelagosGameSave objectForKey:archipelago] setObject:[NSNumber numberWithInt:nbrGame] forKey:@"nbrGame"];
-    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerOne"];
-    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerTwo"];
-    [[archipelagosGameSave objectForKey:archipelago] setObject:@"nil" forKey:@"winnerThree"];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[archipelagosGameSave objectForKey:archipelago]];
+    [dict setObject:[NSNumber numberWithInt:nbrGame] forKey:@"nbrGame"];
+    [dict setObject:@"nil" forKey:@"winnerOne"];
+    [dict setObject:@"nil" forKey:@"winnerTwo"];
+    [dict setObject:@"nil" forKey:@"winnerThree"];
+    
+    [archipelagosGameSave setObject:dict forKey:archipelago];
+    [archipelagosGameSave synchronize];
     //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
      replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
