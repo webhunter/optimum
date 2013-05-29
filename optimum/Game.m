@@ -238,9 +238,9 @@ GameState;
 			}
 			break;
             
-        case PacketTypeDealCards:
+        case PacketTypeTeam:
             if (_state == GameStateDealing) {
-                [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
             }
             break;
             

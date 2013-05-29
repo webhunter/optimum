@@ -753,8 +753,8 @@
         [layer tileGIDAt:tileCord] != 0
         )
     {
-        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
-        CCLOG(@"%i", [layer tileGIDAt:tileCord]);
+//        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
+        CCLOG(@"%i", [layer tileAt:tileCord].frequency);
     }
 }
 
@@ -1123,6 +1123,8 @@
                 [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {
+                
+//                [self actionAtCoordinate: ccp(x, y)];
                 [self actionAtCoordinate: ccp(x, y)];
             }
         }
@@ -1141,8 +1143,10 @@
     BOOL teamTile = [layer tileAt:tile].team;
     int frequencyAttack = [layer tileAt:tile].frequency;
     
+//    CCLOG(@"attackPoint : %i, frequencyAttack : %i", attackPoint, frequencyAttack);
+    
     // On s'assure que l'unité a le "droit" d'attaquer
-    if (timeElapse % frequencyAttack == 0)
+    /*if (timeElapse % frequencyAttack == 0)
     {
         
         //On recupère les tuiles aux alentours
@@ -1182,7 +1186,7 @@
                 }
             }
         }
-    }
+    }*/
 }
 
 // on "dealloc" you need to release all your retained objects

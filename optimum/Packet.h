@@ -18,8 +18,8 @@ typedef enum
 	PacketTypeServerReady,             // server to client
 	PacketTypeClientReady,             // client to server
     
-	PacketTypeDealCards,               // server to client
-	PacketTypeClientDealtCards,        // client to server
+	PacketTypeTeam,                     // server to client
+	PacketTypeClientTeam,               // client to server
     
 	PacketTypeActivatePlayer,          // server to client
 	PacketTypeClientTurnedCard,        // client to server

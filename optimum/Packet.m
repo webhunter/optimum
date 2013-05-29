@@ -86,7 +86,7 @@ const size_t PACKET_HEADER_SIZE = 10;
 			packet = [PacketServerReady packetWithData:data];
 			break;
             
-        case PacketTypeDealCards:
+        case PacketTypeTeam:
             packet = [Packet packetWithType:packetType];
             break;
             
