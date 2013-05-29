@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Game.h"
 
 @interface Archipelago : CCLayer {
     
@@ -20,8 +21,16 @@
     NSString *archipelago;
 }
 
++ (CCScene *) scene;
++ (CCScene *) sceneWithGameObject:(Game*)gameObject;
+
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
++ (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject;
+
 - (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
 + (id) nodeWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe;
+
+- (id) initWithGameObject:(Game*)gameObject;
+
 
 @end

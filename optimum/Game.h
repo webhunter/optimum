@@ -17,6 +17,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Packet.h"
+#import "Player.h"
 
 
 @interface Game : NSObject <GKSessionDelegate>
@@ -28,6 +29,7 @@
 - (void)quitGameWithReason:(QuitReason)reason;
 - (void)startServerGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients;
 - (void)sendPacketToAllClients:(Packet *)packet;
-
+- (Player *)playerAtPosition:(PlayerPosition)position;
+- (void) sendPacketToOneClient:(Packet *)packet andClient:(NSArray*)client;
 
 @end

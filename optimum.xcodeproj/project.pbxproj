@@ -60,6 +60,9 @@
 		905481F7172E5F9E0074A7F0 /* CCUIViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 905481F6172E5F9E0074A7F0 /* CCUIViewWrapper.m */; };
 		90E41450172E849800D63E0B /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4144F172E849800D63E0B /* MatchmakingServer.m */; };
 		90E41453172E860200D63E0B /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E41452172E860200D63E0B /* MatchmakingClient.m */; };
+		90F6B3FB17562705008E265C /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FA17562705008E265C /* bg.jpg */; };
+		90F6B3FE17562E1F008E265C /* fondVille.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FC17562E1E008E265C /* fondVille.png */; };
+		90F6B3FF17562E1F008E265C /* fondNature.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FD17562E1E008E265C /* fondNature.png */; };
 		90FDD6E3172D390B009A20E5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FDD6E2172D390B009A20E5 /* QuartzCore.framework */; };
 		90FDD6E5172D390B009A20E5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FDD6E4172D390B009A20E5 /* OpenGLES.framework */; };
 		90FDD6E7172D390B009A20E5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FDD6E6172D390B009A20E5 /* OpenAL.framework */; };
@@ -267,6 +270,9 @@
 		90E41451172E860200D63E0B /* MatchmakingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingClient.h; sourceTree = "<group>"; };
 		90E41452172E860200D63E0B /* MatchmakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingClient.m; sourceTree = "<group>"; };
 		90E41454172E9BDC00D63E0B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		90F6B3FA17562705008E265C /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		90F6B3FC17562E1E008E265C /* fondVille.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fondVille.png; sourceTree = "<group>"; };
+		90F6B3FD17562E1E008E265C /* fondNature.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fondNature.png; sourceTree = "<group>"; };
 		90FDD6DF172D390B009A20E5 /* optimum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = optimum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90FDD6E2172D390B009A20E5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		90FDD6E4172D390B009A20E5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -607,10 +613,10 @@
 				904EC7FD1731479100F7297B /* GameLayer.m */,
 				9000393117411F62008B350D /* TeamLayer.h */,
 				9000393217411F62008B350D /* TeamLayer.m */,
-				1A9140EC17414F1D00D3CDD5 /* Map.h */,
-				1A9140ED17414F1D00D3CDD5 /* Map.m */,
 				1ACDC52717491A1100E6D180 /* Archipelago.h */,
 				1ACDC52817491A1100E6D180 /* Archipelago.m */,
+				1A9140EC17414F1D00D3CDD5 /* Map.h */,
+				1A9140ED17414F1D00D3CDD5 /* Map.m */,
 				1ACDC5241748CC2800E6D180 /* EndGame.h */,
 				1ACDC5251748CC2800E6D180 /* EndGame.m */,
 				1A437D01174EB1B10066FFAB /* Tips.h */,
@@ -664,14 +670,17 @@
 			name = SplashScreen;
 			sourceTree = "<group>";
 		};
-		90003934174127CC008B350D /* Slider */ = {
+		90003934174127CC008B350D /* Team Layer */ = {
 			isa = PBXGroup;
 			children = (
+				90F6B3FC17562E1E008E265C /* fondVille.png */,
+				90F6B3FD17562E1E008E265C /* fondNature.png */,
+				90F6B3FA17562705008E265C /* bg.jpg */,
 				90003935174127F2008B350D /* nature.png */,
 				90003936174127F2008B350D /* slide.png */,
 				90003937174127F2008B350D /* ville.png */,
 			);
-			name = Slider;
+			name = "Team Layer";
 			sourceTree = "<group>";
 		};
 		902A5A651732640000161015 /* Categories */ = {
@@ -770,7 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				1A9140EF17414F6500D3CDD5 /* Map */,
-				90003934174127CC008B350D /* Slider */,
+				90003934174127CC008B350D /* Team Layer */,
 				9000393017411E6C008B350D /* SplashScreen */,
 				900038F5174112D9008B350D /* icon */,
 				900038D61740ED9B008B350D /* Archipels */,
@@ -1230,6 +1239,9 @@
 				1A9141141741505300D3CDD5 /* island.png in Resources */,
 				1A9141161741506600D3CDD5 /* fire.png in Resources */,
 				1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */,
+				90F6B3FB17562705008E265C /* bg.jpg in Resources */,
+				90F6B3FE17562E1F008E265C /* fondVille.png in Resources */,
+				90F6B3FF17562E1F008E265C /* fondNature.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

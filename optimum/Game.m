@@ -7,7 +7,6 @@
 //
 
 #import "Game.h"
-#import "Player.h"
 #import "Packet.h"
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
@@ -117,6 +116,16 @@ GameState;
 	{
 		NSLog(@"Error sending data to clients: %@", error);
 	}
+}
+
+- (void) sendPacketToOneClient:(Packet *)packet andClient:(NSArray*)client
+{
+    NSError *error;
+    NSData *data = [packet data];
+    if (![_session sendData:data toPeers:client withDataMode:GKSendDataReliable error:&error])
+    {
+        NSLog(@"Error sending data to client: %@", error);
+    }
 }
 
 - (void)sendPacketToServer:(Packet *)packet
@@ -229,9 +238,9 @@ GameState;
 			}
 			break;
             
-        case PacketTypeDealCards:
+        case PacketTypeTeam:
             if (_state == GameStateDealing) {
-                [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
             }
             break;
             
@@ -294,6 +303,22 @@ GameState;
 {
 	return [_players objectForKey:peerID];
 }
+
+
+- (Player *)playerAtPosition:(PlayerPosition)position
+{
+	__block Player *player;
+	[_players enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
+     {
+         player = obj;
+         if (player.position == position)
+             *stop = YES;
+         else
+             player = nil;
+     }];
+	return player;
+}
+
 
 - (void)dealloc
 {

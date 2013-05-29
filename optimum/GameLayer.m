@@ -130,7 +130,7 @@
                 CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png" selectedImage:@"archipel_1.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(buttonVillePressed:)];
                 archipel2.tag = 1;
                 
                 CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png" selectedImage:@"archipel_3.png" target:self selector:@selector(archipalgoPressed:)];
@@ -217,7 +217,7 @@
                 CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png" selectedImage:@"archipel_1.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(buttonVillePressed:)];
                 archipel2.tag = 1;
                 
                 CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png" selectedImage:@"archipel_3.png" target:self selector:@selector(archipalgoPressed:)];
@@ -310,14 +310,26 @@
 
 - (void) buttonVillePressed: (id) sender
 {
-    Packet *packet = [Packet packetWithType:PacketTypeDealCards];
-	[self.game sendPacketToAllClients:packet];
-    [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
+    // envoie données au joueur 1
+    Packet *packet = [Packet packetWithType:PacketTypeTeam];
+    Player *player = [self.game playerAtPosition:PlayerPositionLeft];
+    NSArray *array = [[NSArray alloc] initWithObjects:player.peerID, nil];
+	[self.game sendPacketToOneClient:packet andClient:array];
+    
+/*    // envoie données au joueur 2
+    Packet *packet2 = [Packet packetWithType:PacketTypeTeam];
+    Player *player2 = [self.game playerAtPosition:PlayerPositionRight];
+    NSArray *array2 = [[NSArray alloc] initWithObjects:player.peerID, nil];
+	[self.game sendPacketToOneClient:packet2 andClient:array2];
+*/
+    
+    // affichage de l'écran de Team
+    [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self.game]];
 }
 
 - (void) archipalgoPressed: (CCMenuItem*) sender
 {
-    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+/*    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     Packet *packet = [Packet packetWithType:PacketTypeDealCards];
 	[self.game sendPacketToAllClients:packet];
 //    [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
@@ -335,7 +347,7 @@
             
         default:
             break;
-    }
+    } */
 }
 
 #pragma mark - GameDelegate
