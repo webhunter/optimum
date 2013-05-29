@@ -8,15 +8,12 @@
 
 #import "TeamLayer.h"
 #import "CCSlider.h"
-
 #import "Map.h"
 #import "Tips.h"
+#import "Player.h"
 
 
-@implementation TeamLayer
-
-@synthesize delegate = _delegate;
-@synthesize game = _game;
+@implementation TeamLayer{}
 
 +(CCScene *) scene
 {
@@ -33,12 +30,34 @@
 	return scene;
 }
 
-
--(id) init
+// On surchage CCScene en lui indiquant les paramètres à passer
++ (CCScene *) sceneWithGameObject:(Game*)gameObject
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
-	if( (self=[super init]) ) {
+    // 'scene' is an autorelease object.
+	CCScene *scene = [CCScene node];
+	
+	// On indique quel node (initialiseur) à utiliser
+    // en lui passant les paramètres les mêmes que dans scene
+	TeamLayer *layer = [TeamLayer nodeWithGameObject:gameObject];
+	
+	// add layer as a child to scene
+	[scene addChild: layer];
+	
+	// return the scene
+	return scene;
+}
+
+// le node indique quel initialisateur est à utiliser
++ (id) nodeWithGameObject:(Game*)gameObject
+{
+    return [[self alloc] initWithGameObject:(Game*)gameObject];
+}
+
+- (id) initWithGameObject:(Game*)gameObject
+{
+    
+    if( (self=[super init]) ) {
+        gameElement = gameObject;
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
             if ([UIScreen instancesRespondToSelector:@selector(scale)])
@@ -49,14 +68,13 @@
                     if ([[UIScreen mainScreen] bounds].size.height == 568)
                     {
                         // IPHONE 5
-                        CGSize size = [[CCDirector sharedDirector] winSize];
                         
                         UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                         [truc show];
                         
-
-
-                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Ville" fontName:@"Marker Felt" fontSize:24];
                         newMessage.position = ccp( size.width/2, size.height/2 );
                         
                         [self addChild:newMessage];
@@ -65,14 +83,14 @@
                     else
                     {
                         // IPHONE RETINA SCREEN
-
-
+                        
+                        
                         UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                         [truc show];
-
+                        
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Enfin!!!..." fontName:@"Marker Felt" fontSize:24];
+                        CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Ville" fontName:@"Marker Felt" fontSize:24];
                         newMessage.position = ccp( size.width/2, size.height/2 );
                         
                         [self addChild:newMessage];
@@ -82,7 +100,7 @@
             else
             {
                 // IPHONE SCREEN
- 
+                
             }
         }
 		else
@@ -149,7 +167,7 @@
                 
                 //Slider
                 CCSlider *slider1 = [CCSlider sliderWithBackgroundFile: @"slide.png"
-                                         thumbFile: @"ville.png"];
+                                                             thumbFile: @"ville.png"];
                 [slider1 setPosition:ccp( size.width/2, size.height/2 + 170)];
                 
                 [self addChild:slider1];
@@ -165,12 +183,13 @@
 	return self;
 }
 
+
 - (void) onNewGame: (CCMenuItem  *) menuItem{
     
-//    [[CCDirector sharedDirector]
-//     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-//                                                     scene:[Map sceneWithParameters:@"string"]
-//                   ]];
+    //    [[CCDirector sharedDirector]
+    //     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+    //                                                     scene:[Map sceneWithParameters:@"string"]
+    //                   ]];
     
     NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Map", nil];
@@ -179,8 +198,8 @@
     
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Tips sceneWithNextScene:dict]
-
+                                                     scene:[Tips sceneWithNextScene:dict]
+                   
                    ]];
 }
 
@@ -197,6 +216,9 @@
     // Called right after onEnter.
     // If using a CCTransitionScene: called when the transition has ended.
     [super onEnterTransitionDidFinish];
+    
+    //Player *player = [gameElement playerAtPosition:PlayerPositionRight];
+    //[self imposeTeam:player];
 }
 
 -(void) onExit
@@ -213,6 +235,31 @@
     // If using a CCTransitionScene: called when the transition begins.
     [super onEnter];
 }
+
+/*
+- (void)imposeTeam:(Player*)player
+{
+    CCLOG(@"%@", player);
+	if (player.position == PlayerPositionRight)
+    {
+        newMessage.string = @"Nature";
+    }
+    
+    
+    //    if (player.position) {
+    //        CGSize size = [[CCDirector sharedDirector] winSize];
+    //        CCLabelTTF *test = [CCLabelTTF labelWithString:@"Nature" fontName:@"Marker Felt" fontSize:24];
+    //        test.position = ccp( size.width/2, size.height/2 - 100);
+    //
+    //        [self addChild:test];
+    //    }else{
+    //        CGSize size = [[CCDirector sharedDirector] winSize];
+    //        CCLabelTTF *test = [CCLabelTTF labelWithString:@"Ville" fontName:@"Marker Felt" fontSize:24];
+    //        test.position = ccp( size.width/2, size.height/2 - 100);
+    //        [self addChild:test];
+    //    }
+}
+*/
 
 @end
 

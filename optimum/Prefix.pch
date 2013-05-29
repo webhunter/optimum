@@ -24,4 +24,4 @@ typedef enum
 	QuitReasonUserQuit,           // the user terminated the connection
 	QuitReasonServerQuit,         // the server quit the game (on purpose)
 }
-QuitReason;
+QuitReason; 
