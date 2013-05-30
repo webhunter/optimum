@@ -102,35 +102,16 @@
                     if ([[UIScreen mainScreen] bounds].size.height == 568)
                     {
                         // IPHONE 5
-                        // create and initialize a Label
-                        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Optimum" fontName:@"Marker Felt" fontSize:64];
                         
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        // position the label on the center of the screen
-                        label.position =  ccp( size.width /2 , size.height/2 + 100);
-                        
-                        // add the label as a child to this Layer
-                        [self addChild: label];
-                        
                         // Menu
-                        CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
                         
-                        CCMenuItemImage *button_tuto = [CCMenuItemImage itemWithNormalImage:@"button_tuto.png" selectedImage:@"button_tuto.png" target:self selector:@selector(buttonPressedTuto:)];
-                        
-                        CCMenuItemImage *button_reglages = [CCMenuItemImage itemWithNormalImage:@"button_reglages.png" selectedImage:@"button_reglages.png" target:self selector:@selector(buttonPressedReglages:)];
-                        
-                        CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"button_credit.png" selectedImage:@"button_credit.png" target:self selector:@selector(buttonPressedCredit:)];
-                        
-                        button_credit.scale = 0.5;
-                        button_play.scale = 0.5;
-                        button_reglages.scale = 0.5;
-                        button_tuto.scale = 0.5;
-                        
-                        CCMenu *menu = [CCMenu menuWithItems:button_play, button_tuto, button_reglages, button_credit, nil];
-                        [menu alignItemsHorizontallyWithPadding:-60];
-                        [menu setPosition:ccp( size.width/2, size.height/2 - 60)];
+                        CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
+                        //[menu alignItemsHorizontallyWithPadding:-10];
+                        [menu setPosition:ccp( size.width/2, size.height/2)];
                         
                         // Add the menu to the layer
                         [self addChild:menu];
@@ -139,76 +120,26 @@
                     else
                     {
                         // IPHONE RETINA SCREEN
-                        // create and initialize a Label
-                        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Optimum" fontName:@"Marker Felt" fontSize:64];
-                        
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        // position the label on the center of the screen
-                        label.position =  ccp( size.width /2 , size.height/2 + 100);
-                        
-                        // add the label as a child to this Layer
-                        [self addChild: label];
-                        
                         // Menu
-                        CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
                         
-                        CCMenuItemImage *button_tuto = [CCMenuItemImage itemWithNormalImage:@"button_tuto.png" selectedImage:@"button_tuto.png" target:self selector:@selector(buttonPressedTuto:)];
-                        
-                        CCMenuItemImage *button_reglages = [CCMenuItemImage itemWithNormalImage:@"button_reglages.png" selectedImage:@"button_reglages.png" target:self selector:@selector(buttonPressedReglages:)];
-                        
-                        CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"button_credit.png" selectedImage:@"button_credit.png" target:self selector:@selector(buttonPressedCredit:)];
-                        
-                        button_credit.scale = 0.5;
-                        button_play.scale = 0.5;
-                        button_reglages.scale = 0.5;
-                        button_tuto.scale = 0.5;
-                        
-                        CCMenu *menu = [CCMenu menuWithItems:button_play, button_tuto, button_reglages, button_credit, nil];
-                        [menu alignItemsHorizontallyWithPadding:-60];
-                        [menu setPosition:ccp( size.width/2, size.height/2 - 60)];
+                        CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
+                        //[menu alignItemsHorizontallyWithPadding:-10];
+                        [menu setPosition:ccp( size.width/2, size.height/2)];
                         
                         // Add the menu to the layer
                         [self addChild:menu];
+
                     }
                 }
             }
             else
             {
                 // IPHONE SCREEN 
-                // create and initialize a Label
-                CCLabelTTF *label = [CCLabelTTF labelWithString:@"Optimum" fontName:@"Marker Felt" fontSize:64];
                 
-                // ask director for the window size
-                CGSize size = [[CCDirector sharedDirector] winSize];
-                
-                // position the label on the center of the screen
-                label.position =  ccp( size.width /2 , size.height/2 + 100);
-                
-                // add the label as a child to this Layer
-                [self addChild: label];
-                
-                // Menu
-                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
-                
-                CCMenuItemImage *button_tuto = [CCMenuItemImage itemWithNormalImage:@"button_tuto.png" selectedImage:@"button_tuto.png" target:self selector:@selector(buttonPressedTuto:)];
-                
-                CCMenuItemImage *button_reglages = [CCMenuItemImage itemWithNormalImage:@"button_reglages.png" selectedImage:@"button_reglages.png" target:self selector:@selector(buttonPressedReglages:)];
-                
-                CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"button_credit.png" selectedImage:@"button_credit.png" target:self selector:@selector(buttonPressedCredit:)];
-                
-                button_credit.scale = 0.5/2;
-                button_play.scale = 0.5/2;
-                button_reglages.scale = 0.5/2;
-                button_tuto.scale = 0.5/2;
-                
-                CCMenu *menu = [CCMenu menuWithItems:button_play, button_tuto, button_reglages, button_credit, nil];
-                [menu alignItemsHorizontallyWithPadding:-60];
-                [menu setPosition:ccp( size.width/2, size.height/2 - 60)];
-                
-                // Add the menu to the layer
-                [self addChild:menu];
             }
             
             
@@ -321,6 +252,12 @@
     
 }
 
+- (void) buttonPressed: (id) sender
+{
+    [[CCDirector sharedDirector] replaceScene:[JoinLayer scene]];
+}
+
+
 - (void)hostViewController:(HostView *)controller didEndSessionWithReason:(QuitReason)reason
 {
 	if (reason == QuitReasonNoNetwork)
@@ -340,6 +277,17 @@
                               otherButtonTitles:nil];
     
 	[alertView show];
+}
+
+- (void) onEnterTransitionDidFinish
+{
+    [super onEnterTransitionDidFinish];
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"Intro_loop.aif"];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Intro_loop.aif" loop:YES];
+    }
+    
 }
 
 @end

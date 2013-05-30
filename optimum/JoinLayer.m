@@ -270,7 +270,7 @@
 {
     _quitReason = QuitReasonUserQuit;
     [_matchmakingClient disconnectFromServer];
-    [[CCDirector sharedDirector] replaceScene:[PlayLayer scene]];
+    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
 }
 
 #pragma mark - MatchmakingClientDelegate

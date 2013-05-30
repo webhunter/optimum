@@ -19,6 +19,7 @@ typedef enum
 	PacketTypeClientReady,             // client to server
     
 	PacketTypeTeam,                     // server to client
+    PacketTypeTeam2,
 	PacketTypeClientTeam,               // client to server
     
 	PacketTypeActivatePlayer,          // server to client

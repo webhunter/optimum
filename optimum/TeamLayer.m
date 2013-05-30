@@ -31,6 +31,21 @@
 	return scene;
 }
 
++(CCScene *) scene2
+{
+	// 'scene' is an autorelease object.
+	CCScene *scene2 = [CCScene node];
+	
+	// 'layer' is an autorelease object.
+	TeamLayer *layer2 = [TeamLayer node];
+	
+	// add layer as a child to scene
+	[scene2 addChild: layer2];
+	
+	// return the scene
+	return scene2;
+}
+
 // On surchage CCScene en lui indiquant les paramètres à passer
 + (CCScene *) sceneWithGameObject:(Game*)gameObject
 {
@@ -48,10 +63,90 @@
 	return scene;
 }
 
+// On surchage CCScene en lui indiquant les paramètres à passer
++ (CCScene *) sceneWithGameObject2:(Game*)gameObject
+{
+    // 'scene' is an autorelease object.
+	CCScene *scene2 = [CCScene node];
+	
+	// On indique quel node (initialiseur) à utiliser
+    // en lui passant les paramètres les mêmes que dans scene
+	TeamLayer *layer2 = [TeamLayer nodeWithGameObject2:gameObject];
+	
+	// add layer as a child to scene
+	[scene2 addChild: layer2];
+	
+	// return the scene
+	return scene2;
+}
+
 // le node indique quel initialisateur est à utiliser
 + (id) nodeWithGameObject:(Game*)gameObject
 {
     return [[self alloc] initWithGameObject:(Game*)gameObject];
+}
+
+// le node indique quel initialisateur est à utiliser
++ (id) nodeWithGameObject2:(Game*)gameObject
+{
+    return [[self alloc] initWithGameObject2:(Game*)gameObject];
+}
+
+- (id) initWithGameObject2:(Game*)gameObject
+{
+    if( (self=[super init]) ) {
+        gameElement = gameObject;
+        if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
+        {
+            if ([UIScreen instancesRespondToSelector:@selector(scale)])
+            {
+                CGFloat scale = [[UIScreen mainScreen] scale];
+                if (scale > 1.0)
+                {
+                    if ([[UIScreen mainScreen] bounds].size.height == 568)
+                    {
+                        // IPHONE 5
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondNature.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Nature
+                        CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                        [nature setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:nature];
+                        
+                    }
+                    else
+                    {
+                        // IPHONE RETINA SCREEN
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondNature.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Nature
+                        CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                        [nature setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:nature];
+                    }
+                }
+            }
+            
+        }
+    }
+    return self;
+    
 }
 
 - (id) initWithGameObject:(Game*)gameObject
@@ -166,7 +261,7 @@
                 [background setPosition:ccp(size.width/2, size.height/2)];
                 
                 [self addChild:background];
-            
+                
                 // Bouton back
                 CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
                 
@@ -183,7 +278,7 @@
                 [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
                 
                 [self addChild:menu_next];
-
+                
                 
                 //Team
                 CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];

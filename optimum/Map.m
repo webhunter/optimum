@@ -1370,6 +1370,9 @@
     // Called right after onEnter.
     // If using a CCTransitionScene: called when the transition has ended.
     [super onEnterTransitionDidFinish];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"jeu_loop.aif"];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"jeu_loop.aif" loop:YES];
 }
 
 -(void) onExit
@@ -1377,6 +1380,7 @@
     // Called right before node’s dealloc method is called.
     // If using a CCTransitionScene: called when the transition has ended.
     [super onExit];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 }
 
 @end

@@ -244,6 +244,12 @@ GameState;
             }
             break;
             
+        case PacketTypeTeam2:
+            if (_state == GameStateDealing) {
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject2:self]];
+            }
+            break;
+            
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
 			break;
