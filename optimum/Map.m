@@ -1145,7 +1145,7 @@
      Diagonale H gauche : (X-1, Y)
      Diagonale H droite : (X, Y-1)
      Diagonale B gauche : (X, Y+1)
-     Diagonale B droite : (X+1, Y)
+     Diagonale B droite : (X+1, Y) llll
      */
     
     CGPoint diagonalUpperLeft = ccp(location.x - 1, location.y);
