@@ -316,12 +316,12 @@
     NSArray *array = [[NSArray alloc] initWithObjects:player.peerID, nil];
 	[self.game sendPacketToOneClient:packet andClient:array];
     
-/*    // envoie données au joueur 2
-    Packet *packet2 = [Packet packetWithType:PacketTypeTeam];
+    // envoie données au joueur 2
+    Packet *packet2 = [Packet packetWithType:PacketTypeTeam2];
     Player *player2 = [self.game playerAtPosition:PlayerPositionRight];
-    NSArray *array2 = [[NSArray alloc] initWithObjects:player.peerID, nil];
+    NSArray *array2 = [[NSArray alloc] initWithObjects:player2.peerID, nil];
 	[self.game sendPacketToOneClient:packet2 andClient:array2];
-*/
+
     
     // affichage de l'écran de Team
     [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self.game]];
