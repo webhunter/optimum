@@ -57,6 +57,9 @@
     {
         CGSize size = [[CCDirector sharedDirector] winSize];
         
+        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
+        
         timeElapse = 0;
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         
@@ -98,14 +101,15 @@
         [self addChild:map z:-1 tag:TileMapTag];
         
         //Stack d'élements gauche et droite
-        leftStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
-        leftStack.color = ccc3(209, 185, 218);
-        leftStack.position = ccp(40.5, 384);
+        leftStack = [CCSprite spriteWithSpriteFrameName:@"zone-ville.png"];
+        leftStack.anchorPoint = ccp(0, 1);
+        leftStack.position = ccp(0, size.height);
+        
         [self addChild:leftStack];
         
-        rightStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
-        rightStack.color = ccc3(197, 229, 232);
-        rightStack.position = ccp((size.width - 40.5), 384);
+        rightStack = [CCSprite spriteWithSpriteFrameName:@"zone-nature.png"];
+        rightStack.anchorPoint = ccp(0, 1);
+        rightStack.position = ccp(size.width - rightStack.boundingBox.size.width, size.height);
         [self addChild:rightStack];
         
         NSDate *methodStart = [NSDate date];

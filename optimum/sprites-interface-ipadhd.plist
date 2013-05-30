@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>unit-1-nature-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {53, 68}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{53, 68}</string>
+			<key>spriteSourceSize</key>
+			<string>{53, 68}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{458, 0}, {53, 68}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-1-nature-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {53, 68}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{53, 68}</string>
+			<key>spriteSourceSize</key>
+			<string>{53, 68}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{458, 70}, {53, 68}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-1-ville-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {85, 95}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{85, 95}</string>
+			<key>spriteSourceSize</key>
+			<string>{85, 95}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 220}, {85, 95}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-1-ville-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {85, 95}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{85, 95}</string>
+			<key>spriteSourceSize</key>
+			<string>{85, 95}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 317}, {85, 95}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-2-nature-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {59, 95}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{59, 95}</string>
+			<key>spriteSourceSize</key>
+			<string>{59, 95}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{445, 1479}, {59, 95}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-2-nb-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {59, 95}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{59, 95}</string>
+			<key>spriteSourceSize</key>
+			<string>{59, 95}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{445, 1382}, {59, 95}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-2-ville-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {86, 108}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{86, 108}</string>
+			<key>spriteSourceSize</key>
+			<string>{86, 108}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 110}, {86, 108}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-2-ville-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {86, 108}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{86, 108}</string>
+			<key>spriteSourceSize</key>
+			<string>{86, 108}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 0}, {86, 108}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-3-nature-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {73, 109}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{73, 109}</string>
+			<key>spriteSourceSize</key>
+			<string>{73, 109}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 1382}, {73, 109}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-3-nature-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {73, 109}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{73, 109}</string>
+			<key>spriteSourceSize</key>
+			<string>{73, 109}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 1493}, {73, 109}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-3-ville-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {84, 112}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{84, 112}</string>
+			<key>spriteSourceSize</key>
+			<string>{84, 112}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 810}, {84, 112}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-3-ville-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {84, 112}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{84, 112}</string>
+			<key>spriteSourceSize</key>
+			<string>{84, 112}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 696}, {84, 112}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-4-nature-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {68, 112}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{68, 112}</string>
+			<key>spriteSourceSize</key>
+			<string>{68, 112}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 1538}, {68, 112}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-4-nature-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {68, 112}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{68, 112}</string>
+			<key>spriteSourceSize</key>
+			<string>{68, 112}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{70, 1538}, {68, 112}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-4-ville-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {83, 114}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{83, 114}</string>
+			<key>spriteSourceSize</key>
+			<string>{83, 114}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 1040}, {83, 114}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-4-ville-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {83, 114}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{83, 114}</string>
+			<key>spriteSourceSize</key>
+			<string>{83, 114}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 924}, {83, 114}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-5-nature-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {83, 111}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{83, 111}</string>
+			<key>spriteSourceSize</key>
+			<string>{83, 111}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 1156}, {83, 111}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-5-nature-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {83, 111}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{83, 111}</string>
+			<key>spriteSourceSize</key>
+			<string>{83, 111}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 1269}, {83, 111}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-5-ville-color.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {84, 139}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{84, 139}</string>
+			<key>spriteSourceSize</key>
+			<string>{84, 139}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 414}, {84, 139}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>unit-5-ville-nb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {84, 139}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{84, 139}</string>
+			<key>spriteSourceSize</key>
+			<string>{84, 139}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{370, 555}, {84, 139}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>zone-nature.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {183, 1536}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{183, 1536}</string>
+			<key>spriteSourceSize</key>
+			<string>{183, 1536}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {183, 1536}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>zone-ville.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {183, 1536}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{183, 1536}</string>
+			<key>spriteSourceSize</key>
+			<string>{183, 1536}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{185, 0}, {183, 1536}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>version</key>
+		<string>1.6.0</string>
+		<key>format</key>
+		<integer>3</integer>
+		<key>size</key>
+		<string>{512, 2048}</string>
+		<key>name</key>
+		<string>OptimumHD-2</string>
+		<key>textureFileName</key>
+		<string>sprites-interface-ipadhd.png</string>
+		<key>premultipliedAlpha</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

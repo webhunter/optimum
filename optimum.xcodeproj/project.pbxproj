@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A011E821756C62D00A122F3 /* sprites-interface-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E7E1756C62C00A122F3 /* sprites-interface-ipadhd.plist */; };
+		1A011E831756C62D00A122F3 /* sprites-interface-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */; };
+		1A011E841756C62D00A122F3 /* sprites-interface.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E801756C62D00A122F3 /* sprites-interface.plist */; };
+		1A011E851756C62D00A122F3 /* sprites-interface.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E811756C62D00A122F3 /* sprites-interface.png */; };
 		1A437D03174EB1B10066FFAB /* Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A437D02174EB1B10066FFAB /* Tips.m */; };
 		1A9140EE17414F1D00D3CDD5 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9140ED17414F1D00D3CDD5 /* Map.m */; };
 		1A9140F117414F7100D3CDD5 /* maquette-map-2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */; };
@@ -192,6 +196,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A011E7E1756C62C00A122F3 /* sprites-interface-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sprites-interface-ipadhd.plist"; sourceTree = "<group>"; };
+		1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprites-interface-ipadhd.png"; sourceTree = "<group>"; };
+		1A011E801756C62D00A122F3 /* sprites-interface.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sprites-interface.plist"; sourceTree = "<group>"; };
+		1A011E811756C62D00A122F3 /* sprites-interface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprites-interface.png"; sourceTree = "<group>"; };
 		1A437D01174EB1B10066FFAB /* Tips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tips.h; sourceTree = "<group>"; };
 		1A437D02174EB1B10066FFAB /* Tips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tips.m; sourceTree = "<group>"; };
 		1A9140EC17414F1D00D3CDD5 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
@@ -562,6 +570,10 @@
 		1A9140EF17414F6500D3CDD5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				1A011E7E1756C62C00A122F3 /* sprites-interface-ipadhd.plist */,
+				1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */,
+				1A011E801756C62D00A122F3 /* sprites-interface.plist */,
+				1A011E811756C62D00A122F3 /* sprites-interface.png */,
 				1A9141231741524D00D3CDD5 /* ice-pattern.png */,
 				1A9141151741506600D3CDD5 /* fire.png */,
 				1A9141131741505300D3CDD5 /* island.png */,
@@ -1242,6 +1254,10 @@
 				90F6B3FB17562705008E265C /* bg.jpg in Resources */,
 				90F6B3FE17562E1F008E265C /* fondVille.png in Resources */,
 				90F6B3FF17562E1F008E265C /* fondNature.png in Resources */,
+				1A011E821756C62D00A122F3 /* sprites-interface-ipadhd.plist in Resources */,
+				1A011E831756C62D00A122F3 /* sprites-interface-ipadhd.png in Resources */,
+				1A011E841756C62D00A122F3 /* sprites-interface.plist in Resources */,
+				1A011E851756C62D00A122F3 /* sprites-interface.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
