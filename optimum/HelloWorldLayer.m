@@ -279,4 +279,15 @@
 	[alertView show];
 }
 
+- (void) onEnterTransitionDidFinish
+{
+    [super onEnterTransitionDidFinish];
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"Intro_loop.aif"];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Intro_loop.aif" loop:YES];
+    }
+    
+}
+
 @end
