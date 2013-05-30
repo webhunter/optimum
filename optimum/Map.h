@@ -25,6 +25,20 @@ enum
 {
 	TileMapTag = 9999,
     MeteorTag = 9998,
+    
+    // "Ville" Chiffres impairs
+    unitOddLevelOne = 10000,
+    unitOddLevelTwo = 10001,
+    unitOddLevelThree = 10002,
+    unitOddLevelFour = 10003,
+    unitOddLevelFive = 10004,
+    
+    // "Nature" Chiffres pairs
+    unitEvenLevelOne = 10005,
+    unitEvenLevelTwo = 10006,
+    unitEvenLevelThree = 10007,
+    unitEvenLevelFour = 10008,
+    unitEvenLevelFive = 10009,
 };
 
 @interface Map : CCLayer {
@@ -70,6 +84,13 @@ enum
     
     int unitLeftDestroyed;
     int unitRightDestroyed;
+    
+    //Système de pause
+    BOOL gameIsPause;
+    
+    
+    //Gestion de l'écran
+    CGSize size;
 }
 
 + (CCScene *) scene;

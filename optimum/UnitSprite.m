@@ -33,7 +33,7 @@
 	return [self initWithTexture:texture rect:rect rotated:NO];
 }
 
-- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position{
+- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position withUnits:(int)numberUnits{
     
     CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
     [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
@@ -78,7 +78,8 @@
     self.position = self.initPosition = ccp(position.x, position.y);
     
     hasUnits = YES;
-    self.units = 42; //On met une valeur par défaut
+    self.units = numberUnits; //On met une valeur par défaut
+    unitTypeBW = unitType;
     
     [self schedule: @selector(hasUnits:) interval:0.5];
     
@@ -88,11 +89,33 @@
 //Vérifie que l'Optimum est toujours visible à l'écran
 - (void) hasUnits: (ccTime) dt
 {
+    NSArray *unitsTypeArrayBW = [[NSArray alloc] initWithObjects:
+                               //niveau 1
+                               @"unit-1-ville-nb.png",
+                               @"unit-1-nature-nb.png",
+                               //niveau 2
+                               @"unit-2-ville-nb.png",
+                               @"unit-2-nb-color.png",
+                               //niveau 3
+                               @"unit-3-ville-nb.png",
+                               @"unit-3-nature-nb.png",
+                               //niveau 4
+                               @"unit-4-ville-nb.png",
+                               @"unit-4-nature-nb.png",
+                               //niveau 5
+                               @"unit-5-ville-nb.png",
+                               @"unit-5-nature-nb.png",
+                               nil];
+    CCSprite *bw = [CCSprite spriteWithSpriteFrameName:[unitsTypeArrayBW objectAtIndex:unitTypeBW]];
+    bw.anchorPoint = ccp(0, 0);
     if (self.units <= 0)
     {
         hasUnits = NO;
+        
+        [self addChild:bw];
     }else{
         hasUnits = YES;
+        [self removeChild:bw cleanup:YES];
     }
 }
 

@@ -31,6 +31,8 @@
 		1A91411F1741516100D3CDD5 /* Meteor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A91411E1741516100D3CDD5 /* Meteor.m */; };
 		1A9141221741519000D3CDD5 /* FreezeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9141211741519000D3CDD5 /* FreezeScreen.m */; };
 		1A9141241741524D00D3CDD5 /* ice-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9141231741524D00D3CDD5 /* ice-pattern.png */; };
+		1ABE36501757374B006725FA /* BG5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE364F1757374B006725FA /* BG5.png */; };
+		1ABE365217573CB4006725FA /* BG6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE365117573CB4006725FA /* BG6.png */; };
 		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
 		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
@@ -229,6 +231,8 @@
 		1A9141201741519000D3CDD5 /* FreezeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreezeScreen.h; sourceTree = "<group>"; };
 		1A9141211741519000D3CDD5 /* FreezeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreezeScreen.m; sourceTree = "<group>"; };
 		1A9141231741524D00D3CDD5 /* ice-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ice-pattern.png"; sourceTree = "<group>"; };
+		1ABE364F1757374B006725FA /* BG5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG5.png; sourceTree = "<group>"; };
+		1ABE365117573CB4006725FA /* BG6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG6.png; sourceTree = "<group>"; };
 		1ACDC5241748CC2800E6D180 /* EndGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndGame.h; sourceTree = "<group>"; };
 		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
 		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
@@ -570,6 +574,8 @@
 		1A9140EF17414F6500D3CDD5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				1ABE364F1757374B006725FA /* BG5.png */,
+				1ABE365117573CB4006725FA /* BG6.png */,
 				1A011E7E1756C62C00A122F3 /* sprites-interface-ipadhd.plist */,
 				1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */,
 				1A011E801756C62D00A122F3 /* sprites-interface.plist */,
@@ -1258,6 +1264,8 @@
 				1A011E831756C62D00A122F3 /* sprites-interface-ipadhd.png in Resources */,
 				1A011E841756C62D00A122F3 /* sprites-interface.plist in Resources */,
 				1A011E851756C62D00A122F3 /* sprites-interface.png in Resources */,
+				1ABE36501757374B006725FA /* BG5.png in Resources */,
+				1ABE365217573CB4006725FA /* BG6.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
