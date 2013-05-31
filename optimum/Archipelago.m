@@ -179,6 +179,28 @@
             }else{
                 archipel1Img = @"archipel_1.png";
             }
+            
+            //La gagnant est l'univers de la ville
+            if ([winnerTwo isEqualToString:@"city"])
+            {
+                archipel2Img = @"archipel_2.png";
+                //La gagnant est l'univers de la nature
+            }else if ([winnerOne isEqualToString:@"nature"]){
+                archipel2Img = @"archipel_2.png";
+            }else{
+                archipel2Img = @"archipel_2.png";
+            }
+            
+            //La gagnant est l'univers de la ville
+            if ([winnerThree isEqualToString:@"city"])
+            {
+                archipel3Img = @"archipel_3.png";
+                //La gagnant est l'univers de la nature
+            }else if ([winnerOne isEqualToString:@"nature"]){
+                archipel3Img = @"archipel_3.png";
+            }else{
+                archipel3Img = @"archipel_3.png";
+            }
         }else{
             
         }
@@ -196,7 +218,7 @@
             archipel1.opacity = 255;
         }
         
-        CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png"
+        CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:archipel2Img
                                                             selectedImage:@"archipel_2.png"
                                                                    target:self
                                                                  selector:@selector(startGame:)];
@@ -209,7 +231,7 @@
             archipel2.opacity = 255;
         }
         
-        CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png"
+        CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:archipel3Img
                                                             selectedImage:@"archipel_3.png"
                                                                    target:self
                                                                  selector:@selector(startGame:)];

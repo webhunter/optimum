@@ -42,8 +42,9 @@
 	if( (self=[super init]) ) {
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
         
-            
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
+        
+        // La personne vient d'installer le jeu donc on lui crée une sauvegarde
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
         {
             CCLOG(@"string enter");
             NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];

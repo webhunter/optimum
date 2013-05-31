@@ -147,10 +147,12 @@
         
         //Hitbox
         
-        CCMenuItemFont *buttonNext = [CCMenuItemFont itemWithString:@"Pause" target:self selector:@selector(pauseGame:)];
-        buttonNext.color = ccYELLOW;
+        CCMenuItemFont *buttonPause = [CCMenuItemFont itemWithString:@"Pause" target:self selector:@selector(pauseGame:)];
+        buttonPause.color = ccORANGE;
+        buttonPause.tag = 4;
         
-        CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
+        
+        CCMenu *menu_next = [CCMenu menuWithItems:buttonPause, nil];
         [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
         
         [self addChild:menu_next];
@@ -173,18 +175,42 @@
 // Permet de mettre le jeu en pause
 - (void) pauseGame: (CCMenuItem  *) menuItem
 {
+    CCNode* node = [self getChildByTag:4];
+    CCMenuItemFont* label = (CCMenuItemFont*)node;
+    
     if (gameIsPause == NO) {
         [[CCDirector sharedDirector] pause];
         gameIsPause = YES;
-        [self pauseSchedulerAndActions];
-        self.isTouchEnabled = NO;
+        [self gameIsPaused: NO];
+        [label setString:@"Reprendre"];
     }else{
         [[CCDirector sharedDirector] resume];
         gameIsPause = NO;
-        [self resumeSchedulerAndActions];
-        self.isTouchEnabled = YES;
+        [self gameIsPaused: YES];
+        [label setString:@"Pause"];
     }
-   
+}
+
+- (void) gameIsPaused:(BOOL)gameState
+{
+    // Désactive le déplacement d'unités
+    for (UnitSprite *sprite in self.children)
+    {
+        if ([sprite isKindOfClass:[UnitSprite class]])
+        {
+            sprite.touchEnabled = gameState;
+        }
+    }
+    
+    // Désactive le déplacement de ressources
+    for (OptimumRessource *ressource in self.children)
+    {
+        if ([ressource isKindOfClass:[OptimumRessource class]])
+        {
+            ressource.touchEnabled = gameState;
+        }
+    }
+    
 }
 
 - (void) centerIntoScreen:(CCNode*) element
@@ -361,9 +387,11 @@
     //  Unité droite (Nature)
     UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
     [self addChild:unitRightLevelOne z:unitEvenLevelOne];
+
     
     UnitSprite *unitRightLevelTwo = [[UnitSprite alloc] initWithUnitType:3 atPosition:ccp(size.width - 51, size.height - 40 * 5) withUnits:level2UnitRight];
     [self addChild:unitRightLevelTwo z:unitEvenLevelTwo];
+  
     
     UnitSprite *unitRightLevelThree = [[UnitSprite alloc] initWithUnitType:5 atPosition:ccp(size.width - 51, size.height - 40 * 8) withUnits:level3UnitRight];
     [self addChild:unitRightLevelThree z:unitEvenLevelThree];

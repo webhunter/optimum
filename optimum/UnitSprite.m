@@ -11,6 +11,7 @@
 
 @implementation UnitSprite
 
+
 - (void)onEnter
 {
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:10000 swallowsTouches:YES];
@@ -78,6 +79,7 @@
     self.position = self.initPosition = ccp(position.x, position.y);
     
     hasUnits = YES;
+    self.touchEnabled = YES;
     self.units = numberUnits; //On met une valeur par défaut
     unitTypeBW = unitType;
     
@@ -111,7 +113,6 @@
     if (self.units <= 0)
     {
         hasUnits = NO;
-        
         [self addChild:bw];
     }else{
         hasUnits = YES;
@@ -124,7 +125,7 @@
     CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
     
-    if (hasUnits)
+    if (hasUnits && self.touchEnabled == YES)
     {
         if([self isTouchOnSprite:touchPoint])
         {
@@ -228,6 +229,14 @@
 
 - (void) setUnits:(int)unit{
     units = unit;
+}
+
+- (BOOL) touchEnabled{
+    return touchEnabled;
+}
+
+- (void) setTouchEnabled:(BOOL)_touchEnabled{
+    touchEnabled = _touchEnabled;
 }
 
 @end

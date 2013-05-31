@@ -17,6 +17,7 @@
     int optimumType;
     int randNum;
     float speedFall; //Vitesse de chute de la ressource
+    BOOL touchEnabled; //Permet d'activer le touch
 }
 
 - (id) init;
@@ -26,5 +27,8 @@
 - (void) setOptimumType:(int)type;
 - (float) speedFall;
 - (void) setSpeedFall:(float)speed;
+
+- (BOOL) touchEnabled;
+- (void) setTouchEnabled:(BOOL)_touchEnabled;
 
 @end

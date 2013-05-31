@@ -18,6 +18,7 @@
     int units; //Se charge de savoir s'il reste encore des unités
     BOOL hasUnits;
     int unitTypeBW; //Conserve le type d'unité pour le mode noir/blanc
+    BOOL touchEnabled; //Permet d'activer le touch
 }
 
 - (BOOL) isTouchOnSprite:(CGPoint)touch;
@@ -33,5 +34,8 @@
 
 - (int) units;
 - (void) setUnits:(int)unit;
+
+- (BOOL) touchEnabled;
+- (void) setTouchEnabled:(BOOL)_touchEnabled;
 
 @end
