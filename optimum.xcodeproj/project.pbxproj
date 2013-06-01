@@ -68,6 +68,11 @@
 		90716A4417578F250059A30C /* jeu_loop.aif in Resources */ = {isa = PBXBuildFile; fileRef = 90716A4217578F250059A30C /* jeu_loop.aif */; };
 		90E41450172E849800D63E0B /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4144F172E849800D63E0B /* MatchmakingServer.m */; };
 		90E41453172E860200D63E0B /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E41452172E860200D63E0B /* MatchmakingClient.m */; };
+		90E8D5D3175A0CFB00CABFFC /* ConstructLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8D5D2175A0CFB00CABFFC /* ConstructLayer.m */; };
+		90E8D5D9175A0D6D00CABFFC /* ConstructLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E8D5D5175A0D6D00CABFFC /* ConstructLayer.png */; };
+		90E8D5DA175A0D6D00CABFFC /* ConstructLayer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90E8D5D6175A0D6D00CABFFC /* ConstructLayer.plist */; };
+		90E8D5DB175A0D6D00CABFFC /* background_01_iPhone5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90E8D5D7175A0D6D00CABFFC /* background_01_iPhone5.jpg */; };
+		90E8D5DC175A0D6D00CABFFC /* background_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90E8D5D8175A0D6D00CABFFC /* background_01.jpg */; };
 		90F6B3FB17562705008E265C /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FA17562705008E265C /* bg.jpg */; };
 		90F6B3FE17562E1F008E265C /* fondVille.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FC17562E1E008E265C /* fondVille.png */; };
 		90F6B3FF17562E1F008E265C /* fondNature.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6B3FD17562E1E008E265C /* fondNature.png */; };
@@ -286,6 +291,12 @@
 		90E41451172E860200D63E0B /* MatchmakingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingClient.h; sourceTree = "<group>"; };
 		90E41452172E860200D63E0B /* MatchmakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingClient.m; sourceTree = "<group>"; };
 		90E41454172E9BDC00D63E0B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		90E8D5D1175A0CFB00CABFFC /* ConstructLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstructLayer.h; sourceTree = "<group>"; };
+		90E8D5D2175A0CFB00CABFFC /* ConstructLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstructLayer.m; sourceTree = "<group>"; };
+		90E8D5D5175A0D6D00CABFFC /* ConstructLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConstructLayer.png; sourceTree = "<group>"; };
+		90E8D5D6175A0D6D00CABFFC /* ConstructLayer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ConstructLayer.plist; sourceTree = "<group>"; };
+		90E8D5D7175A0D6D00CABFFC /* background_01_iPhone5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_01_iPhone5.jpg; sourceTree = "<group>"; };
+		90E8D5D8175A0D6D00CABFFC /* background_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_01.jpg; sourceTree = "<group>"; };
 		90F6B3FA17562705008E265C /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		90F6B3FC17562E1E008E265C /* fondVille.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fondVille.png; sourceTree = "<group>"; };
 		90F6B3FD17562E1E008E265C /* fondNature.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fondNature.png; sourceTree = "<group>"; };
@@ -643,6 +654,8 @@
 				1ACDC5251748CC2800E6D180 /* EndGame.m */,
 				1A437D01174EB1B10066FFAB /* Tips.h */,
 				1A437D02174EB1B10066FFAB /* Tips.m */,
+				90E8D5D1175A0CFB00CABFFC /* ConstructLayer.h */,
+				90E8D5D2175A0CFB00CABFFC /* ConstructLayer.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -746,6 +759,17 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		90E8D5D4175A0D5500CABFFC /* Chaudron */ = {
+			isa = PBXGroup;
+			children = (
+				90E8D5D5175A0D6D00CABFFC /* ConstructLayer.png */,
+				90E8D5D6175A0D6D00CABFFC /* ConstructLayer.plist */,
+				90E8D5D7175A0D6D00CABFFC /* background_01_iPhone5.jpg */,
+				90E8D5D8175A0D6D00CABFFC /* background_01.jpg */,
+			);
+			name = Chaudron;
+			sourceTree = "<group>";
+		};
 		90FDD6D6172D390B009A20E5 = {
 			isa = PBXGroup;
 			children = (
@@ -802,6 +826,7 @@
 			children = (
 				1ABE365317579AD7006725FA /* Intro_loop.aif */,
 				90716A4217578F250059A30C /* jeu_loop.aif */,
+				90E8D5D4175A0D5500CABFFC /* Chaudron */,
 				1A9140EF17414F6500D3CDD5 /* Map */,
 				90003934174127CC008B350D /* Team Layer */,
 				9000393017411E6C008B350D /* SplashScreen */,
@@ -1274,6 +1299,10 @@
 				1ABE365217573CB4006725FA /* BG6.png in Resources */,
 				90716A4417578F250059A30C /* jeu_loop.aif in Resources */,
 				1ABE365417579AD7006725FA /* Intro_loop.aif in Resources */,
+				90E8D5D9175A0D6D00CABFFC /* ConstructLayer.png in Resources */,
+				90E8D5DA175A0D6D00CABFFC /* ConstructLayer.plist in Resources */,
+				90E8D5DB175A0D6D00CABFFC /* background_01_iPhone5.jpg in Resources */,
+				90E8D5DC175A0D6D00CABFFC /* background_01.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1415,6 +1444,7 @@
 				1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */,
 				1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */,
 				1A437D03174EB1B10066FFAB /* Tips.m in Sources */,
+				90E8D5D3175A0CFB00CABFFC /* ConstructLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
