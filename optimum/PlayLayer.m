@@ -44,56 +44,12 @@
                     {
                         // IPHONE 5
                         
-                        // ask director for the window size
-                        CGSize size = [[CCDirector sharedDirector] winSize];
-                        
-                        // Menu
-                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
-                        
-                        CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu setPosition:ccp( size.width/2, size.height/2)];
-                        
-                        // Add the menu to the layer
-                        [self addChild:menu];
-                        
-                        //bouton back
-                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
-                        
-                        CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu_back setPosition:ccp( size.width/2 - 130, size.height/2 + 220)];
-                        
-                        // Add the menu to the layer
-                        [self addChild:menu_back];
-                        
                     }
                     else
                     {
                         // IPHONE RETINA SCREEN
                         
-                        // ask director for the window size
-                        CGSize size = [[CCDirector sharedDirector] winSize];
-                        
-                        // Menu
-                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
-                        
-                        CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu setPosition:ccp( size.width/2, size.height/2)];
-                        
-                        // Add the menu to the layer
-                        [self addChild:menu];
-                        
-                        //bouton back
-                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
-                        
-                        CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu_back setPosition:ccp( size.width/2 - 130, size.height/2 + 190)];
-                        
-                        // Add the menu to the layer
-                        [self addChild:menu_back];
+                    
                     }
                 }
             }
@@ -101,28 +57,6 @@
             {
                 // IPHONE SCREEN
                 
-                // ask director for the window size
-                CGSize size = [[CCDirector sharedDirector] winSize];
-                
-                // Menu
-                CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
-                
-                CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu setPosition:ccp( size.width/2, size.height/2)];
-                
-                // Add the menu to the layer
-                [self addChild:menu];
-                
-                //bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
-                
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu_back setPosition:ccp( size.width/2 - 130, size.height/2 + 220)];
-                
-                // Add the menu to the layer
-                [self addChild:menu_back];
             }
             
             
@@ -197,19 +131,12 @@
 
 - (void) buttonPressed: (id) sender
 {
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
-    {
-        [[CCDirector sharedDirector] replaceScene:[JoinLayer scene]];
-    }
-    else
-    {
-        [[CCDirector sharedDirector] replaceScene:[HostLayer scene]];
-    }
+    [[CCDirector sharedDirector] replaceScene:[HostLayer scene]];
 }
 
 - (void) buttonPressedBack: (id) sender
 {
-            [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
 }
 
 @end

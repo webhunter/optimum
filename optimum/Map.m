@@ -55,10 +55,18 @@
     
     if( self=[super init] )
     {
-        CGSize size = [[CCDirector sharedDirector] winSize];
+        size = [[CCDirector sharedDirector] winSize];
+        
+        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
         
         timeElapse = 0;
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
+        
+        CCSprite *background = [CCSprite spriteWithFile:@"BG6.png"];
+        background.anchorPoint = ccp(0, 0);
+        background.position = ccp(0, 0);
+        [self addChild:background z:-1];
         
         //Notifications
         //Gestion du lâcher d'optimum
@@ -98,14 +106,15 @@
         [self addChild:map z:-1 tag:TileMapTag];
         
         //Stack d'élements gauche et droite
-        leftStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
-        leftStack.color = ccc3(209, 185, 218);
-        leftStack.position = ccp(40.5, 384);
+        leftStack = [CCSprite spriteWithSpriteFrameName:@"zone-ville.png"];
+        leftStack.anchorPoint = ccp(0, 1);
+        leftStack.position = ccp(0, size.height);
+        
         [self addChild:leftStack];
         
-        rightStack = [self createSpriteRectangleWithSize:CGSizeMake(81, size.height)];
-        rightStack.color = ccc3(197, 229, 232);
-        rightStack.position = ccp((size.width - 40.5), 384);
+        rightStack = [CCSprite spriteWithSpriteFrameName:@"zone-nature.png"];
+        rightStack.anchorPoint = ccp(0, 1);
+        rightStack.position = ccp(size.width - rightStack.boundingBox.size.width, size.height);
         [self addChild:rightStack];
         
         NSDate *methodStart = [NSDate date];
@@ -138,14 +147,70 @@
         
         //Hitbox
         
+        CCMenuItemFont *buttonPause = [CCMenuItemFont itemWithString:@"Pause" target:self selector:@selector(pauseGame:)];
+        buttonPause.color = ccORANGE;
+        buttonPause.tag = 4;
+        
+        
+        CCMenu *menu_next = [CCMenu menuWithItems:buttonPause, nil];
+        [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
+        
+        [self addChild:menu_next];
+        
+//         [[CCDirector sharedDirector] pause];
+        
         
         [self schedule: @selector(tilesAttacks:) interval:1];
         
         //Récupère le nombre d'unité détruites pour chaque clan
         unitLeftDestroyed = 0, unitRightDestroyed = 0;
+        
+        // Le jeu n'est pas en pause par défaut
+        gameIsPause = NO;
     }
     
     return self;
+}
+
+// Permet de mettre le jeu en pause
+- (void) pauseGame: (CCMenuItem  *) menuItem
+{
+    CCNode* node = [self getChildByTag:4];
+    CCMenuItemFont* label = (CCMenuItemFont*)node;
+    
+    if (gameIsPause == NO) {
+        [[CCDirector sharedDirector] pause];
+        gameIsPause = YES;
+        [self gameIsPaused: NO];
+        [label setString:@"Reprendre"];
+    }else{
+        [[CCDirector sharedDirector] resume];
+        gameIsPause = NO;
+        [self gameIsPaused: YES];
+        [label setString:@"Pause"];
+    }
+}
+
+- (void) gameIsPaused:(BOOL)gameState
+{
+    // Désactive le déplacement d'unités
+    for (UnitSprite *sprite in self.children)
+    {
+        if ([sprite isKindOfClass:[UnitSprite class]])
+        {
+            sprite.touchEnabled = gameState;
+        }
+    }
+    
+    // Désactive le déplacement de ressources
+    for (OptimumRessource *ressource in self.children)
+    {
+        if ([ressource isKindOfClass:[OptimumRessource class]])
+        {
+            ressource.touchEnabled = gameState;
+        }
+    }
+    
 }
 
 - (void) centerIntoScreen:(CCNode*) element
@@ -276,30 +341,75 @@
     
     NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], nil];
     NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", nil];
-     
+    
     
     NSDictionary *stats = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                scene:[EndGame sceneWithParameters:stats]
-                                                                withColor:ccGREEN]];
+                                                                                 scene:[EndGame sceneWithParameters:stats]
+                                                                             withColor:ccGREEN]];
 }
 
 - (void) displayInterface{
     
+    level1UnitLeft = 0;
+    level2UnitLeft = 7;
+    level3UnitLeft = 7;
+    level4UnitLeft = 7;
+    level5UnitLeft = 7;
     //Affichage des unités
-    UnitSprite *sprited = [[UnitSprite alloc] initWithUnitType:5 atPosition:ccp(5 + 75, 750 - (75 / 2))];
-    [self addChild:sprited z:1000];
+    //  Unité gauche (Ville)
+    UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0 atPosition:ccp(51, size.height - 40 * 2) withUnits:level1UnitLeft];
+    [self addChild:unitLeftLevelOne z:unitOddLevelOne];
     
-    UnitSprite *sprited2 = [[UnitSprite alloc] initWithUnitType:0 atPosition:ccp(5 + 936, 750 - (75 / 2))];
-    [self addChild:sprited2 z:1000];
+    UnitSprite *unitLeftLevelTwo = [[UnitSprite alloc] initWithUnitType:2
+                                                      atPosition:ccp(51, size.height - (40 * 5)) withUnits:level2UnitLeft];
+    [self addChild:unitLeftLevelTwo z:unitOddLevelTwo];
     
+    UnitSprite *unitLeftLevelThree = [[UnitSprite alloc] initWithUnitType:4
+                                                             atPosition:ccp(51, size.height - (40 * 8)) withUnits:level3UnitLeft];
+    [self addChild:unitLeftLevelThree z:unitOddLevelThree];
+    
+    UnitSprite *unitLeftLevelFour = [[UnitSprite alloc] initWithUnitType:6
+                                                               atPosition:ccp(51, size.height - (40 * 11)) withUnits:level4UnitLeft];
+    [self addChild:unitLeftLevelFour z:unitOddLevelFour];
+    
+    UnitSprite *unitLeftLevelFive = [[UnitSprite alloc] initWithUnitType:8
+                                                              atPosition:ccp(51, size.height - (40 * 14)) withUnits:level5UnitLeft];
+    [self addChild:unitLeftLevelFive z:unitOddLevelFive];
+    
+    
+    level1UnitRight = 0;
+    level2UnitRight = 7;
+    level3UnitRight = 7;
+    level4UnitRight = 7;
+    level5UnitRight = 70;
+    //  Unité droite (Nature)
+    UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
+    [self addChild:unitRightLevelOne z:unitEvenLevelOne];
+
+    
+    UnitSprite *unitRightLevelTwo = [[UnitSprite alloc] initWithUnitType:3 atPosition:ccp(size.width - 51, size.height - 40 * 5) withUnits:level2UnitRight];
+    [self addChild:unitRightLevelTwo z:unitEvenLevelTwo];
+  
+    
+    UnitSprite *unitRightLevelThree = [[UnitSprite alloc] initWithUnitType:5 atPosition:ccp(size.width - 51, size.height - 40 * 8) withUnits:level3UnitRight];
+    [self addChild:unitRightLevelThree z:unitEvenLevelThree];
+    
+    UnitSprite *unitRightLevelFour = [[UnitSprite alloc] initWithUnitType:7 atPosition:ccp(size.width - 51, size.height - 40 * 11) withUnits:level4UnitRight];
+    [self addChild:unitRightLevelFour z:unitEvenLevelFour];
+    
+    UnitSprite *unitRightLevelFive = [[UnitSprite alloc] initWithUnitType:9 atPosition:ccp(size.width - 51, size.height - 40 * 14) withUnits:level5UnitRight];
+    [self addChild:unitRightLevelFive z:unitEvenLevelFive];
+
+    float fontSize = 18;
+
     //Affichage des scores
     scoreLabelLeft = [[CCLabelTTF alloc] initWithString:@"0"
                                              dimensions:CGSizeMake(120, 120)
                                              hAlignment:kCCTextAlignmentLeft
                                                fontName:@"HelveticaNeue-Bold"
-                                               fontSize:42.0f];
+                                               fontSize:fontSize];
     scoreLabelLeft.position = ccp(150, 130);
     scoreLabelLeft.color = ccc3(209, 185, 218);
     [self addChild:scoreLabelLeft z: 6000];
@@ -309,7 +419,7 @@
                                               dimensions:CGSizeMake(120, 120)
                                               hAlignment:kCCTextAlignmentLeft
                                                 fontName:@"HelveticaNeue-Bold"
-                                                fontSize:42.0f];
+                                                fontSize:fontSize];
     scoreLabelRight.position = ccp(957, 130);
     scoreLabelRight.color = ccc3(197, 229, 232);
     [self addChild:scoreLabelRight z: 6000];
@@ -329,7 +439,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * .25;
+    countdown = 60 * .5;
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)
@@ -339,41 +449,115 @@
     countdownLabel.position = ccp(525, 705);
     countdownLabel.color = ccc3(200, 140, 48);
     [self addChild:countdownLabel z: 6000];
+    
     //Lancement du chronomètre
     [self schedule: @selector(generateOptimum:) interval:1];
     
-    level1UnitLeft = 7;
-    level2UnitLeft = 7;
-    level3UnitLeft = 7;
-    level4UnitLeft = 7;
-    level5UnitLeft = 7;
+    //Affichage du nombre unités - Left
+    
+    
+    level1UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
+                                              dimensions:CGSizeMake(19, 19)
+                                              hAlignment:kCCTextAlignmentCenter
+                                              fontName:@"HelveticaNeue-CondensedBold"
+                                              fontSize:fontSize];
+    level1UnitLeftLabel.position = ccp(74, size.height - 52);
+    level1UnitLeftLabel.color = ccc3(131, 58, 52);
+    [self addChild:level1UnitLeftLabel z: 6000];
+    
+    level2UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitLeft]
+                                              dimensions:CGSizeMake(19, 19)
+                                              hAlignment:kCCTextAlignmentCenter
+                                              fontName:@"HelveticaNeue-CondensedBold"
+                                              fontSize:fontSize];
+    level2UnitLeftLabel.position = ccp(74, size.height - 172.5);
+    level2UnitLeftLabel.color = ccc3(131, 58, 52);
+    [self addChild:level2UnitLeftLabel z: 6000];
     
     level3UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitLeft]
-                                                  dimensions:CGSizeMake(150, 130)
-                                                  hAlignment:kCCTextAlignmentLeft
-                                                    fontName:@"HelveticaNeue-Bold"
-                                                    fontSize:31.0f];
-    level3UnitLeftLabel.anchorPoint = ccp(0, .5);
-    level3UnitLeftLabel.position = ccp(25, 705);
-    level3UnitLeftLabel.color = ccc3(197, 229, 232);
+                                                  dimensions:CGSizeMake(19, 19)
+                                                  hAlignment:kCCTextAlignmentCenter
+                                                    fontName:@"HelveticaNeue-CondensedBold"
+                                                    fontSize:fontSize];
+    level3UnitLeftLabel.position = ccp(74, size.height - 295);
+    level3UnitLeftLabel.color = ccc3(131, 58, 52);
     [self addChild:level3UnitLeftLabel z: 6000];
     
-    level1UnitRight = 5;
-    level2UnitRight = 7;
-    level3UnitRight = 7;
-    level4UnitRight = 7;
-    level5UnitRight = 7;
+    level4UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitLeft]
+                                                  dimensions:CGSizeMake(19, 19)
+                                                  hAlignment:kCCTextAlignmentCenter
+                                                    fontName:@"HelveticaNeue-CondensedBold"
+                                                    fontSize:fontSize];
+    level4UnitLeftLabel.position = ccp(74, size.height - 415);
+    level4UnitLeftLabel.color = ccc3(131, 58, 52);
+    [self addChild:level4UnitLeftLabel z: 6000];
+    
+    level5UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitLeft]
+                                                  dimensions:CGSizeMake(19, 19)
+                                                  hAlignment:kCCTextAlignmentCenter
+                                                    fontName:@"HelveticaNeue-CondensedBold"
+                                                    fontSize:fontSize];
+    level5UnitLeftLabel.position = ccp(74, size.height - 535);
+    level5UnitLeftLabel.color = ccc3(131, 58, 52);
+    [self addChild:level5UnitLeftLabel z: 6000];
+    
+//    for (UnitSprite *sprite in self.children) {
+//        
+//        if ([sprite isKindOfClass:[UnitSprite class]])
+//        {
+    
+    
+    //Affichage du nombre unités - Right
     
     
     level1UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitRight]
-                                                   dimensions:CGSizeMake(150, 130)
-                                                   hAlignment:kCCTextAlignmentLeft
-                                                     fontName:@"HelveticaNeue-Bold"
-                                                     fontSize:31.0f];
-    level1UnitRightLabel.anchorPoint = ccp(0, .5);
-    level1UnitRightLabel.position = ccp(sprited2.position.x + 30, 705);
-    level1UnitRightLabel.color = ccc3(209, 185, 218);
+                                               dimensions:CGSizeMake(19, 19)
+                                               hAlignment:kCCTextAlignmentCenter
+                                               fontName:@"HelveticaNeue-CondensedBold"
+                                               fontSize:fontSize];
+    level1UnitRightLabel.position = ccp(size.width - 78, size.height - 52);
+    level1UnitRightLabel.color = ccc3(131, 58, 52);
     [self addChild:level1UnitRightLabel z: 6000];
+    
+    level2UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitRight]
+                                                   dimensions:CGSizeMake(19, 19)
+                                                   hAlignment:kCCTextAlignmentCenter
+                                                     fontName:@"HelveticaNeue-CondensedBold"
+                                                     fontSize:fontSize];
+    level2UnitRightLabel.position = ccp(size.width - 78, size.height - 172.5);
+    level2UnitRightLabel.color = ccc3(131, 58, 52);
+    [self addChild:level2UnitRightLabel z: 6000];
+    
+    level3UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitRight]
+                                                   dimensions:CGSizeMake(19, 19)
+                                                   hAlignment:kCCTextAlignmentCenter
+                                                     fontName:@"HelveticaNeue-CondensedBold"
+                                                     fontSize:fontSize];
+    level3UnitRightLabel.position = ccp(size.width - 78, size.height - 295);
+    level3UnitRightLabel.color = ccc3(131, 58, 52);
+    [self addChild:level3UnitRightLabel z: 6000];
+    
+    level4UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitRight]
+                                                   dimensions:CGSizeMake(19, 19)
+                                                   hAlignment:kCCTextAlignmentCenter
+                                                     fontName:@"HelveticaNeue-CondensedBold"
+                                                     fontSize:fontSize];
+    level4UnitRightLabel.position = ccp(size.width - 78, size.height - 415);
+    level4UnitRightLabel.color = ccc3(131, 58, 52);
+    [self addChild:level4UnitRightLabel z: 6000];
+    
+    level5UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitRight]
+                                                   dimensions:CGSizeMake(19, 19)
+                                                   hAlignment:kCCTextAlignmentCenter
+                                                     fontName:@"HelveticaNeue-CondensedBold"
+                                                     fontSize:fontSize];
+    level5UnitRightLabel.position = ccp(size.width - 78, size.height - 535);
+    level5UnitRightLabel.color = ccc3(131, 58, 52);
+    [self addChild:level5UnitRightLabel z: 6000];
+    
+    // 60, 31, 30 - 2px 90° - ombre interne
+    // 
+    
 }
 
 
@@ -474,7 +658,7 @@
         //On génère un évènement positif aléatoire
         randEvent = arc4random() % [positiveEventsList count];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Évènement" message:[positiveEventsList objectAtIndex:randEvent] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [alert show];
+        //        [alert show];
         
         NSLog(@"%@", [positiveEventsList objectAtIndex:randEvent]);
         
@@ -503,7 +687,7 @@
             //On génère un évènement négatif aléatoire
         randEvent = arc4random() % [negativeEventsList count];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Évènement" message:[negativeEventsList objectAtIndex:randEvent] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [alert show];
+        //        [alert show];
         
         NSLog(@"%@", [negativeEventsList objectAtIndex:randEvent]);
         
@@ -599,92 +783,92 @@
 }
 
 - (void) substractUnitForTeam:(BOOL)team andUnit:(int)unit{
-        switch (unit)
-        {
-            case 2:
-                level1UnitLeft--;
-                if (level1UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level1UnitLeft = 0;
-                }
-                [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
-                break;
-                
-            case 4:
-                level2UnitLeft--;
-                if (level2UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level2UnitLeft = 0;
-                }
-                [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level2UnitLeft]];
-                break;
-                
-            case 6:
-                level3UnitLeft--;
-                if (level3UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level3UnitLeft = 0;
-                }
-                [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level3UnitLeft]];
-                break;
-                
-            case 8:
-                level4UnitLeft--;
-                if (level4UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level4UnitLeft = 0;
-                }
-                [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level4UnitLeft]];
-                break;
-                
-            case 10:
-                level5UnitLeft--;
-                if (level5UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level5UnitLeft = 0;
-                }
-                [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level5UnitLeft]];
-                break;
-
-            case 1:
-                level1UnitRight--;
-                if (level1UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level1UnitRight = 0;
-                }
-                [level1UnitRightLabel setString:[NSString stringWithFormat:@"%d", level1UnitRight]];
-                break;
-                
-            case 3:
-                level2UnitRight--;
-                if (level2UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level2UnitRight = 0;
-                }
-                [level2UnitRightLabel setString:[NSString stringWithFormat:@"%d", level2UnitRight]];
-                break;
-                
-            case 5:
-                level3UnitRight--;
-                if (level3UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level3UnitRight = 0;
-                }
-                [level3UnitRightLabel setString:[NSString stringWithFormat:@"%d", level3UnitRight]];
-                break;
-                
-            case 7:
-                level4UnitRight--;
-                if (level4UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level4UnitRight = 0;
-                }
-                [level4UnitRightLabel setString:[NSString stringWithFormat:@"%d", level4UnitRight]];
-                break;
-                
-            case 9:
-                level5UnitRight--;
-                if (level5UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
-                    level5UnitRight = 0;
-                }
-                [level5UnitRightLabel setString:[NSString stringWithFormat:@"%d", level5UnitRight]];
-                break;
-                
-            default:
-                
-                break;
-        }
+    switch (unit)
+    {
+        case 1:
+            level1UnitLeft--;
+            if (level1UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level1UnitLeft = 0;
+            }
+            [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
+            break;
+            
+        case 3:
+            level2UnitLeft--;
+            if (level2UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level2UnitLeft = 0;
+            }
+            [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level2UnitLeft]];
+            break;
+            
+        case 5:
+            level3UnitLeft--;
+            if (level3UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level3UnitLeft = 0;
+            }
+            [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level3UnitLeft]];
+            break;
+            
+        case 7:
+            level4UnitLeft--;
+            if (level4UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level4UnitLeft = 0;
+            }
+            [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level4UnitLeft]];
+            break;
+            
+        case 9:
+            level5UnitLeft--;
+            if (level5UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level5UnitLeft = 0;
+            }
+            [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level5UnitLeft]];
+            break;
+            
+        case 2:
+            level1UnitRight--;
+            if (level1UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level1UnitRight = 0;
+            }
+            [level1UnitRightLabel setString:[NSString stringWithFormat:@"%d", level1UnitRight]];
+            break;
+            
+        case 4:
+            level2UnitRight--;
+            if (level2UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level2UnitRight = 0;
+            }
+            [level2UnitRightLabel setString:[NSString stringWithFormat:@"%d", level2UnitRight]];
+            break;
+            
+        case 6:
+            level3UnitRight--;
+            if (level3UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level3UnitRight = 0;
+            }
+            [level3UnitRightLabel setString:[NSString stringWithFormat:@"%d", level3UnitRight]];
+            break;
+            
+        case 8:
+            level4UnitRight--;
+            if (level4UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level4UnitRight = 0;
+            }
+            [level4UnitRightLabel setString:[NSString stringWithFormat:@"%d", level4UnitRight]];
+            break;
+            
+        case 10:
+            level5UnitRight--;
+            if (level5UnitRight <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                level5UnitRight = 0;
+            }
+            [level5UnitRightLabel setString:[NSString stringWithFormat:@"%d", level5UnitRight]];
+            break;
+            
+        default:
+            
+            break;
+    }
 }
 
 
@@ -739,13 +923,13 @@
 {
 	// get the position in tile coordinates from the touch location
 	CGPoint touchLocation = [self locationFromTouches:touches];
-
+    
     CCNode* node = [self getChildByTag:TileMapTag];
 	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
 	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-
+    
     CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-
+    
     CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
     
     if (
@@ -753,8 +937,8 @@
         [layer tileGIDAt:tileCord] != 0
         )
     {
-        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
-        CCLOG(@"%i", [layer tileGIDAt:tileCord]);
+//        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
+        CCLOG(@"%i", [layer tileAt:tileCord].frequency);
     }
 }
 
@@ -779,7 +963,7 @@
 	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
     CCTMXLayer *highlightLayer;
     
-   
+    
     if (sprite.team) { //Equipe de droite
         highlightLayer = [tiledMap layerNamed:@"HighlightRight"];
     }else{
@@ -862,12 +1046,12 @@
     //    [self actionAtCoordinate:ccp(0, 0)];
     
     
-//    Permet de placer à sa place initiale le Sprite sélectionné
+    //    Permet de placer à sa place initiale le Sprite sélectionné
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
-                                            position: ccp(initPosition.x, initPosition.y)];
+                                                      position: ccp(initPosition.x, initPosition.y)];
     
     CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
-                                           position: ccp(initPosition.x, initPosition.y)];
+                                                     position: ccp(initPosition.x, initPosition.y)];
     
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation))
     {
@@ -903,52 +1087,52 @@
         
         if ([sprite isKindOfClass:[UnitSprite class]])
         {
-                // Camp de droite
-                switch (sprite.level)
-                {
-                    case 1:
-                        sprite.units = level1UnitRight;
-                        break;
-                        
-                    case 3:
-                        sprite.units = level2UnitRight;
-                        break;
-                        
-                    case 5:
-                        sprite.units = level3UnitRight;
-                        break;
-                        
-                    case 7:
-                        sprite.units = level4UnitRight;
-                        break;
-                        
-                    case 9:
-                        sprite.units = level5UnitRight;
-                        break;
-
+            // Camp de droite
+            switch (sprite.level)
+            {
+                case 2:
+                    sprite.units = level1UnitRight;
+                    break;
+                    
+                case 4:
+                    sprite.units = level2UnitRight;
+                    break;
+                    
+                case 6:
+                    sprite.units = level3UnitRight;
+                    break;
+                    
+                case 8:
+                    sprite.units = level4UnitRight;
+                    break;
+                    
+                case 10:
+                    sprite.units = level5UnitRight;
+                    break;
+                    
                     // Camp de gauche
-                    case 2:
-                        sprite.units = level1UnitLeft;
-                        break;
-                        
-                    case 4:
-                        sprite.units = level2UnitLeft;
-                        break;
-                        
-                    case 6:
-                        sprite.units = level3UnitLeft;
-                        break;
-                        
-                    case 8:
-                        sprite.units = level4UnitLeft;
-                        break;
-                        
-                    case 10:
-                        sprite.units = level5UnitLeft;
-                        break;
-                        
-                    default:
-                        break;
+                case 1:
+                    sprite.units = level1UnitLeft;
+                    break;
+                    
+                case 3:
+                    sprite.units = level2UnitLeft;
+                    break;
+                    
+                case 5:
+                    sprite.units = level3UnitLeft;
+                    break;
+                    
+                case 7:
+                    sprite.units = level4UnitLeft;
+                    break;
+                    
+                case 9:
+                    sprite.units = level5UnitLeft;
+                    break;
+                    
+                default:
+                    break;
             }
         }
     }
@@ -989,7 +1173,7 @@
      Diagonale H gauche : (X-1, Y)
      Diagonale H droite : (X, Y-1)
      Diagonale B gauche : (X, Y+1)
-     Diagonale B droite : (X+1, Y)
+     Diagonale B droite : (X+1, Y) llll
      */
     
     CGPoint diagonalUpperLeft = ccp(location.x - 1, location.y);
@@ -1123,6 +1307,8 @@
                 [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {
+                
+//                [self actionAtCoordinate: ccp(x, y)];
                 [self actionAtCoordinate: ccp(x, y)];
             }
         }
@@ -1141,7 +1327,9 @@
     BOOL teamTile = [layer tileAt:tile].team;
     int frequencyAttack = [layer tileAt:tile].frequency;
     
-        // On s'assure que l'unité a le "droit" d'attaquer
+//    CCLOG(@"attackPoint : %i, frequencyAttack : %i", attackPoint, frequencyAttack);
+    
+    // On s'assure que l'unité a le "droit" d'attaquer
     if (timeElapse % frequencyAttack == 0)
     {
         
@@ -1210,6 +1398,9 @@
     // Called right after onEnter.
     // If using a CCTransitionScene: called when the transition has ended.
     [super onEnterTransitionDidFinish];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"jeu_loop.aif"];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"jeu_loop.aif" loop:YES];
 }
 
 -(void) onExit
@@ -1217,6 +1408,7 @@
     // Called right before node’s dealloc method is called.
     // If using a CCTransitionScene: called when the transition has ended.
     [super onExit];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 }
 
 @end

@@ -6,12 +6,6 @@
 //  Copyright 2013 __MyCompanyName__. All rights reserved.
 //
 
-@class GameView;
-
-@protocol GameViewDelegate <NSObject>
-
-@end
-
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Game.h"
@@ -19,12 +13,16 @@
 
 
 @interface TeamLayer : CCLayer <GameDelegate> {
-    
+    Game *gameElement;
 }
 
-@property (nonatomic, weak) id <GameViewDelegate> delegate;
-@property (nonatomic, strong) Game *game;
 
 +(CCScene *) scene;
++ (CCScene *) sceneWithGameObject:(Game*)gameObject;
+- (id) initWithGameObject:(Game*)gameObject;
+
++(CCScene *)scene2;
++ (CCScene *) sceneWithGameObject2:(Game*)gameObject;
+- (id) initWithGameObject2:(Game*)gameObject;
 
 @end

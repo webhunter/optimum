@@ -24,15 +24,16 @@
         randNum = rand() % (4000 - 1000) + 1000;
         double delay = arc4random() % 20;
         
-        self.scale = CC_CONTENT_SCALE_FACTOR();
+        self.scale = CC_CONTENT_SCALE_FACTOR() + 1;
         self.position = ccp(95 + arc4random() % ((int)size.width - (85*2)), size.height + 50);
         self.anchorPoint = ccp(.5, .5);
+        self.touchEnabled = YES;
         
-        CCParticleSystem* system;
-        system = [CCParticleMeteor node];
-        system.scale = 2;
-        system.position = ccp(0, 768);
-        [self addChild:system z:1 tag:1];
+//        CCParticleSystem* system;
+//        system = [CCParticleMeteor node];
+//        system.scale = 2;
+//        system.position = ccp(0, 768);
+//        [self addChild:system z:1 tag:1];
         
         self.tag = randNum;
         
@@ -103,7 +104,7 @@
     CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
 
-	if([self isTouchOnSprite:touchPoint])
+	if([self isTouchOnSprite:touchPoint] && self.touchEnabled == YES)
     {
         //Lorsque l'on touche le sprite, l'animation s'arrête
         [self stopAllActions];
@@ -163,6 +164,14 @@
         postNotificationName:@"optimumPosition"
         object:optimumRessourceExtraProperties
      ];
+}
+
+- (BOOL) touchEnabled{
+    return touchEnabled;
+}
+
+- (void) setTouchEnabled:(BOOL)_touchEnabled{
+    touchEnabled = _touchEnabled;
 }
 
 @end

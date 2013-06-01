@@ -123,6 +123,12 @@
         [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
         
         [self addChild:menu_back];
+        
+        CCLabelTTF *winnerNameLabel = [[CCLabelTTF alloc] initWithString:winnerName fontName:@"Helvetica" fontSize:13];
+        winnerNameLabel.position = ccp(50, 120);
+        [self addChild:winnerNameLabel];
+        
+        
     }
     
     return self;

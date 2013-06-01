@@ -7,10 +7,10 @@
 //
 
 #import "Game.h"
-#import "Player.h"
 #import "Packet.h"
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
+#import "TeamLayer.h"
 
 typedef enum
 {
@@ -116,6 +116,16 @@ GameState;
 	{
 		NSLog(@"Error sending data to clients: %@", error);
 	}
+}
+
+- (void) sendPacketToOneClient:(Packet *)packet andClient:(NSArray*)client
+{
+    NSError *error;
+    NSData *data = [packet data];
+    if (![_session sendData:data toPeers:client withDataMode:GKSendDataReliable error:&error])
+    {
+        NSLog(@"Error sending data to client: %@", error);
+    }
 }
 
 - (void)sendPacketToServer:(Packet *)packet
@@ -228,6 +238,18 @@ GameState;
 			}
 			break;
             
+        case PacketTypeTeam:
+            if (_state == GameStateDealing) {
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
+            }
+            break;
+            
+        case PacketTypeTeam2:
+            if (_state == GameStateDealing) {
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject2:self]];
+            }
+            break;
+            
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
 			break;
@@ -287,6 +309,22 @@ GameState;
 {
 	return [_players objectForKey:peerID];
 }
+
+
+- (Player *)playerAtPosition:(PlayerPosition)position
+{
+	__block Player *player;
+	[_players enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
+     {
+         player = obj;
+         if (player.position == position)
+             *stop = YES;
+         else
+             player = nil;
+     }];
+	return player;
+}
+
 
 - (void)dealloc
 {

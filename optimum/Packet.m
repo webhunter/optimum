@@ -86,6 +86,14 @@ const size_t PACKET_HEADER_SIZE = 10;
 			packet = [PacketServerReady packetWithData:data];
 			break;
             
+        case PacketTypeTeam:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketTypeTeam2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
 		default:
 			NSLog(@"Error: Packet has invalid type");
 			return nil;

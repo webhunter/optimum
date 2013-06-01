@@ -11,6 +11,7 @@
 
 @implementation UnitSprite
 
+
 - (void)onEnter
 {
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:10000 swallowsTouches:YES];
@@ -33,29 +34,27 @@
 	return [self initWithTexture:texture rect:rect rotated:NO];
 }
 
-- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position{
-
-//    CCSpriteFrameCache *cache = [CCSpriteFrameCache sharedSpriteFrameCache];
-//    [cache addSpriteFramesWithFile:@"units.plist"];
-//    NSArray *unitsTypeArray = [[NSArray alloc] initWithObjects: @"unit-1.png", @"unit-2.png", nil];
+- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position withUnits:(int)numberUnits{
     
-    CCSpriteFrameCache *cache = [CCSpriteFrameCache sharedSpriteFrameCache];
-    [cache addSpriteFramesWithFile:@"maquette-unites.plist"];
+    CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+    [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
+    
     NSArray *unitsTypeArray = [[NSArray alloc] initWithObjects:
-                               @"tiled-m_0031_UVL1S1.png",
-                               @"tiled-m_0028_UNL1S1.png",
-                               
-                               @"tiled-m_0025_UVL2S1.png",
-                               @"tiled-m_0022_UNL2S1.png",
-                               
-                               @"tiled-m_0019_UVL3S1.png",
-                               @"tiled-m_0016_UNL3S1.png",
-                               
-                               @"tiled-m_0013_UVL4S1.png",
-                               @"tiled-m_0010_UNL4S1.png",
-                               
-                               @"tiled-m_0007_UVL5S1.png",
-                               @"tiled-m_0004_UNL5S1.png",
+                               //niveau 1
+                               @"unit-1-ville-color.png",
+                               @"unit-1-nature-color.png",
+                               //niveau 2
+                               @"unit-2-ville-color.png",
+                               @"unit-2-nature-color.png",
+                               //niveau 3
+                               @"unit-3-ville-color.png",
+                               @"unit-3-nature-color.png",
+                               //niveau 4
+                               @"unit-4-ville-color.png",
+                               @"unit-4-nature-color.png",
+                               //niveau 5
+                               @"unit-5-ville-color.png",
+                               @"unit-5-nature-color.png",
                                nil];
     if (unitType > [unitsTypeArray count])
     {
@@ -63,7 +62,8 @@
     }
     
     self = [super initWithSpriteFrameName:[unitsTypeArray objectAtIndex:unitType]];
-    self.scale = CC_CONTENT_SCALE_FACTOR();
+//    self.scale = CC_CONTENT_SCALE_FACTOR();
+    CCLOG(@"unit : %@", CGSizeCreateDictionaryRepresentation(self.boundingBox.size));
     self.anchorPoint = ccp(.5, .5);
     self.tag = arc4random() % 10000;
     self.level = unitType + 1;
@@ -79,8 +79,9 @@
     self.position = self.initPosition = ccp(position.x, position.y);
     
     hasUnits = YES;
-    self.units = 42; //On met une valeur par défaut
-    
+    self.touchEnabled = YES;
+    self.units = numberUnits; //On met une valeur par défaut
+    unitTypeBW = unitType;
     
     [self schedule: @selector(hasUnits:) interval:0.5];
     
@@ -90,11 +91,32 @@
 //Vérifie que l'Optimum est toujours visible à l'écran
 - (void) hasUnits: (ccTime) dt
 {
+    NSArray *unitsTypeArrayBW = [[NSArray alloc] initWithObjects:
+                               //niveau 1
+                               @"unit-1-ville-nb.png",
+                               @"unit-1-nature-nb.png",
+                               //niveau 2
+                               @"unit-2-ville-nb.png",
+                               @"unit-2-nb-color.png",
+                               //niveau 3
+                               @"unit-3-ville-nb.png",
+                               @"unit-3-nature-nb.png",
+                               //niveau 4
+                               @"unit-4-ville-nb.png",
+                               @"unit-4-nature-nb.png",
+                               //niveau 5
+                               @"unit-5-ville-nb.png",
+                               @"unit-5-nature-nb.png",
+                               nil];
+    CCSprite *bw = [CCSprite spriteWithSpriteFrameName:[unitsTypeArrayBW objectAtIndex:unitTypeBW]];
+    bw.anchorPoint = ccp(0, 0);
     if (self.units <= 0)
     {
         hasUnits = NO;
+        [self addChild:bw];
     }else{
         hasUnits = YES;
+        [self removeChild:bw cleanup:YES];
     }
 }
 
@@ -103,7 +125,7 @@
     CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
     
-    if (hasUnits)
+    if (hasUnits && self.touchEnabled == YES)
     {
         if([self isTouchOnSprite:touchPoint])
         {
@@ -207,6 +229,14 @@
 
 - (void) setUnits:(int)unit{
     units = unit;
+}
+
+- (BOOL) touchEnabled{
+    return touchEnabled;
+}
+
+- (void) setTouchEnabled:(BOOL)_touchEnabled{
+    touchEnabled = _touchEnabled;
 }
 
 @end

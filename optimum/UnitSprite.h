@@ -17,6 +17,8 @@
     BOOL teamy; // 0 : left | 1 = right
     int units; //Se charge de savoir s'il reste encore des unités
     BOOL hasUnits;
+    int unitTypeBW; //Conserve le type d'unité pour le mode noir/blanc
+    BOOL touchEnabled; //Permet d'activer le touch
 }
 
 - (BOOL) isTouchOnSprite:(CGPoint)touch;
@@ -25,12 +27,15 @@
 - (void) setLevel:(int)niveau;
 
 - (CGPoint) initPosition;
-- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position;
+- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position withUnits:(int)numberUnits;
 
 - (BOOL) teamy;
 - (void) setTeamy:(BOOL)equipe;
 
 - (int) units;
 - (void) setUnits:(int)unit;
+
+- (BOOL) touchEnabled;
+- (void) setTouchEnabled:(BOOL)_touchEnabled;
 
 @end

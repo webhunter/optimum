@@ -8,15 +8,13 @@
 
 #import "TeamLayer.h"
 #import "CCSlider.h"
-
 #import "Map.h"
 #import "Tips.h"
+#import "Player.h"
+#import "Archipelago.h"
 
 
-@implementation TeamLayer
-
-@synthesize delegate = _delegate;
-@synthesize game = _game;
+@implementation TeamLayer{}
 
 +(CCScene *) scene
 {
@@ -33,12 +31,71 @@
 	return scene;
 }
 
-
--(id) init
++(CCScene *) scene2
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
-	if( (self=[super init]) ) {
+	// 'scene' is an autorelease object.
+	CCScene *scene2 = [CCScene node];
+	
+	// 'layer' is an autorelease object.
+	TeamLayer *layer2 = [TeamLayer node];
+	
+	// add layer as a child to scene
+	[scene2 addChild: layer2];
+	
+	// return the scene
+	return scene2;
+}
+
+// On surchage CCScene en lui indiquant les paramètres à passer
++ (CCScene *) sceneWithGameObject:(Game*)gameObject
+{
+    // 'scene' is an autorelease object.
+	CCScene *scene = [CCScene node];
+	
+	// On indique quel node (initialiseur) à utiliser
+    // en lui passant les paramètres les mêmes que dans scene
+	TeamLayer *layer = [TeamLayer nodeWithGameObject:gameObject];
+	
+	// add layer as a child to scene
+	[scene addChild: layer];
+	
+	// return the scene
+	return scene;
+}
+
+// On surchage CCScene en lui indiquant les paramètres à passer
++ (CCScene *) sceneWithGameObject2:(Game*)gameObject
+{
+    // 'scene' is an autorelease object.
+	CCScene *scene2 = [CCScene node];
+	
+	// On indique quel node (initialiseur) à utiliser
+    // en lui passant les paramètres les mêmes que dans scene
+	TeamLayer *layer2 = [TeamLayer nodeWithGameObject2:gameObject];
+	
+	// add layer as a child to scene
+	[scene2 addChild: layer2];
+	
+	// return the scene
+	return scene2;
+}
+
+// le node indique quel initialisateur est à utiliser
++ (id) nodeWithGameObject:(Game*)gameObject
+{
+    return [[self alloc] initWithGameObject:(Game*)gameObject];
+}
+
+// le node indique quel initialisateur est à utiliser
++ (id) nodeWithGameObject2:(Game*)gameObject
+{
+    return [[self alloc] initWithGameObject2:(Game*)gameObject];
+}
+
+- (id) initWithGameObject2:(Game*)gameObject
+{
+    if( (self=[super init]) ) {
+        gameElement = gameObject;
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
             if ([UIScreen instancesRespondToSelector:@selector(scale)])
@@ -49,21 +106,104 @@
                     if ([[UIScreen mainScreen] bounds].size.height == 568)
                     {
                         // IPHONE 5
-       
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondNature.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Nature
+                        CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                        [nature setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:nature];
                         
                     }
                     else
                     {
                         // IPHONE RETINA SCREEN
-                        UIAlertView *truc = [[UIAlertView alloc] initWithTitle:@"Titre" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
-                        [truc show];
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondNature.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Nature
+                        CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                        [nature setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:nature];
+                    }
+                }
+            }
+            
+        }
+    }
+    return self;
+    
+}
+
+- (id) initWithGameObject:(Game*)gameObject
+{
+    
+    if( (self=[super init]) ) {
+        gameElement = gameObject;
+        if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
+        {
+            if ([UIScreen instancesRespondToSelector:@selector(scale)])
+            {
+                CGFloat scale = [[UIScreen mainScreen] scale];
+                if (scale > 1.0)
+                {
+                    if ([[UIScreen mainScreen] bounds].size.height == 568)
+                    {
+                        // IPHONE 5
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondVille.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Ville
+                        CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
+                        [ville setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:ville];
+                        
+                    }
+                    else
+                    {
+                        // IPHONE RETINA SCREEN
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"fondVille.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
+                        // Logo Ville
+                        CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
+                        [ville setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:ville];
                     }
                 }
             }
             else
             {
                 // IPHONE SCREEN
- 
+                
             }
         }
 		else
@@ -75,36 +215,40 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"bg.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
                 // Bouton back
                 CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
-                CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Carte" target:self selector:@selector(onNewGame:)];
-                buttonOne.color = ccRED;
                 
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, buttonOne, nil];
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
                 [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
-                button_back.scale = CC_CONTENT_SCALE_FACTOR();
                 
                 [self addChild:menu_back];
                 
-                [menu_back alignItemsVertically];
-                [menu_back alignItemsVerticallyWithPadding:10];	// 10px of padding around each button
-                [menu_back alignItemsHorizontally];
-                [menu_back alignItemsHorizontallyWithPadding:20];	// 20px of padding around each button
+                // Bouton Next
+                CCMenuItemFont *buttonNext = [CCMenuItemFont itemWithString:@"NEXT" target:self selector:@selector(onNewGame:)];
+                buttonNext.color = ccYELLOW;
                 
-                //Slider
-                CCSlider *slider1 = [CCSlider sliderWithBackgroundFile: @"slide.png"
-                                                             thumbFile: @"ville.png"];
-                [slider1 setPosition:ccp( size.width/2, size.height/2 + 170)];
+                CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
+                [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
                 
-                [self addChild:slider1];
+                [self addChild:menu_next];
                 
-                CCSlider *slider2 = [CCSlider sliderWithBackgroundFile: @"slide.png"
-                                                             thumbFile: @"nature.png"];
-                [slider2 setPosition:ccp( size.width/2, size.height/2 - 170)];
-                slider1.scale = CC_CONTENT_SCALE_FACTOR();
-                slider2.scale = CC_CONTENT_SCALE_FACTOR();
                 
-                [self addChild:slider2];
+                //Team
+                CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
+                [ville setPosition:ccp( size.width/2 - 300, size.height/2)];
+                
+                [self addChild:ville];
+                
+                CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                [nature setPosition:ccp( size.width/2 + 300, size.height/2)];
+                
+                [self addChild:nature];
             }
             else
             {
@@ -112,59 +256,56 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"bg.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
                 // Bouton back
                 CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
                 
-                CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Carte" target:self selector:@selector(onNewGame:)];
-                buttonOne.color = ccRED;
-                
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, buttonOne, nil];
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
                 [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
                 
                 [self addChild:menu_back];
                 
-                [menu_back alignItemsVertically];
-                [menu_back alignItemsVerticallyWithPadding:10];	// 10px of padding around each button
-                [menu_back alignItemsHorizontally];
-                [menu_back alignItemsHorizontallyWithPadding:20];	// 20px of padding around each button
+                // Bouton Next
+                CCMenuItemFont *buttonNext = [CCMenuItemFont itemWithString:@"NEXT" target:self selector:@selector(onNewGame:)];
+                buttonNext.color = ccYELLOW;
                 
-                //Slider
-                CCSlider *slider1 = [CCSlider sliderWithBackgroundFile: @"slide.png"
-                                         thumbFile: @"ville.png"];
-                [slider1 setPosition:ccp( size.width/2, size.height/2 + 170)];
+                CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
+                [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
                 
-                [self addChild:slider1];
+                [self addChild:menu_next];
                 
-                CCSlider *slider2 = [CCSlider sliderWithBackgroundFile: @"slide.png"
-                                                             thumbFile: @"nature.png"];
-                [slider2 setPosition:ccp( size.width/2, size.height/2 - 170)];
                 
-                [self addChild:slider2];
+                //Team
+                CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
+                [ville setPosition:ccp( size.width/2 - 300, size.height/2)];
+                
+                [self addChild:ville];
+                
+                CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
+                [nature setPosition:ccp( size.width/2 + 300, size.height/2)];
+                
+                [self addChild:nature];
             }
         }
     }
 	return self;
 }
 
-- (void) onNewGame: (CCMenuItem  *) menuItem{
-    
-    //    [[CCDirector sharedDirector]
-    //     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-    //                                                     scene:[Map sceneWithParameters:@"string"]
-    //                   ]];
-    
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"string", @"NextScene", nil];
-    NSArray *objects = [[NSArray alloc] initWithObjects:@"truc", @"Archipelago", nil];
-    
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-    
-    [[CCDirector sharedDirector]
-     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                    scene:[Tips sceneWithNextScene:dict]
-                   ]];
+
+- (void) onNewGame: (CCMenuItem  *) menuItem
+{
+    // affichage de l'écran de Archipelago
+    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    [[CCDirector sharedDirector] pushScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"cityNature"] andUniverse:@"cityNature" andGameObject:gameElement]];
 }
 
 -(void) onEnter
+
 {
     // Called right after a node’s init method is called.
     // If using a CCTransitionScene: called when the transition begins.
@@ -188,7 +329,10 @@
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
-	
+    // Called right after a node’s init method is called.
+    // If using a CCTransitionScene: called when the transition begins.
+    [super onEnter];
 }
+
 @end
 
