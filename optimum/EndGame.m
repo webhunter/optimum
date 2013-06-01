@@ -41,6 +41,8 @@
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         archipelago = [parameters objectForKey:@"universe"];
         
+        
+        CGSize size = [[CCDirector sharedDirector] winSize];
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[archipelagosGameSave objectForKey:archipelago]];
@@ -71,8 +73,10 @@
         // La nature gagne
         if (teamRightPoints > teamLeftPoints) {
             winnerName = [dict objectForKey:@"evenTeam"];
-        }else{
+        }else if (teamRightPoints < teamLeftPoints){
             winnerName = [dict objectForKey:@"oddTeam"];
+        }else{
+            winnerName = @"nil";
         }
         
         switch (nbrGame) {
@@ -85,7 +89,6 @@
             case 3:
                 [dict setObject:winnerName forKey:@"winnerThree"];
                 break;
-                
             default:
                 break;
         }
@@ -104,8 +107,12 @@
         [archipelagosGameSave setObject:dict forKey:archipelago];
         [archipelagosGameSave synchronize];
         
-  
-        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:winnerName
+                                          fontName:@"Arial"
+                                          fontSize:12.0];
+        label.color = ccc3(255, 255, 255);
+        label.position = ccp(50, 120);
+        [self addChild:label z:99];
         
         CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Manche suivante"
                                                     target:self

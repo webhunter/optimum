@@ -152,11 +152,32 @@
         [menuArchipel setPosition:ccp( size.width/2, size.height/2 - 60)];
         
         [self addChild:menuArchipel];
+        
+        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitisaliser l'univers"
+                                                            target:self
+                                                          selector:@selector(resetArchipelago)];
+        buttonOne.color = ccRED;
+        
+        CCMenu *menu_back = [CCMenu menuWithItems: buttonOne, nil];
+        [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+        
+        [self addChild:menu_back];
     }
     
     return self;
 }
 
+- (void) resetArchipelago{
+    nbrGame = 1;
+    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[archipelagosGameSave objectForKey:archipelago]];
+    [dict setObject:[NSNumber numberWithInt:nbrGame] forKey:@"nbrGame"];
+    
+    // On met à jour les données concernant l'archipel (nombre de parties jouées, les vainqueurs)
+    [archipelagosGameSave setObject:dict forKey:archipelago];
+    [archipelagosGameSave synchronize];
+    [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
+}
 
 - (void) startGame: (id) sender
 {
