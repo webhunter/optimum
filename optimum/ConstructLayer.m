@@ -289,8 +289,7 @@
                                             selector:@selector(cancelCauldronContent:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:cancel, nil];
-                menu_back.anchorPoint = ccp(.5, 0);
-                [menu_back setPosition:ccp(size.width/2, 0)];
+                [menu_back setPosition:ccp(size.width/2, 18)];
                 
                 // Add the menu to the layer
                 [self addChild:menu_back];

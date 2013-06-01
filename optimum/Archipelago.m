@@ -256,7 +256,7 @@
     return self;
 }
 
-- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
+/*- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
 {
     
     if( self=[super init] )
@@ -450,7 +450,7 @@
     }
     
     return self;
-}
+}*/
 
 - (void) resetArchipelago: (id) sender
 {
@@ -483,6 +483,8 @@
     Player *player2 = [self.game playerAtPosition:PlayerPositionRight];
     NSArray *array2 = [[NSArray alloc] initWithObjects:player2.peerID, nil];
 	[self.game sendPacketToOneClient:packet2 andClient:array2];
+    
+    CCLOG(@"game : %@", self.game);
     
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     

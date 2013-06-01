@@ -301,6 +301,7 @@
 {
     // affichage de l'écran de Archipelago
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    
     [[CCDirector sharedDirector] pushScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"cityNature"] andUniverse:@"cityNature" andGameObject:gameElement]];
 }
 

@@ -241,7 +241,7 @@ GameState;
             
         case PacketTypeTeam:
             if (_state == GameStateDealing) {
-                [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject:self]];
+                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
             }
             break;
             

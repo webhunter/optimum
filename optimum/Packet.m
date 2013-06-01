@@ -93,6 +93,10 @@ const size_t PACKET_HEADER_SIZE = 10;
         case PacketTypeTeam2:
             packet = [Packet packetWithType:packetType];
             break;
+        
+        case PacketTypeMapGameStart:
+            packet = [Packet packetWithType:packetType];
+            break;
             
 		default:
 			NSLog(@"Error: Packet has invalid type");
