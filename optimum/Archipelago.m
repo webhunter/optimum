@@ -338,6 +338,7 @@
                 island2Img = [parameters objectForKey:@"cityIsland"];
                 //La gagnant est l'univers de la nature
             }else if ([winnerOne isEqualToString:@"nature"]){
+                CCLOG(@"truc2");
                 island2Img = [parameters objectForKey:@"natureIsland"];
             }else{
                 CCLOG(@"truc2");
@@ -407,9 +408,6 @@
         
         [self addChild:menuArchipel];
         
-//        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitisaliser l'univers"
-//                                                            target:self
-//                                                          selector:@selector(resetArchipelago)];
         int occurrences = 0;
         
         for(NSString *string in winners)
@@ -440,7 +438,6 @@
             [alert show];
             
         }
-        
         
         CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitialiser archipel"
                                                             target:self

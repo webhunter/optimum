@@ -442,7 +442,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * .5;
+    countdown = 60 * 4;
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)

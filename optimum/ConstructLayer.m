@@ -68,29 +68,31 @@
         gameElement = gameObject;
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"ConstructLayer.plist"];
-        cauldronContent = [[NSMutableSet alloc] init];
+        cauldronContent = [[NSCountedSet alloc] init];
         
         
         // Recettes
-        unitLevelOneRecipe = [[NSSet alloc] initWithObjects:
+        unitLevelOneRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:2],
                                                 [NSNumber numberWithInt:2],
                                                 [NSNumber numberWithInt:2],
                               nil];
         
-        unitLevelTwoRecipe = [[NSSet alloc] initWithObjects:
+        
+        
+        unitLevelTwoRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:2],
                                                 [NSNumber numberWithInt:2],
                               nil];
         
-        unitLevelThreeRecipe = [[NSSet alloc] initWithObjects:
+        unitLevelThreeRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:1],
                                                 [NSNumber numberWithInt:2],
                               nil];
         
-        unitLevelFourRecipe = [[NSSet alloc] initWithObjects:
+        unitLevelFourRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:1],
@@ -99,7 +101,7 @@
                                                 [NSNumber numberWithInt:2],
                               nil];
         
-        unitLevelFiveRecipe = [[NSSet alloc] initWithObjects:
+        unitLevelFiveRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:0],
@@ -112,6 +114,8 @@
                                                 [NSNumber numberWithInt:2],
                                                 [NSNumber numberWithInt:2],
                               nil];
+        
+        CCLOG(@"%@ %@ %@ %@ %@", unitLevelOneRecipe, unitLevelTwoRecipe, unitLevelThreeRecipe, unitLevelFourRecipe, unitLevelFiveRecipe);
         
         self.isAccelerometerEnabled = YES;
         [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
@@ -442,7 +446,6 @@
     
     CCNode *optimumNode = [self getChildByTag:tag];
     OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
-    CCLOG(@"optimumNode : %i", optimumNode.tag);
     
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
                                                       position: ccp(initPosition.x, initPosition.y)];
@@ -451,6 +454,8 @@
     CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
                                                      position: ccp(initPosition.x, initPosition.y)];
     
+    CCSprite *unitBuilt;
+    
     if (CGRectContainsRect(cauldron.boundingBox, optimumRessource.boundingBox))
     {
 //        optimumRessource.opacity = 0;
@@ -458,22 +463,39 @@
         [cauldronContent addObject:[NSNumber numberWithInt:type]];
         optimumRessource.units--;
         [optimumRessource runAction:backInitPosition];
-        
+        CCLOG(@"%@", cauldronContent);
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
-        if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
+        if ([cauldronContent isEqualToSet:unitLevelOneRecipe]) {
+            
             CCLOG(@"Level one !");
-        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
+            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_vert.png"];
+            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            [self addChild:unitBuilt];
+        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe]) {
+            
             CCLOG(@"Level two !");
-        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
+            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
+            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            [self addChild:unitBuilt];
+        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe]) {
+            
             CCLOG(@"Level three !");
-        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
+            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_gris.png"];
+            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            [self addChild:unitBuilt];
+        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe]) {
+            
             CCLOG(@"Level four !");
-        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
+        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe]) {
+            
             CCLOG(@"Level five !");
         }
     }else{
         [optimumRessource runAction:back2InitPosition];
     }
+    
+    
+    
 }
 
 - (void) optimumMove:(NSNotification *)notification

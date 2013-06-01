@@ -79,7 +79,7 @@
                                           @"city",
                                           @"nature",
                                           @"archipel_1.png",
-                                          @"archipel_1.png",
+                                          @"archipel_2.png",
                                           nil];
             NSDictionary *cityNatureDict = [[NSDictionary alloc] initWithObjects:cityNatureObjects forKeys:cityNatureKeys];
             

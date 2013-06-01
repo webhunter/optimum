@@ -20,14 +20,14 @@ enum
 
 @interface ConstructLayer : CCLayer<GameDelegate> {
     Game *gameElement;
-    NSMutableSet *cauldronContent;
+    NSCountedSet *cauldronContent;
     BOOL shake_once;
 
-    NSSet *unitLevelOneRecipe;
-    NSSet *unitLevelTwoRecipe;
-    NSSet *unitLevelThreeRecipe;
-    NSSet *unitLevelFourRecipe;
-    NSSet *unitLevelFiveRecipe;
+    NSCountedSet *unitLevelOneRecipe;
+    NSCountedSet *unitLevelTwoRecipe;
+    NSCountedSet *unitLevelThreeRecipe;
+    NSCountedSet *unitLevelFourRecipe;
+    NSCountedSet *unitLevelFiveRecipe;
 }
 
 + (CCScene *) scene;
