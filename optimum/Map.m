@@ -56,12 +56,15 @@
     if( self=[super init] )
     {
         size = [[CCDirector sharedDirector] winSize];
-        
+        self.game = [parameters objectForKey:@"game"];
+        CCLOG(@"gamegamegame : %@", self.game);
+
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
         
         timeElapse = 0;
-        nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
+
+        nbrGame = [[parameters valueForKeyPath:@"save.nbrGame"] intValue];
         
         CCSprite *background = [CCSprite spriteWithFile:@"BG6.png"];
         background.anchorPoint = ccp(0, 0);
@@ -86,7 +89,7 @@
                                                    object:nil];
 		self.isTouchEnabled = YES;
         
-        archipelago = [parameters objectForKey:@"universe"];
+        archipelago = [[parameters objectForKey:@"save"] objectForKey:@"universe"];
         NSString *mapType = @"";
         
         if ([archipelago isEqualToString:@"cityNature"])
@@ -339,8 +342,8 @@
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsRight] forKey:@"units"];
     
     
-    NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", nil];
+    NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], self.game, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", @"game", nil];
     
     
     NSDictionary *stats = [NSDictionary dictionaryWithObjects:objects forKeys:keys];

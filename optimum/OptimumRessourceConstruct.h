@@ -29,4 +29,7 @@
 - (BOOL) touchEnabled;
 - (void) setTouchEnabled:(BOOL)_touchEnabled;
 
+- (int) units;
+- (void) setUnits:(int)unit;
+
 @end

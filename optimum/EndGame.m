@@ -40,7 +40,7 @@
     {
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         archipelago = [parameters objectForKey:@"universe"];
-        
+        self.game = [parameters objectForKey:@"game"];
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
@@ -127,8 +127,6 @@
         CCLabelTTF *winnerNameLabel = [[CCLabelTTF alloc] initWithString:winnerName fontName:@"Helvetica" fontSize:13];
         winnerNameLabel.position = ccp(50, 120);
         [self addChild:winnerNameLabel];
-        
-        
     }
     
     return self;
@@ -141,7 +139,7 @@
     //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                                     scene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]
+                                                     scene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago andGameObject:self.game]
                    ]];
 }
 

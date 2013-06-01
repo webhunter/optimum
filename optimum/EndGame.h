@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface EndGame : CCLayer {
+#import "Game.h"
+
+@interface EndGame : CCLayer <GameDelegate>
+{
     int nbrGame;
     NSString *archipelago;
 }
+
+@property (nonatomic, strong) Game *game;
 
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
 - (id) initWithParameters:(NSDictionary*)parameters;

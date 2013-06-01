@@ -113,6 +113,9 @@
                                                 [NSNumber numberWithInt:2],
                               nil];
         
+        self.isAccelerometerEnabled = YES;
+        [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
+        
         
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
@@ -300,12 +303,12 @@
                 
                 [self addChild:ressourceVerteFull];
                 
-                for (int i = 0; i < 5; i++) {
-                    OptimumRessourceConstruct *ressourceVerteDrag = [[OptimumRessourceConstruct alloc]
+                
+                OptimumRessourceConstruct *ressourceVerteDrag = [[OptimumRessourceConstruct alloc]
                                                                      initWithRessourceType:0
                                                                      atPosition:ccp(size.width/2 + 113 , size.height/2 + 92 )];
-                    [self addChild:ressourceVerteDrag];
-                }
+                [self addChild:ressourceVerteDrag];
+                
                 
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
                 [pastilleVerte setPosition:ccp(size.width/2 + 92 , size.height/2 + 115 )];
@@ -318,12 +321,12 @@
                 
                 [self addChild:ressourceGriseFull];
             
-                for (int i = 0; i < 5; i++) {
-                    OptimumRessourceConstruct *ressourceGriseDrag = [[OptimumRessourceConstruct alloc]
+            
+                OptimumRessourceConstruct *ressourceGriseDrag = [[OptimumRessourceConstruct alloc]
                                                                      initWithRessourceType:1
                                                                      atPosition:ccp(size.width/2 - 113 , size.height/2 + 92 )];
-                    [self addChild:ressourceGriseDrag];
-                }
+                [self addChild:ressourceGriseDrag];
+                
                 
                 CCSprite *pastilleGrise = [CCSprite spriteWithSpriteFrameName:@"pastille_gris.png"];
                 [pastilleGrise setPosition:ccp(size.width/2 - 88 , size.height/2 + 111 )];
@@ -336,12 +339,11 @@
                 
                 [self addChild:ressourceRougeFull];
  
-                for (int i = 0; i < 5; i++) {
-                    OptimumRessourceConstruct *ressourceRougeDrag = [[OptimumRessourceConstruct alloc]
+               
+                OptimumRessourceConstruct *ressourceRougeDrag = [[OptimumRessourceConstruct alloc]
                                                                      initWithRessourceType:2
                                                                      atPosition:ccp(size.width/2 - 113 , size.height/2 - 170 )];
-                    [self addChild:ressourceRougeDrag];
-                }
+                [self addChild:ressourceRougeDrag];
                 
                 CCSprite *pastilleRouge = [CCSprite spriteWithSpriteFrameName:@"pastille_rouge.png"];
                 [pastilleRouge setPosition:ccp(size.width/2 - 90 , size.height/2 - 192 )];
@@ -404,6 +406,27 @@
 	return self;
 }
 
+-(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+    
+    float THRESHOLD = 2;
+    
+    if (acceleration.x > THRESHOLD || acceleration.x < -THRESHOLD ||
+        acceleration.y > THRESHOLD || acceleration.y < -THRESHOLD ||
+        acceleration.z > THRESHOLD || acceleration.z < -THRESHOLD) {
+        
+        if (!shake_once) {
+            shake_once = YES;
+        }
+        
+        [cauldronContent removeAllObjects];
+        
+    }
+    else {
+        shake_once = NO;
+    }
+    
+}
+
 - (void) optimumRelease:(NSNotification *)notification
 {
     // Permet de récupérer toutes les informations concernant la ressource relâchée
@@ -424,21 +447,28 @@
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
                                                       position: ccp(initPosition.x, initPosition.y)];
     
+    //  Faire retourner discrètement la ressource à sa position initiale lorsqu'elle est bien posée
+    CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
+                                                     position: ccp(initPosition.x, initPosition.y)];
+    
     if (CGRectContainsRect(cauldron.boundingBox, optimumRessource.boundingBox))
     {
-        optimumRessource.opacity = 0;
-        [self removeChild:optimumRessource cleanup:YES];
+//        optimumRessource.opacity = 0;
+//        [self removeChild:optimumRessource cleanup:YES];
         [cauldronContent addObject:[NSNumber numberWithInt:type]];
+        optimumRessource.units--;
+        [optimumRessource runAction:backInitPosition];
         
-        if ([cauldronContent isEqualToSet:unitLevelOneRecipe]) {
+        // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
+        if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
             CCLOG(@"Level one !");
-        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe]) {
+        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
             CCLOG(@"Level two !");
-        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe]) {
+        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
             CCLOG(@"Level three !");
-        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe]) {
+        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
             CCLOG(@"Level four !");
-        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe]) {
+        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
             CCLOG(@"Level five !");
         }
     }else{

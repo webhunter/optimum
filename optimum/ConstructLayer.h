@@ -21,7 +21,7 @@ enum
 @interface ConstructLayer : CCLayer<GameDelegate> {
     Game *gameElement;
     NSMutableSet *cauldronContent;
-    
+    BOOL shake_once;
 
     NSSet *unitLevelOneRecipe;
     NSSet *unitLevelTwoRecipe;

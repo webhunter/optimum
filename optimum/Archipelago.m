@@ -110,7 +110,7 @@
     return [[self alloc] initWithParameters:parameters andUniverse:universe andGameObject:(Game*)gameObject];
 }
 
-- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject
+/*- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject
 {
     
     if( self=[super init] )
@@ -254,15 +254,15 @@
     }
     
     return self;
-}
+}*/
 
-/*- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
+- (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject
 {
     
     if( self=[super init] )
     {
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
-        CCLOG(@"nbrGame : %@", parameters);
+        self.game = gameObject;
         
         // On regarde à quelle manche nous sommes
         switch (nbrGame)
@@ -315,13 +315,14 @@
         
         NSArray *winners = [[NSArray alloc] initWithObjects:winnerOne, winnerTwo, winnerThree, nil];
         
+        CCLOG(@"winners : %@", winners);
+        
         //Nous sommes dans une opposition ville contre nature
         if ([archipelago isEqualToString:@"cityNature"])
         {
             //La gagnant est l'univers de la ville
             if ([winnerOne isEqualToString:@"city"])
             {
-
                 island1Img = [parameters objectForKey:@"cityIsland"];
             //La gagnant est l'univers de la nature
 
@@ -339,6 +340,7 @@
             }else if ([winnerOne isEqualToString:@"nature"]){
                 island2Img = [parameters objectForKey:@"natureIsland"];
             }else{
+                CCLOG(@"truc2");
                 island2Img = @"archipel_2.png";
             }
             
@@ -350,11 +352,13 @@
             }else if ([winnerOne isEqualToString:@"nature"]){
                 island3Img = [parameters objectForKey:@"natureIsland"];
             }else{
+                CCLOG(@"truc3");
                 island3Img = @"archipel_3.png";
             }
         }else{
             
         }
+
         
         //Archipels
 
@@ -450,7 +454,7 @@
     }
     
     return self;
-}*/
+}
 
 - (void) resetArchipelago: (id) sender
 {
@@ -467,7 +471,7 @@
     [archipelagosGameSave synchronize];
     //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
-     replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
+     replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago andGameObject:self.game]];
 }
 
 - (void) startGame: (id) sender
@@ -484,14 +488,19 @@
     NSArray *array2 = [[NSArray alloc] initWithObjects:player2.peerID, nil];
 	[self.game sendPacketToOneClient:packet2 andClient:array2];
     
-    CCLOG(@"game : %@", self.game);
     
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *parametersToNextScene = [[NSDictionary alloc]
+                                                initWithObjectsAndKeys:
+                                                    [archipelagosGameSave objectForKey:archipelago], @"save",
+                                                    self.game, @"game",
+                                           nil];
     
     //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
      replaceScene:[CCTransitionFade transitionWithDuration:0.5f
-                                                     scene:[Map sceneWithParameters:[archipelagosGameSave objectForKey:archipelago]]
+                                                     scene:[Map sceneWithParameters:parametersToNextScene]
                    ]];
 }
 

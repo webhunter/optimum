@@ -20,6 +20,7 @@
 #import "Meteor.h"
 
 #import "Mapquake.h"
+#import "Game.h"
 
 enum
 {
@@ -41,7 +42,16 @@ enum
     unitEvenLevelFive = 10009,
 };
 
-@interface Map : CCLayer {
+@class GameView;
+
+@protocol GameViewDelegate <NSObject>
+
+- (void)gameViewController:(GameView *)controller didQuitWithReason:(QuitReason)reason;
+
+@end
+
+@interface Map : CCLayer  <GameDelegate>
+{
     CCSprite *rightStack;
     CCSprite *leftStack;
     
@@ -92,6 +102,9 @@ enum
     //Gestion de l'écran
     CGSize size;
 }
+
+@property (nonatomic, weak) id <GameViewDelegate> delegate;
+@property (nonatomic, strong) Game *game;
 
 + (CCScene *) scene;
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
