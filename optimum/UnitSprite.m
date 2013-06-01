@@ -62,8 +62,7 @@
     }
     
     self = [super initWithSpriteFrameName:[unitsTypeArray objectAtIndex:unitType]];
-//    self.scale = CC_CONTENT_SCALE_FACTOR();
-    CCLOG(@"unit : %@", CGSizeCreateDictionaryRepresentation(self.boundingBox.size));
+
     self.anchorPoint = ccp(.5, .5);
     self.tag = arc4random() % 10000;
     self.level = unitType + 1;
@@ -211,6 +210,7 @@
 - (CGPoint) initPosition{
     return initPosition;
 }
+
 - (void) setInitPosition:(CGPoint)position{
     initPosition = position;
 }

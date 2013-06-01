@@ -14,6 +14,8 @@
 
 @implementation Archipelago
 
+@synthesize game = _game;
+
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
 {
 	// 'scene' is an autorelease object.
@@ -82,6 +84,11 @@
     return self;
 }
 
++ (id) nodeWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
+{
+    return [[self alloc] initWithParameters:parameters andUniverse:universe];
+}
+
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject
 {
 	// 'scene' is an autorelease object.
@@ -103,12 +110,6 @@
     return [[self alloc] initWithParameters:parameters andUniverse:universe andGameObject:(Game*)gameObject];
 }
 
-
-+ (id) nodeWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe
-{
-    return [[self alloc] initWithParameters:parameters andUniverse:universe];
-}
-
 - (id) initWithParameters:(NSDictionary*)parameters andUniverse:(NSString*)universe andGameObject:(Game*)gameObject
 {
     
@@ -116,6 +117,8 @@
     {
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         CCLOG(@"gameObject : %@", gameObject);
+        self.game = gameObject;
+//        gameObject.delegate = self;
         
         // On regarde à quelle manche nous sommes
         switch (nbrGame)
@@ -148,7 +151,6 @@
         //On gère la troisième manche | Si les deux manches n'ont pas le même nom de vainqueur
         if ([[parameters valueForKeyPath:@"winnerOne"] isEqualToString:[parameters valueForKeyPath:@"winnerTwo"]] && ![[parameters valueForKeyPath:@"winnerOne"] isEqualToString:@"nil"] && nbrGame == 3)
         {
-            CCLOG(@"winnerOne : %@", [parameters objectForKey:@"winnerOne"]);
             canPlayFirstGame = NO;
             canPlaySecondGame = NO;
             canPlayThirdGame = NO;
@@ -293,7 +295,7 @@
         //On gère la troisième manche | Si les deux manches n'ont pas le même nom de vainqueur
         if ([[parameters valueForKeyPath:@"winnerOne"] isEqualToString:[parameters valueForKeyPath:@"winnerTwo"]] && ![[parameters valueForKeyPath:@"winnerOne"] isEqualToString:@"nil"] && nbrGame == 3)
         {
-            CCLOG(@"winnerOne : %@", [parameters objectForKey:@"winnerOne"]);
+//            CCLOG(@"winnerOne : %@", [parameters objectForKey:@"winnerOne"]);
             canPlayFirstGame = NO;
             canPlaySecondGame = NO;
             canPlayThirdGame = NO;
@@ -401,11 +403,9 @@
         
         [self addChild:menuArchipel];
         
-<<<<<<< HEAD
-        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitisaliser l'univers"
-                                                            target:self
-                                                          selector:@selector(resetArchipelago)];
-=======
+//        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitisaliser l'univers"
+//                                                            target:self
+//                                                          selector:@selector(resetArchipelago)];
         int occurrences = 0;
         
         for(NSString *string in winners)
@@ -441,33 +441,17 @@
         CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Réinitialiser archipel"
                                                             target:self
                                                           selector:@selector(resetArchipelago:)];
->>>>>>> a81521bbad5a7fff5d9eccdb4a78e505f8479f63
         buttonOne.color = ccRED;
         
         CCMenu *menu_back = [CCMenu menuWithItems: buttonOne, nil];
         [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
-<<<<<<< HEAD
-        
-=======
->>>>>>> a81521bbad5a7fff5d9eccdb4a78e505f8479f63
+
         [self addChild:menu_back];
     }
     
     return self;
 }
 
-<<<<<<< HEAD
-- (void) resetArchipelago{
-    nbrGame = 1;
-    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[archipelagosGameSave objectForKey:archipelago]];
-    [dict setObject:[NSNumber numberWithInt:nbrGame] forKey:@"nbrGame"];
-    
-    // On met à jour les données concernant l'archipel (nombre de parties jouées, les vainqueurs)
-    [archipelagosGameSave setObject:dict forKey:archipelago];
-    [archipelagosGameSave synchronize];
-    [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
-=======
 - (void) resetArchipelago: (id) sender
 {
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
@@ -484,11 +468,21 @@
     //On envoit toutes les données relatives à cet univers concernant les parties
     [[CCDirector sharedDirector]
      replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago] andUniverse:archipelago]];
->>>>>>> a81521bbad5a7fff5d9eccdb4a78e505f8479f63
 }
 
 - (void) startGame: (id) sender
 {
+    // envoie données au joueur 1
+    Packet *packet = [Packet packetWithType:PacketTypeMapGameStart];
+    Player *player = [self.game playerAtPosition:PlayerPositionLeft];
+    NSArray *array = [[NSArray alloc] initWithObjects:player.peerID, nil];
+	[self.game sendPacketToOneClient:packet andClient:array];
+    
+    // envoie données au joueur 2
+    Packet *packet2 = [Packet packetWithType:PacketTypeMapGameStart];
+    Player *player2 = [self.game playerAtPosition:PlayerPositionRight];
+    NSArray *array2 = [[NSArray alloc] initWithObjects:player2.peerID, nil];
+	[self.game sendPacketToOneClient:packet2 andClient:array2];
     
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     

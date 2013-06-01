@@ -7,11 +7,20 @@
 //
 //  Affichage de l'archipel d'une galaxie
 
+
+@class GameView;
+
+@protocol GameViewDelegate <NSObject>
+
+- (void)gameViewController:(GameView *)controller didQuitWithReason:(QuitReason)reason;
+
+@end
+
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Game.h"
 
-@interface Archipelago : CCLayer {
+@interface Archipelago : CCLayer <GameDelegate> {
     
     BOOL canPlayFirstGame;
     BOOL canPlaySecondGame;
@@ -20,6 +29,9 @@
     int nbrGame;
     NSString *archipelago;
 }
+
+@property (nonatomic, weak) id <GameViewDelegate> delegate;
+@property (nonatomic, strong) Game *game;
 
 + (CCScene *) scene;
 + (CCScene *) sceneWithGameObject:(Game*)gameObject;

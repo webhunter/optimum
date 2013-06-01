@@ -11,6 +11,7 @@
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
 #import "TeamLayer.h"
+#import "ConstructLayer.h"
 
 typedef enum
 {
@@ -240,7 +241,7 @@ GameState;
             
         case PacketTypeTeam:
             if (_state == GameStateDealing) {
-                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
+                [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject:self]];
             }
             break;
             
@@ -249,6 +250,14 @@ GameState;
                 [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject2:self]];
             }
             break;
+            
+        case PacketTypeMapGameStart:
+            if (_state == GameStateDealing) {
+                [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject:self]];
+                CCLOG(@"string-pull");
+            }
+            break;
+            
             
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);

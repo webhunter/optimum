@@ -21,13 +21,15 @@
     BOOL touchEnabled; //Permet d'activer le touch
 }
 
+- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position withUnits:(int)numberUnits;
+
 - (BOOL) isTouchOnSprite:(CGPoint)touch;
 
 - (int) level;
 - (void) setLevel:(int)niveau;
 
 - (CGPoint) initPosition;
-- (id) initWithUnitType:(int)unitType atPosition:(CGPoint)position withUnits:(int)numberUnits;
+- (void) setInitPosition:(CGPoint)position;
 
 - (BOOL) teamy;
 - (void) setTeamy:(BOOL)equipe;

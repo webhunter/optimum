@@ -919,28 +919,28 @@
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	// get the position in tile coordinates from the touch location
-	CGPoint touchLocation = [self locationFromTouches:touches];
-    
-    CCNode* node = [self getChildByTag:TileMapTag];
-	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-    
-    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-    
-    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-    
-    if (
-        [layer tileGIDAt:tileCord] != 33 ||
-        [layer tileGIDAt:tileCord] != 0
-        )
-    {
-//        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
-        CCLOG(@"%i", [layer tileAt:tileCord].frequency);
-    }
-}
+//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//	// get the position in tile coordinates from the touch location
+//	CGPoint touchLocation = [self locationFromTouches:touches];
+//    
+//    CCNode* node = [self getChildByTag:TileMapTag];
+//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+//    
+//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+//    
+//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+//    
+//    if (
+//        [layer tileGIDAt:tileCord] != 33 ||
+//        [layer tileGIDAt:tileCord] != 0
+//        )
+//    {
+////        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
+//        CCLOG(@"%i", [layer tileAt:tileCord].frequency);
+//    }
+//}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches

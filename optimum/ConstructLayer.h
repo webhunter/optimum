@@ -10,11 +10,27 @@
 #import "cocos2d.h"
 #import "Game.h"
 
+#import "OptimumRessourceConstruct.h"
+
+enum
+{
+	chaudronTag = 9999,
+    unitToiPad = 9998,
+};
+
 @interface ConstructLayer : CCLayer<GameDelegate> {
     Game *gameElement;
+    NSMutableSet *cauldronContent;
+    
+
+    NSSet *unitLevelOneRecipe;
+    NSSet *unitLevelTwoRecipe;
+    NSSet *unitLevelThreeRecipe;
+    NSSet *unitLevelFourRecipe;
+    NSSet *unitLevelFiveRecipe;
 }
 
-+(CCScene *) scene;
++ (CCScene *) scene;
 + (CCScene *) sceneWithGameObject:(Game*)gameObject;
 - (id) initWithGameObject:(Game*)gameObject;
 

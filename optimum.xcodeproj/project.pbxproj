@@ -34,6 +34,7 @@
 		1ABE36501757374B006725FA /* BG5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE364F1757374B006725FA /* BG5.png */; };
 		1ABE365217573CB4006725FA /* BG6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE365117573CB4006725FA /* BG6.png */; };
 		1ABE365417579AD7006725FA /* Intro_loop.aif in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE365317579AD7006725FA /* Intro_loop.aif */; };
+		1AC09897175A31AF00621252 /* OptimumRessourceConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */; };
 		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
 		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
@@ -241,6 +242,8 @@
 		1ABE364F1757374B006725FA /* BG5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG5.png; sourceTree = "<group>"; };
 		1ABE365117573CB4006725FA /* BG6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG6.png; sourceTree = "<group>"; };
 		1ABE365317579AD7006725FA /* Intro_loop.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro_loop.aif; sourceTree = "<group>"; };
+		1AC09895175A31AF00621252 /* OptimumRessourceConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptimumRessourceConstruct.h; sourceTree = "<group>"; };
+		1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptimumRessourceConstruct.m; sourceTree = "<group>"; };
 		1ACDC5241748CC2800E6D180 /* EndGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndGame.h; sourceTree = "<group>"; };
 		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
 		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
@@ -623,6 +626,8 @@
 				1A91410B1741500C00D3CDD5 /* OptimumRessource.m */,
 				1A91410417414FFE00D3CDD5 /* UnitSprite.h */,
 				1A91410517414FFE00D3CDD5 /* UnitSprite.m */,
+				1AC09895175A31AF00621252 /* OptimumRessourceConstruct.h */,
+				1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1445,6 +1450,7 @@
 				1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */,
 				1A437D03174EB1B10066FFAB /* Tips.m in Sources */,
 				90E8D5D3175A0CFB00CABFFC /* ConstructLayer.m in Sources */,
+				1AC09897175A31AF00621252 /* OptimumRessourceConstruct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
