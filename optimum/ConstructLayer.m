@@ -463,32 +463,42 @@
         [cauldronContent addObject:[NSNumber numberWithInt:type]];
         optimumRessource.units--;
         [optimumRessource runAction:backInitPosition];
-        CCLOG(@"%@", cauldronContent);
+        CCLOG(@"cauldronContent : %@", cauldronContent);
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
-        if ([cauldronContent isEqualToSet:unitLevelOneRecipe]) {
-            
+        if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
+            [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level one !");
-            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_vert.png"];
+//            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_vert.png"];
+            unitBuilt = [CCSprite spriteWithFile:@"unit1.jpg"];
             unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
             [self addChild:unitBuilt];
-        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe]) {
-            
+        }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
+            [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level two !");
-            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
-            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
-            [self addChild:unitBuilt];
-        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe]) {
+            unitBuilt = [CCSprite spriteWithFile:@"unit2.jpg"];
+//            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
             
+            [self addChild:unitBuilt];
+        }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
+            [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level three !");
-            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_gris.png"];
+//            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_gris.png"];
+            unitBuilt = [CCSprite spriteWithFile:@"unit3.jpg"];
             unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
             [self addChild:unitBuilt];
-        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe]) {
-            
+        }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
+            [self removeChild:unitBuilt cleanup:YES];
+//            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
+            unitBuilt = [CCSprite spriteWithFile:@"unit4.jpg"];
             CCLOG(@"Level four !");
-        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe]) {
-            
+            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            [self addChild:unitBuilt];
+        }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
+            [self removeChild:unitBuilt cleanup:YES];
+            unitBuilt = [CCSprite spriteWithFile:@"unit5.jpg"];
             CCLOG(@"Level five !");
+            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            [self addChild:unitBuilt];
         }
     }else{
         [optimumRessource runAction:back2InitPosition];
