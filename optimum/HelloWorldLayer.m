@@ -42,7 +42,6 @@
 	if( (self=[super init]) ) {
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
         
-        
         // La personne vient d'installer le jeu donc on lui crée une sauvegarde
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
         {

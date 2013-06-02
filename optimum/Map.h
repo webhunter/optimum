@@ -101,6 +101,8 @@ enum
     
     //Gestion de l'écran
     CGSize size;
+    
+    CCLabelAtlas *label1;
 }
 
 @property (nonatomic, weak) id <GameViewDelegate> delegate;

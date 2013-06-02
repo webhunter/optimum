@@ -355,7 +355,7 @@
 
 - (void) displayInterface{
     
-    level1UnitLeft = 0;
+    level1UnitLeft = 10;
     level2UnitLeft = 7;
     level3UnitLeft = 7;
     level4UnitLeft = 7;
@@ -382,7 +382,7 @@
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
     
-    level1UnitRight = 0;
+    level1UnitRight = 1;
     level2UnitRight = 7;
     level3UnitRight = 7;
     level4UnitRight = 7;
@@ -459,6 +459,15 @@
     //Affichage du nombre unités - Left
     
     
+    label1 = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
+                                   charMapFile:@"numeros_ville.png"
+                                   itemWidth:8
+                                   itemHeight:13
+                                   startCharMap:'.'];
+    label1.contentSize = CGSizeMake(16, 13);
+    label1.anchorPoint = ccp(.5, .5);
+    label1.position = ccp(76, size.height - 54);
+    [self addChild:label1];
     level1UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
                                               dimensions:CGSizeMake(19, 19)
                                               hAlignment:kCCTextAlignmentCenter
@@ -466,7 +475,9 @@
                                               fontSize:fontSize];
     level1UnitLeftLabel.position = ccp(74, size.height - 52);
     level1UnitLeftLabel.color = ccc3(131, 58, 52);
-    [self addChild:level1UnitLeftLabel z: 6000];
+//    [self addChild:level1UnitLeftLabel z: 6000];
+    
+    
     
     level2UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitLeft]
                                               dimensions:CGSizeMake(19, 19)
@@ -793,7 +804,7 @@
             if (level1UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
                 level1UnitLeft = 0;
             }
-            [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
+            [label1 setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
             break;
             
         case 3:

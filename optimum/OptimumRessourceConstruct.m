@@ -46,14 +46,14 @@
      
         
         _type = ressourceType;
-        self.tag = (42 * ressourceType) + (arc4random() % 100);
+        self.tag = (42 * ressourceType);
         
         self.position = self.initPosition = ccp(position.x, position.y);
         hasUnits = YES;
         self.touchEnabled = YES;
         self.units = 3;
         
-//        [self schedule: @selector(hasUnits:) interval:0.5];
+        [self schedule: @selector(hasUnits:) interval:0.5];
     }
     
     return self;
@@ -67,6 +67,7 @@
     
     if (hasUnits && self.touchEnabled == YES)
     {
+        
         if([self isTouchOnSprite:touchPoint])
         {
             touchLocation = ccpSub(self.position, touchPoint);
@@ -110,7 +111,7 @@
 	CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
     
-    [self hasUnits];
+//    [self hasUnits];
     NSArray *objectsProperties = [[NSArray alloc] initWithObjects:
                                   [NSValue valueWithCGPoint:self.initPosition],
                                   [NSNumber numberWithInt:self.tag],
@@ -159,15 +160,19 @@
     units = unit;
 }
 
-- (void) hasUnits
+- (void) hasUnits: (ccTime) dt
 {
     if (self.units <= 0)
     {
         hasUnits = NO;
-        
+        self.opacity = 100;
     }else{
         hasUnits = YES;
+        self.opacity = 255;
     }
 }
 
+- (int) _type{
+    return _type;
+}
 @end

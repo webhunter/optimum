@@ -32,4 +32,6 @@
 - (int) units;
 - (void) setUnits:(int)unit;
 
+- (int) _type;
+
 @end

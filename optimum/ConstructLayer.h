@@ -28,6 +28,15 @@ enum
     NSCountedSet *unitLevelThreeRecipe;
     NSCountedSet *unitLevelFourRecipe;
     NSCountedSet *unitLevelFiveRecipe;
+    
+    int redResourceInCauldron, redResource;
+    int grayResourceInCauldron, grayResource;
+    int greenResourceInCauldron, greenResource;
+    
+    CCLabelTTF *redResourceInCauldronLabel, *redResourceLabel;
+    CCLabelTTF *grayResourceInCauldronLabel, *grayResourceLabel;
+    CCLabelTTF *greenResourceInCauldronLabel, *greenResourceLabel;
+    
 }
 
 + (CCScene *) scene;

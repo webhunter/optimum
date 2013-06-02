@@ -301,17 +301,30 @@
                 // Add the menu to the layer
                 [self addChild:menu_back];
                 
+                
+                
+                //Ressources dans le Chaudron
+                redResource = 3;
+                grayResource = 5;
+                greenResource = 7;
+                
+                redResourceInCauldron = 0;
+                grayResourceInCauldron = 0;
+                greenResourceInCauldron = 0;
+
+                
                 // Ressource verte complete
                 CCSprite *ressourceVerteFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_vert.png"];
                 [ressourceVerteFull setPosition:ccp(size.width/2 + 113 , size.height/2 + 92 )];
                 
-                [self addChild:ressourceVerteFull];
+//                [self addChild:ressourceVerteFull];
                 
                 
-                OptimumRessourceConstruct *ressourceVerteDrag = [[OptimumRessourceConstruct alloc]
+                OptimumRessourceConstruct *resourceVerteDrag = [[OptimumRessourceConstruct alloc]
                                                                      initWithRessourceType:0
                                                                      atPosition:ccp(size.width/2 + 113 , size.height/2 + 92 )];
-                [self addChild:ressourceVerteDrag];
+                resourceVerteDrag.units = greenResource;
+                [self addChild:resourceVerteDrag];
                 
                 
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
@@ -329,6 +342,9 @@
                 OptimumRessourceConstruct *ressourceGriseDrag = [[OptimumRessourceConstruct alloc]
                                                                      initWithRessourceType:1
                                                                      atPosition:ccp(size.width/2 - 113 , size.height/2 + 92 )];
+                ressourceGriseDrag.units = grayResource;
+                
+                
                 [self addChild:ressourceGriseDrag];
                 
                 
@@ -402,6 +418,59 @@
                 
                 [self addChild:point3Rouge];
                 
+                // Gestion des labels
+                
+                //Hors chaudron
+                redResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", redResource]
+                                                           dimensions:CGSizeMake(19, 19)
+                                                           hAlignment:kCCTextAlignmentCenter
+                                                             fontName:@"HelveticaNeue-CondensedBold"
+                                                             fontSize:9];
+                redResourceLabel.position = pastilleRouge.position;
+                [self addChild:redResourceLabel];
+                
+                grayResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
+                                                           dimensions:CGSizeMake(19, 19)
+                                                           hAlignment:kCCTextAlignmentCenter
+                                                             fontName:@"HelveticaNeue-CondensedBold"
+                                                             fontSize:9];
+                grayResourceLabel.position = pastilleGrise.position;
+                [self addChild:grayResourceLabel];
+                
+                greenResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
+                                                            dimensions:CGSizeMake(19, 19)
+                                                            hAlignment:kCCTextAlignmentCenter
+                                                              fontName:@"HelveticaNeue-CondensedBold"
+                                                              fontSize:9];
+                greenResourceLabel.position = pastilleVerte.position;
+                [self addChild:greenResourceLabel];
+                
+                //In chaudron
+                redResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", redResourceInCauldron]
+                                                           dimensions:CGSizeMake(19, 19)
+                                                           hAlignment:kCCTextAlignmentCenter
+                                                             fontName:@"HelveticaNeue-CondensedBold"
+                                                             fontSize:9];
+                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(26, 78));
+                [self addChild:redResourceInCauldronLabel];
+                
+                grayResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", grayResourceInCauldron]
+                                                                  dimensions:CGSizeMake(19, 19)
+                                                                  hAlignment:kCCTextAlignmentCenter
+                                                                  fontName:@"HelveticaNeue-CondensedBold"
+                                                                  fontSize:9];
+                grayResourceInCauldronLabel.color = ccBLACK;
+                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(26, -78));
+                [self addChild:grayResourceInCauldronLabel];
+                
+                greenResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", greenResourceInCauldron]
+                                                             dimensions:CGSizeMake(19, 19)
+                                                             hAlignment:kCCTextAlignmentCenter
+                                                               fontName:@"HelveticaNeue-CondensedBold"
+                                                               fontSize:9];
+                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(26, -78));
+                [self addChild:greenResourceInCauldronLabel];
+                
             }
         }
 		
@@ -436,7 +505,7 @@
     // Permet de récupérer toutes les informations concernant la ressource relâchée
     NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
     NSInteger type = [[[notification object] objectForKey:@"type"] intValue];
-    CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
+//    CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
     CGPoint initPosition = [[[notification object] objectForKey:@"initPosition"] CGPointValue];
     
     CCNode *cauldronNode = [self getChildByTag:chaudronTag];
@@ -458,12 +527,47 @@
     
     if (CGRectContainsRect(cauldron.boundingBox, optimumRessource.boundingBox))
     {
-//        optimumRessource.opacity = 0;
-//        [self removeChild:optimumRessource cleanup:YES];
+        switch (optimumRessource._type) {
+            // Ressource verte
+            case 0:
+                greenResource--;
+                greenResourceInCauldron++;
+                if (greenResource <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    greenResource = 0;
+                }
+                [greenResourceLabel setString:[NSString stringWithFormat:@"%d", greenResource]];
+                [greenResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", greenResourceInCauldron]];
+                break;
+            // Ressource grise
+            case 1:
+                grayResource--;
+                grayResourceInCauldron++;
+                if (grayResource <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    grayResource = 0;
+                }
+                [grayResourceLabel setString:[NSString stringWithFormat:@"%d", grayResource]];
+                [grayResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", grayResourceInCauldron]];
+                break;
+            // Ressource rouge
+            case 2:
+                redResource--;
+                redResourceInCauldron++;
+                if (redResource <= 0) { //Le nombre d'unités ne peut être inférieur à 0
+                    redResource = 0;
+                }
+                [redResourceLabel setString:[NSString stringWithFormat:@"%d", redResource]];
+                [redResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", redResourceInCauldron]];
+                break;
+                
+            default:
+                break;
+        }
+        
         [cauldronContent addObject:[NSNumber numberWithInt:type]];
         optimumRessource.units--;
         [optimumRessource runAction:backInitPosition];
-        CCLOG(@"cauldronContent : %@", cauldronContent);
+//        CCLOG(@"cauldronContent : %@", cauldronContent);
+        
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
         if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
@@ -515,7 +619,35 @@
 
 - (void) cancelCauldronContent: (id) sender
 {
-    CCLOG(@"Suppression");
+    redResource += redResourceInCauldron;
+    redResourceInCauldron = 0;
+    [redResourceLabel setString:[NSString stringWithFormat:@"%d", redResource]];
+    [redResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", redResourceInCauldron]];
+    
+    CCNode *optimumNodeRed = [self getChildByTag:84];
+    OptimumRessourceConstruct *optimumResourceRed = (OptimumRessourceConstruct*)optimumNodeRed;
+    optimumResourceRed.units = redResource;
+    
+    
+    greenResource += greenResourceInCauldron;
+    greenResourceInCauldron = 0;
+    [greenResourceLabel setString:[NSString stringWithFormat:@"%d", greenResource]];
+    [greenResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", greenResourceInCauldron]];
+    
+    CCNode *optimumNodeGreen = [self getChildByTag:0];
+    OptimumRessourceConstruct *optimumResourceGreen = (OptimumRessourceConstruct*)optimumNodeGreen;
+    optimumResourceGreen.units = greenResource;
+    
+
+    grayResource += grayResourceInCauldron;
+    grayResourceInCauldron = 0;
+    [grayResourceLabel setString:[NSString stringWithFormat:@"%d", grayResource]];
+    [grayResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", grayResourceInCauldron]];
+    
+    CCNode *optimumNodeGray = [self getChildByTag:42];
+    OptimumRessourceConstruct *optimumResourceGray = (OptimumRessourceConstruct*)optimumNodeGray;
+    optimumResourceGray.units = grayResource;
+    
     [cauldronContent removeAllObjects];
 }
 

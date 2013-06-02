@@ -42,6 +42,10 @@
 		1AC09897175A31AF00621252 /* OptimumRessourceConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */; };
 		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
 		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
+		1AEB3089175B59FF00E32C92 /* numeros_nature.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB3087175B59FF00E32C92 /* numeros_nature.png */; };
+		1AEB308A175B59FF00E32C92 /* numeros_ville.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB3088175B59FF00E32C92 /* numeros_ville.png */; };
+		1AEB308C175B848A00E32C92 /* numeros_ville-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */; };
+		1AEB308E175B86A600E32C92 /* numeros_ville-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB308D175B86A600E32C92 /* numeros_ville-ipadhd.png */; };
 		900038DB1740EDAF008B350D /* archipel_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D71740EDAF008B350D /* archipel_1.png */; };
 		900038DC1740EDAF008B350D /* archipel_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D81740EDAF008B350D /* archipel_2.png */; };
 		900038DD1740EDAF008B350D /* archipel_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 900038D91740EDAF008B350D /* archipel_3.png */; };
@@ -258,6 +262,10 @@
 		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
 		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
 		1ACDC52817491A1100E6D180 /* Archipelago.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archipelago.m; sourceTree = "<group>"; };
+		1AEB3087175B59FF00E32C92 /* numeros_nature.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numeros_nature.png; sourceTree = "<group>"; };
+		1AEB3088175B59FF00E32C92 /* numeros_ville.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numeros_ville.png; sourceTree = "<group>"; };
+		1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numeros_ville-hd.png"; sourceTree = "<group>"; };
+		1AEB308D175B86A600E32C92 /* numeros_ville-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numeros_ville-ipadhd.png"; sourceTree = "<group>"; };
 		900038D71740EDAF008B350D /* archipel_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_1.png; sourceTree = "<group>"; };
 		900038D81740EDAF008B350D /* archipel_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_2.png; sourceTree = "<group>"; };
 		900038D91740EDAF008B350D /* archipel_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archipel_3.png; sourceTree = "<group>"; };
@@ -602,6 +610,9 @@
 		1A9140EF17414F6500D3CDD5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				1AEB3087175B59FF00E32C92 /* numeros_nature.png */,
+				1AEB3088175B59FF00E32C92 /* numeros_ville.png */,
+				1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */,
 				1ABE364F1757374B006725FA /* BG5.png */,
 				1ABE365117573CB4006725FA /* BG6.png */,
 				1A011E7E1756C62C00A122F3 /* sprites-interface-ipadhd.plist */,
@@ -617,6 +628,7 @@
 				1A9140FB17414FC400D3CDD5 /* optimum-enigma.png */,
 				1A9140FC17414FC400D3CDD5 /* optimum-sigma.png */,
 				1A9140F017414F7100D3CDD5 /* maquette-map-2.tmx */,
+				1AEB308D175B86A600E32C92 /* numeros_ville-ipadhd.png */,
 				1A9140F217414F9A00D3CDD5 /* maquette-unites-sprite.png */,
 				1A9140F417414FA100D3CDD5 /* maquette-unites.plist */,
 			);
@@ -1328,6 +1340,10 @@
 				1A40A394175B42B00098C4EC /* unit4.jpg in Resources */,
 				1A40A395175B42B00098C4EC /* unit3.jpg in Resources */,
 				1A40A396175B42B00098C4EC /* unit5.jpg in Resources */,
+				1AEB3089175B59FF00E32C92 /* numeros_nature.png in Resources */,
+				1AEB308A175B59FF00E32C92 /* numeros_ville.png in Resources */,
+				1AEB308C175B848A00E32C92 /* numeros_ville-hd.png in Resources */,
+				1AEB308E175B86A600E32C92 /* numeros_ville-ipadhd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
