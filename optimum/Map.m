@@ -355,10 +355,10 @@
 
 - (void) displayInterface{
     
-    level1UnitLeft = 10;
+    level1UnitLeft = 42;
     level2UnitLeft = 7;
     level3UnitLeft = 7;
-    level4UnitLeft = 7;
+    level4UnitLeft = 0;
     level5UnitLeft = 7;
     //Affichage des unités
     //  Unité gauche (Ville)
@@ -458,61 +458,65 @@
     
     //Affichage du nombre unités - Left
     
+    CGSize labelSize = CGSizeMake(8, 13);
     
-    label1 = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
-                                   charMapFile:@"numeros_ville.png"
-                                   itemWidth:8
-                                   itemHeight:13
-                                   startCharMap:'.'];
-    label1.contentSize = CGSizeMake(16, 13);
-    label1.anchorPoint = ccp(.5, .5);
-    label1.position = ccp(76, size.height - 54);
-    [self addChild:label1];
-    level1UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
-                                              dimensions:CGSizeMake(19, 19)
-                                              hAlignment:kCCTextAlignmentCenter
-                                              fontName:@"HelveticaNeue-CondensedBold"
-                                              fontSize:fontSize];
-    level1UnitLeftLabel.position = ccp(74, size.height - 52);
-    level1UnitLeftLabel.color = ccc3(131, 58, 52);
-//    [self addChild:level1UnitLeftLabel z: 6000];
+    int unitsLeftLabelX = 76;
     
+    int units1Label = size.height - 54,
+        units2Label = size.height - 175.5,
+        units3Label = size.height - 298,
+        units4Label = size.height - 418,
+        units5Label = size.height - 540;
     
+    level1UnitLeftLabel.contentSize = labelSize;
+    level1UnitLeftLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitLeft]
+                                                charMapFile:@"numeros_ville.png"
+                                                itemWidth:8
+                                                itemHeight:13
+                                                startCharMap:'.'];
     
-    level2UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitLeft]
-                                              dimensions:CGSizeMake(19, 19)
-                                              hAlignment:kCCTextAlignmentCenter
-                                              fontName:@"HelveticaNeue-CondensedBold"
-                                              fontSize:fontSize];
-    level2UnitLeftLabel.position = ccp(74, size.height - 172.5);
-    level2UnitLeftLabel.color = ccc3(131, 58, 52);
+    level1UnitLeftLabel.anchorPoint = ccp(.5, .5);
+    level1UnitLeftLabel.position = ccp(unitsLeftLabelX, units1Label);
+    [self addChild:level1UnitLeftLabel z: 6000];
+
+    level2UnitLeftLabel.contentSize = labelSize;
+    level2UnitLeftLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitLeft]
+                                                   charMapFile:@"numeros_ville.png"
+                                                     itemWidth:8
+                                                    itemHeight:13
+                                                  startCharMap:'.'];
+    level2UnitLeftLabel.anchorPoint = ccp(.5, .5);
+    level2UnitLeftLabel.position = ccp(unitsLeftLabelX, units2Label);
     [self addChild:level2UnitLeftLabel z: 6000];
-    
-    level3UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitLeft]
-                                                  dimensions:CGSizeMake(19, 19)
-                                                  hAlignment:kCCTextAlignmentCenter
-                                                    fontName:@"HelveticaNeue-CondensedBold"
-                                                    fontSize:fontSize];
-    level3UnitLeftLabel.position = ccp(74, size.height - 295);
-    level3UnitLeftLabel.color = ccc3(131, 58, 52);
+
+    level3UnitLeftLabel.contentSize = labelSize;
+    level3UnitLeftLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitLeft]
+                                                   charMapFile:@"numeros_ville.png"
+                                                     itemWidth:8
+                                                    itemHeight:13
+                                                  startCharMap:'.'];
+    level3UnitLeftLabel.anchorPoint = ccp(.5, .5);
+    level3UnitLeftLabel.position = ccp(unitsLeftLabelX, units3Label);
     [self addChild:level3UnitLeftLabel z: 6000];
     
-    level4UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitLeft]
-                                                  dimensions:CGSizeMake(19, 19)
-                                                  hAlignment:kCCTextAlignmentCenter
-                                                    fontName:@"HelveticaNeue-CondensedBold"
-                                                    fontSize:fontSize];
-    level4UnitLeftLabel.position = ccp(74, size.height - 415);
-    level4UnitLeftLabel.color = ccc3(131, 58, 52);
+    level4UnitLeftLabel.contentSize = labelSize;
+    level4UnitLeftLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitLeft]
+                                                   charMapFile:@"numeros_ville.png"
+                                                     itemWidth:8
+                                                    itemHeight:13
+                                                  startCharMap:'.'];
+    level4UnitLeftLabel.anchorPoint = ccp(.5, .5);
+    level4UnitLeftLabel.position = ccp(unitsLeftLabelX, units4Label);
     [self addChild:level4UnitLeftLabel z: 6000];
     
-    level5UnitLeftLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitLeft]
-                                                  dimensions:CGSizeMake(19, 19)
-                                                  hAlignment:kCCTextAlignmentCenter
-                                                    fontName:@"HelveticaNeue-CondensedBold"
-                                                    fontSize:fontSize];
-    level5UnitLeftLabel.position = ccp(74, size.height - 535);
-    level5UnitLeftLabel.color = ccc3(131, 58, 52);
+    level5UnitLeftLabel.contentSize = labelSize;
+    level5UnitLeftLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitLeft]
+                                                   charMapFile:@"numeros_ville.png"
+                                                     itemWidth:8
+                                                    itemHeight:13
+                                                  startCharMap:'.'];
+    level5UnitLeftLabel.anchorPoint = ccp(.5, .5);
+    level5UnitLeftLabel.position = ccp(unitsLeftLabelX, units5Label);
     [self addChild:level5UnitLeftLabel z: 6000];
     
 //    for (UnitSprite *sprite in self.children) {
@@ -523,50 +527,61 @@
     
     //Affichage du nombre unités - Right
     
+    int unitsRightLabelX = size.width - 76;
     
-    level1UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitRight]
-                                               dimensions:CGSizeMake(19, 19)
-                                               hAlignment:kCCTextAlignmentCenter
-                                               fontName:@"HelveticaNeue-CondensedBold"
-                                               fontSize:fontSize];
-    level1UnitRightLabel.position = ccp(size.width - 78, size.height - 52);
-    level1UnitRightLabel.color = ccc3(131, 58, 52);
+    level1UnitRightLabel.contentSize = labelSize;
+    level1UnitRightLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level1UnitRight]
+                                                    charMapFile:@"numeros_nature.png"
+                                                      itemWidth:8
+                                                     itemHeight:13
+                                                   startCharMap:'.'];
+    
+    level1UnitRightLabel.anchorPoint = ccp(.5, .5);
+    level1UnitRightLabel.position = ccp(unitsRightLabelX, units1Label);
     [self addChild:level1UnitRightLabel z: 6000];
     
-    level2UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitRight]
-                                                   dimensions:CGSizeMake(19, 19)
-                                                   hAlignment:kCCTextAlignmentCenter
-                                                     fontName:@"HelveticaNeue-CondensedBold"
-                                                     fontSize:fontSize];
-    level2UnitRightLabel.position = ccp(size.width - 78, size.height - 172.5);
-    level2UnitRightLabel.color = ccc3(131, 58, 52);
+    level2UnitRightLabel.contentSize = labelSize;
+    level2UnitRightLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level2UnitRight]
+                                                    charMapFile:@"numeros_nature.png"
+                                                      itemWidth:8
+                                                     itemHeight:13
+                                                   startCharMap:'.'];
+    
+    level2UnitRightLabel.anchorPoint = ccp(.5, .5);
+    level2UnitRightLabel.position = ccp(unitsRightLabelX, units2Label);
     [self addChild:level2UnitRightLabel z: 6000];
     
-    level3UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitRight]
-                                                   dimensions:CGSizeMake(19, 19)
-                                                   hAlignment:kCCTextAlignmentCenter
-                                                     fontName:@"HelveticaNeue-CondensedBold"
-                                                     fontSize:fontSize];
-    level3UnitRightLabel.position = ccp(size.width - 78, size.height - 295);
-    level3UnitRightLabel.color = ccc3(131, 58, 52);
+    level3UnitRightLabel.contentSize = labelSize;
+    level3UnitRightLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level3UnitRight]
+                                                    charMapFile:@"numeros_nature.png"
+                                                      itemWidth:8
+                                                     itemHeight:13
+                                                   startCharMap:'.'];
+    
+    level3UnitRightLabel.anchorPoint = ccp(.5, .5);
+    level3UnitRightLabel.position = ccp(unitsRightLabelX, units3Label);
     [self addChild:level3UnitRightLabel z: 6000];
     
-    level4UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitRight]
-                                                   dimensions:CGSizeMake(19, 19)
-                                                   hAlignment:kCCTextAlignmentCenter
-                                                     fontName:@"HelveticaNeue-CondensedBold"
-                                                     fontSize:fontSize];
-    level4UnitRightLabel.position = ccp(size.width - 78, size.height - 415);
-    level4UnitRightLabel.color = ccc3(131, 58, 52);
+    level4UnitRightLabel.contentSize = labelSize;
+    level4UnitRightLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level4UnitRight]
+                                                    charMapFile:@"numeros_nature.png"
+                                                      itemWidth:8
+                                                     itemHeight:13
+                                                   startCharMap:'.'];
+    
+    level4UnitRightLabel.anchorPoint = ccp(.5, .5);
+    level4UnitRightLabel.position = ccp(unitsRightLabelX, units4Label);
     [self addChild:level4UnitRightLabel z: 6000];
     
-    level5UnitRightLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitRight]
-                                                   dimensions:CGSizeMake(19, 19)
-                                                   hAlignment:kCCTextAlignmentCenter
-                                                     fontName:@"HelveticaNeue-CondensedBold"
-                                                     fontSize:fontSize];
-    level5UnitRightLabel.position = ccp(size.width - 78, size.height - 535);
-    level5UnitRightLabel.color = ccc3(131, 58, 52);
+    level5UnitRightLabel.contentSize = labelSize;
+    level5UnitRightLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", level5UnitRight]
+                                                    charMapFile:@"numeros_nature.png"
+                                                      itemWidth:8
+                                                     itemHeight:13
+                                                   startCharMap:'.'];
+
+    level5UnitRightLabel.anchorPoint = ccp(.5, .5);
+    level5UnitRightLabel.position = ccp(unitsRightLabelX, units5Label);
     [self addChild:level5UnitRightLabel z: 6000];
     
     // 60, 31, 30 - 2px 90° - ombre interne
@@ -804,7 +819,7 @@
             if (level1UnitLeft <= 0) { //Le nombre d'unités ne peut être inférieur à 0
                 level1UnitLeft = 0;
             }
-            [label1 setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
+            [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%d", level1UnitLeft]];
             break;
             
         case 3:

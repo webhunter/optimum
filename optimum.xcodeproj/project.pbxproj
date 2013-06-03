@@ -12,6 +12,8 @@
 		1A011E841756C62D00A122F3 /* sprites-interface.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E801756C62D00A122F3 /* sprites-interface.plist */; };
 		1A011E851756C62D00A122F3 /* sprites-interface.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E811756C62D00A122F3 /* sprites-interface.png */; };
 		1A3403AA175C8261003C9C47 /* UnitBuilt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3403A9175C8261003C9C47 /* UnitBuilt.m */; };
+		1A3403AD175C9285003C9C47 /* numeros_nature-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A3403AB175C9285003C9C47 /* numeros_nature-ipadhd.png */; };
+		1A3403AE175C9285003C9C47 /* numeros_nature.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A3403AC175C9285003C9C47 /* numeros_nature.png */; };
 		1A40A392175B42B00098C4EC /* unit1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38D175B42AF0098C4EC /* unit1.jpg */; };
 		1A40A393175B42B00098C4EC /* unit2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38E175B42AF0098C4EC /* unit2.jpg */; };
 		1A40A394175B42B00098C4EC /* unit4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38F175B42B00098C4EC /* unit4.jpg */; };
@@ -43,7 +45,6 @@
 		1AC09897175A31AF00621252 /* OptimumRessourceConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */; };
 		1ACDC5261748CC2800E6D180 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC5251748CC2800E6D180 /* EndGame.m */; };
 		1ACDC52917491A1100E6D180 /* Archipelago.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACDC52817491A1100E6D180 /* Archipelago.m */; };
-		1AEB3089175B59FF00E32C92 /* numeros_nature.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB3087175B59FF00E32C92 /* numeros_nature.png */; };
 		1AEB308A175B59FF00E32C92 /* numeros_ville.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB3088175B59FF00E32C92 /* numeros_ville.png */; };
 		1AEB308C175B848A00E32C92 /* numeros_ville-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */; };
 		1AEB308E175B86A600E32C92 /* numeros_ville-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB308D175B86A600E32C92 /* numeros_ville-ipadhd.png */; };
@@ -222,6 +223,8 @@
 		1A011E811756C62D00A122F3 /* sprites-interface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprites-interface.png"; sourceTree = "<group>"; };
 		1A3403A8175C8261003C9C47 /* UnitBuilt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitBuilt.h; sourceTree = "<group>"; };
 		1A3403A9175C8261003C9C47 /* UnitBuilt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitBuilt.m; sourceTree = "<group>"; };
+		1A3403AB175C9285003C9C47 /* numeros_nature-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numeros_nature-ipadhd.png"; sourceTree = "<group>"; };
+		1A3403AC175C9285003C9C47 /* numeros_nature.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numeros_nature.png; sourceTree = "<group>"; };
 		1A40A38D175B42AF0098C4EC /* unit1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit1.jpg; sourceTree = "<group>"; };
 		1A40A38E175B42AF0098C4EC /* unit2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit2.jpg; sourceTree = "<group>"; };
 		1A40A38F175B42B00098C4EC /* unit4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit4.jpg; sourceTree = "<group>"; };
@@ -265,7 +268,6 @@
 		1ACDC5251748CC2800E6D180 /* EndGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndGame.m; sourceTree = "<group>"; };
 		1ACDC52717491A1100E6D180 /* Archipelago.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archipelago.h; sourceTree = "<group>"; };
 		1ACDC52817491A1100E6D180 /* Archipelago.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archipelago.m; sourceTree = "<group>"; };
-		1AEB3087175B59FF00E32C92 /* numeros_nature.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numeros_nature.png; sourceTree = "<group>"; };
 		1AEB3088175B59FF00E32C92 /* numeros_ville.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numeros_ville.png; sourceTree = "<group>"; };
 		1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numeros_ville-hd.png"; sourceTree = "<group>"; };
 		1AEB308D175B86A600E32C92 /* numeros_ville-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numeros_ville-ipadhd.png"; sourceTree = "<group>"; };
@@ -613,7 +615,8 @@
 		1A9140EF17414F6500D3CDD5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				1AEB3087175B59FF00E32C92 /* numeros_nature.png */,
+				1A3403AB175C9285003C9C47 /* numeros_nature-ipadhd.png */,
+				1A3403AC175C9285003C9C47 /* numeros_nature.png */,
 				1AEB3088175B59FF00E32C92 /* numeros_ville.png */,
 				1AEB308B175B848A00E32C92 /* numeros_ville-hd.png */,
 				1ABE364F1757374B006725FA /* BG5.png */,
@@ -1345,10 +1348,11 @@
 				1A40A394175B42B00098C4EC /* unit4.jpg in Resources */,
 				1A40A395175B42B00098C4EC /* unit3.jpg in Resources */,
 				1A40A396175B42B00098C4EC /* unit5.jpg in Resources */,
-				1AEB3089175B59FF00E32C92 /* numeros_nature.png in Resources */,
 				1AEB308A175B59FF00E32C92 /* numeros_ville.png in Resources */,
 				1AEB308C175B848A00E32C92 /* numeros_ville-hd.png in Resources */,
 				1AEB308E175B86A600E32C92 /* numeros_ville-ipadhd.png in Resources */,
+				1A3403AD175C9285003C9C47 /* numeros_nature-ipadhd.png in Resources */,
+				1A3403AE175C9285003C9C47 /* numeros_nature.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

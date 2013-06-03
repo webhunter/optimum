@@ -78,7 +78,7 @@ enum
     //Gestion des unités
     int level1UnitLeft, level2UnitLeft, level3UnitLeft, level4UnitLeft, level5UnitLeft;
     
-    CCLabelTTF *level1UnitLeftLabel, *level2UnitLeftLabel, *level3UnitLeftLabel, *level4UnitLeftLabel, *level5UnitLeftLabel;
+    CCLabelAtlas *level1UnitLeftLabel, *level2UnitLeftLabel, *level3UnitLeftLabel, *level4UnitLeftLabel, *level5UnitLeftLabel;
     
     int level1UnitRight;
     int level2UnitRight;
@@ -86,11 +86,7 @@ enum
     int level4UnitRight;
     int level5UnitRight;
     
-    CCLabelTTF *level1UnitRightLabel;
-    CCLabelTTF *level2UnitRightLabel;
-    CCLabelTTF *level3UnitRightLabel;
-    CCLabelTTF *level4UnitRightLabel;
-    CCLabelTTF *level5UnitRightLabel;
+    CCLabelAtlas *level1UnitRightLabel, *level2UnitRightLabel, *level3UnitRightLabel, *level4UnitRightLabel, *level5UnitRightLabel;
     
     int unitLeftDestroyed;
     int unitRightDestroyed;
