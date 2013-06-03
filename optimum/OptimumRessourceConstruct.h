@@ -20,7 +20,7 @@
     int _type; //Permet de savoir quel type d'optimum a été lâché dans le chaudron, suit l'index du NSArray contenu dans le init
 }
 
-- (id) initWithRessourceType:(int)ressourceType atPosition:(CGPoint)position;
+- (id) initWithRessourceType:(int)ressourceType atPosition:(CGPoint)position forTeam:(BOOL)_team;
 
 - (CGPoint) initPosition;
 - (void) setInitPosition:(CGPoint)position;

@@ -33,6 +33,7 @@ typedef enum
 	PacketTypeClientQuit,              // client to server
     
     PacketTypeMapGameStart,            // server to client
+    PacketTypeMapGameStart2,
 }
 PacketType;
 

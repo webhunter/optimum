@@ -57,7 +57,7 @@
     {
         size = [[CCDirector sharedDirector] winSize];
         self.game = [parameters objectForKey:@"game"];
-        CCLOG(@"gamegamegame : %@", self.game);
+   
 
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
@@ -991,7 +991,6 @@
     CCNode* node = [self getChildByTag:TileMapTag];
 	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
     CCTMXLayer *highlightLayer;
-    
     
     if (sprite.team) { //Equipe de droite
         highlightLayer = [tiledMap layerNamed:@"HighlightRight"];

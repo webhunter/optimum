@@ -39,10 +39,17 @@ enum
     CCLabelAtlas *grayResourceInCauldronLabel, *grayResourceLabel;
     CCLabelAtlas *greenResourceInCauldronLabel, *greenResourceLabel;
     
+    BOOL team;
+    
 }
 
 + (CCScene *) scene;
 + (CCScene *) sceneWithGameObject:(Game*)gameObject;
 - (id) initWithGameObject:(Game*)gameObject;
+
++ (CCScene *) scene2;
++ (CCScene *) sceneWithGameObject2:(Game*)gameObject;
+- (id) initWithGameObject2:(Game*)gameObject;
+
 
 @end

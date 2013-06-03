@@ -32,33 +32,36 @@
 {
     if (self = [super init])
     {
-        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-        [frameCache addSpriteFramesWithFile:@"ConstructLayer.plist"];
-        
         // Univers impairs (univers à droite)
         if (_team == YES) {
+            CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+            [frameCache addSpriteFramesWithFile:@"Chaudron_nature.plist"];
+            
             NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
-                                            @"ressource_vert.png",
-                                            @"ressource_gris.png",
-                                            @"ressource_rouge.png",
-                                            @"ressource_gris.png",
-                                            @"ressource_vert.png",
+                                            @"unit_nature_1.png",
+                                            @"unit_nature_2.png",
+                                            @"unit_nature_3.png",
+                                            @"unit_nature_4.png",
+                                            @"unit_nature_5.png",
                                             nil];
             self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:unitLevel - 1]];
         }else{
+            CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+            [frameCache addSpriteFramesWithFile:@"Chaudron_ville.plist"];
+            
             NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
-                                            @"ressource_vert.png",
-                                            @"ressource_gris.png",
-                                            @"ressource_rouge.png",
-                                            @"ressource_vert.png",
-                                            @"ressource_gris.png",
+                                            @"unit_ville_1.png",
+                                            @"unit_ville_2.png",
+                                            @"unit_ville_3.png",
+                                            @"unit_ville_4.png",
+                                            @"unit_ville_5.png",
                                             nil];
             self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:unitLevel - 1]];
         }
         
         
         level = unitLevel;
-        self.tag = (42 * level);
+        self.tag = (234 * level);
         
         self.position = self.initPosition = ccp(position.x, position.y);
     }

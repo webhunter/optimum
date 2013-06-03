@@ -256,6 +256,13 @@ GameState;
             }
             break;
             
+        case PacketTypeMapGameStart2:
+            if (_state == GameStateDealing) {
+                CCLOG(@"test");
+                [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject2:self]];
+            }
+            break;
+            
             
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
