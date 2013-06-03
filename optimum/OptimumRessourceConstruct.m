@@ -29,20 +29,36 @@
 	return [self initWithTexture:texture rect:rect rotated:NO];
 }
 
-- (id) initWithRessourceType:(int)ressourceType atPosition:(CGPoint)position
+- (id) initWithRessourceType:(int)ressourceType atPosition:(CGPoint)position forTeam:(BOOL)_team
 {
     if (self = [super init])
     {
-        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-        [frameCache addSpriteFramesWithFile:@"ConstructLayer.plist"];
+        // Nature
+        if (_team == YES)
+        {
+            CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+            [frameCache addSpriteFramesWithFile:@"Chaudron_nature.plist"];
+            
+            NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
+                                            @"ressource_vert_nature.png",
+                                            @"ressource_gris_nature.png",
+                                            @"ressource_rouge_nature.png",
+                                            nil];
+            self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:ressourceType]];
+        }else{
+            CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+            [frameCache addSpriteFramesWithFile:@"Chaudron_ville.plist"];
+            
+            NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
+                                            @"ressource_vert.png",
+                                            @"ressource_gris.png",
+                                            @"ressource_rouge.png",
+                                            nil];
+            self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:ressourceType]];
+        }
         
-        NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
-                                   @"ressource_vert.png",
-                                   @"ressource_gris.png",
-                                   @"ressource_rouge.png",
-                                   nil];
         
-        self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:ressourceType]];
+        
      
         
         _type = ressourceType;
