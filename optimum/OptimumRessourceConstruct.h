@@ -17,7 +17,6 @@
     int units; //Se charge de savoir s'il reste encore des unités
     BOOL hasUnits;
     BOOL touchEnabled; //Permet d'activer le touch
-    CCSprite *ressource; // Sprite contenant la ressource
     int _type; //Permet de savoir quel type d'optimum a été lâché dans le chaudron, suit l'index du NSArray contenu dans le init
 }
 

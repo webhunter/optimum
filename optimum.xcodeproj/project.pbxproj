@@ -11,6 +11,7 @@
 		1A011E831756C62D00A122F3 /* sprites-interface-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */; };
 		1A011E841756C62D00A122F3 /* sprites-interface.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E801756C62D00A122F3 /* sprites-interface.plist */; };
 		1A011E851756C62D00A122F3 /* sprites-interface.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A011E811756C62D00A122F3 /* sprites-interface.png */; };
+		1A3403AA175C8261003C9C47 /* UnitBuilt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3403A9175C8261003C9C47 /* UnitBuilt.m */; };
 		1A40A392175B42B00098C4EC /* unit1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38D175B42AF0098C4EC /* unit1.jpg */; };
 		1A40A393175B42B00098C4EC /* unit2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38E175B42AF0098C4EC /* unit2.jpg */; };
 		1A40A394175B42B00098C4EC /* unit4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A40A38F175B42B00098C4EC /* unit4.jpg */; };
@@ -219,6 +220,8 @@
 		1A011E7F1756C62D00A122F3 /* sprites-interface-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprites-interface-ipadhd.png"; sourceTree = "<group>"; };
 		1A011E801756C62D00A122F3 /* sprites-interface.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sprites-interface.plist"; sourceTree = "<group>"; };
 		1A011E811756C62D00A122F3 /* sprites-interface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprites-interface.png"; sourceTree = "<group>"; };
+		1A3403A8175C8261003C9C47 /* UnitBuilt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitBuilt.h; sourceTree = "<group>"; };
+		1A3403A9175C8261003C9C47 /* UnitBuilt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitBuilt.m; sourceTree = "<group>"; };
 		1A40A38D175B42AF0098C4EC /* unit1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit1.jpg; sourceTree = "<group>"; };
 		1A40A38E175B42AF0098C4EC /* unit2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit2.jpg; sourceTree = "<group>"; };
 		1A40A38F175B42B00098C4EC /* unit4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unit4.jpg; sourceTree = "<group>"; };
@@ -650,6 +653,8 @@
 				1A91410517414FFE00D3CDD5 /* UnitSprite.m */,
 				1AC09895175A31AF00621252 /* OptimumRessourceConstruct.h */,
 				1AC09896175A31AF00621252 /* OptimumRessourceConstruct.m */,
+				1A3403A8175C8261003C9C47 /* UnitBuilt.h */,
+				1A3403A9175C8261003C9C47 /* UnitBuilt.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1487,6 +1492,7 @@
 				1A437D03174EB1B10066FFAB /* Tips.m in Sources */,
 				90E8D5D3175A0CFB00CABFFC /* ConstructLayer.m in Sources */,
 				1AC09897175A31AF00621252 /* OptimumRessourceConstruct.m in Sources */,
+				1A3403AA175C8261003C9C47 /* UnitBuilt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,11 +11,13 @@
 #import "Game.h"
 
 #import "OptimumRessourceConstruct.h"
+#import "UnitBuilt.h"
 
 enum
 {
 	chaudronTag = 9999,
     unitToiPad = 9998,
+    unitBuiltTag = 4242,
 };
 
 @interface ConstructLayer : CCLayer<GameDelegate> {

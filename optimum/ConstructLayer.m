@@ -54,15 +54,21 @@
     if( (self=[super init]) )
     {
         //Notifications
-        //Gestion du lâcher d'unité
+        //Gestion du lâcher de ressource
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(optimumRelease:)
                                                      name:@"optimumRessourceConstructEnd"
                                                    object:nil];
-        //Gestion du déplacement d'unité
+        //Gestion du déplacement de ressource
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(optimumMove:)
                                                      name:@"optimumRessourceConstructMove"
+                                                   object:nil];
+        
+        //Gestion du du lâcher de ressource
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(unitBuiltEnd:)
+                                                     name:@"unitBuiltEnd"
                                                    object:nil];
         
         gameElement = gameObject;
@@ -510,9 +516,7 @@
     
     CCNode *cauldronNode = [self getChildByTag:chaudronTag];
 	CCSprite *cauldron = (CCSprite*)cauldronNode;
-    
- 
-    
+
     CCNode *optimumNode = [self getChildByTag:tag];
     OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
     
@@ -523,7 +527,8 @@
     CCAction *backInitPosition = [CCMoveTo actionWithDuration:0
                                                      position: ccp(initPosition.x, initPosition.y)];
     
-    CCSprite *unitBuilt;
+    UnitBuilt *unitBuilt;
+    unitBuilt.tag = unitBuiltTag;
     
     if (CGRectContainsRect(cauldron.boundingBox, optimumRessource.boundingBox))
     {
@@ -566,56 +571,57 @@
         [cauldronContent addObject:[NSNumber numberWithInt:type]];
         optimumRessource.units--;
         [optimumRessource runAction:backInitPosition];
-//        CCLOG(@"cauldronContent : %@", cauldronContent);
         
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
         if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level one !");
 //            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_vert.png"];
-            unitBuilt = [CCSprite spriteWithFile:@"unit1.jpg"];
-            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+//            unitBuilt = [CCSprite spriteWithFile:@"unit1.jpg"];
+            unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:1 atPosition:ccp(cauldron.position.x, cauldron.position.y) ofTeam:NO];
+//            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
             [self addChild:unitBuilt];
         }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level two !");
-            unitBuilt = [CCSprite spriteWithFile:@"unit2.jpg"];
+//            unitBuilt = [CCSprite spriteWithFile:@"unit2.jpg"];
 //            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
-            
+            unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:2 atPosition:ccp(cauldron.position.x, cauldron.position.y) ofTeam:NO];
+
             [self addChild:unitBuilt];
         }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
             CCLOG(@"Level three !");
 //            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_gris.png"];
-            unitBuilt = [CCSprite spriteWithFile:@"unit3.jpg"];
-            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+//            unitBuilt = [CCSprite spriteWithFile:@"unit3.jpg"];
+//            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:3 atPosition:ccp(cauldron.position.x, cauldron.position.y) ofTeam:NO];
+
             [self addChild:unitBuilt];
         }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
 //            unitBuilt = [CCSprite spriteWithSpriteFrameName:@"ressource_rouge.png"];
-            unitBuilt = [CCSprite spriteWithFile:@"unit4.jpg"];
+//            unitBuilt = [CCSprite spriteWithFile:@"unit4.jpg"];
             CCLOG(@"Level four !");
-            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+//            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:4 atPosition:ccp(cauldron.position.x, cauldron.position.y) ofTeam:NO];
+
             [self addChild:unitBuilt];
         }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
             [self removeChild:unitBuilt cleanup:YES];
-            unitBuilt = [CCSprite spriteWithFile:@"unit5.jpg"];
+//            unitBuilt = [CCSprite spriteWithFile:@"unit5.jpg"];
             CCLOG(@"Level five !");
-            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
+            unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:5 atPosition:ccp(cauldron.position.x, cauldron.position.y) ofTeam:NO];
+
+//            unitBuilt.position = ccp(cauldron.position.x, cauldron.position.y);
             [self addChild:unitBuilt];
         }
     }else{
         [optimumRessource runAction:back2InitPosition];
     }
-    
-    
-    
 }
 
-- (void) optimumMove:(NSNotification *)notification
-{
-    
-}
+- (void) optimumMove:(NSNotification *)notification{}
 
 - (void) cancelCauldronContent: (id) sender
 {
@@ -648,8 +654,55 @@
     OptimumRessourceConstruct *optimumResourceGray = (OptimumRessourceConstruct*)optimumNodeGray;
     optimumResourceGray.units = grayResource;
     
+    
+    CCNode *unitBuiltNode = [self getChildByTag:unitBuiltTag];
+	CCSprite *unitBuilt = (CCSprite*)unitBuiltNode;
+    
+    [self removeChild:unitBuilt cleanup:YES];
+    
     [cauldronContent removeAllObjects];
 }
+
+- (void) unitBuiltEnd:(NSNotification *)notification
+{
+    NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
+//    NSInteger type = [[[notification object] objectForKey:@"type"] intValue];
+    //    CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
+    CGPoint initPosition = [[[notification object] objectForKey:@"initPosition"] CGPointValue];
+    
+    CCNode *unitBuiltNode = [self getChildByTag:tag];
+    UnitBuilt *unitBuilt = (UnitBuilt*)unitBuiltNode;
+    
+    CCNode *iPadSenderNode = [self getChildByTag:unitToiPad];
+    CCSprite *iPadSender = (CCSprite*)iPadSenderNode;
+    
+    CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
+                                            position: ccp(initPosition.x, initPosition.y)];
+    
+    if (CGRectContainsRect(iPadSender.boundingBox, unitBuilt.boundingBox))
+    {
+        // On envoit les données vers l'iPad
+        
+        //Le bâtiment disparait
+        [self removeChild:unitBuilt cleanup:YES];
+        
+        //Il n'y a plus rien dans le chaudron
+        [cauldronContent removeAllObjects];
+        redResourceInCauldron = 0;
+        [redResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", redResourceInCauldron]];
+        
+        greenResourceInCauldron = 0;
+        [greenResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", greenResourceInCauldron]];
+        
+        grayResourceInCauldron = 0;
+        [grayResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", grayResourceInCauldron]];
+        
+        CCLOG(@"send to iPhone");
+    }else{
+        [unitBuilt runAction:back2InitPosition];
+    }
+}
+
 
 
 @end

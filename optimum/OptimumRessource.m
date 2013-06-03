@@ -25,7 +25,7 @@
         double delay = arc4random() % 20;
         
         self.scale = CC_CONTENT_SCALE_FACTOR() + 1;
-        self.position = ccp(95 + arc4random() % ((int)size.width - (85*2)), size.height + 50);
+        self.position = ccp(120 + arc4random() % ((int)size.width - (95*2)), size.height + 50);
         self.anchorPoint = ccp(.5, .5);
         self.touchEnabled = YES;
         

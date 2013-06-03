@@ -1,16 +1,15 @@
 //
-//  OptimumRessourceConstruct.m
+//  UnitBuilt.m
 //  optimum
 //
-//  Created by Jean-Louis Danielo on 01/06/13.
+//  Created by Jean-Louis Danielo on 03/06/13.
 //  Copyright 2013 __MyCompanyName__. All rights reserved.
 //
 
-#import "OptimumRessourceConstruct.h"
+#import "UnitBuilt.h"
 
 
-@implementation OptimumRessourceConstruct
-
+@implementation UnitBuilt
 
 - (void)onEnter
 {
@@ -29,35 +28,51 @@
 	return [self initWithTexture:texture rect:rect rotated:NO];
 }
 
-- (id) initWithRessourceType:(int)ressourceType atPosition:(CGPoint)position
+- (id) initWithUnitLevel:(int)unitLevel atPosition:(CGPoint)position ofTeam:(BOOL)_team
 {
     if (self = [super init])
     {
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"ConstructLayer.plist"];
         
-        NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
-                                   @"ressource_vert.png",
-                                   @"ressource_gris.png",
-                                   @"ressource_rouge.png",
-                                   nil];
+        // Univers impairs (univers à droite)
+        if (_team == YES) {
+            NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
+                                            @"ressource_vert.png",
+                                            @"ressource_gris.png",
+                                            @"ressource_rouge.png",
+                                            @"ressource_gris.png",
+                                            @"ressource_vert.png",
+                                            nil];
+            self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:unitLevel - 1]];
+        }else{
+            NSArray *ressourcesTypeArray = [[NSArray alloc] initWithObjects:
+                                            @"ressource_vert.png",
+                                            @"ressource_gris.png",
+                                            @"ressource_rouge.png",
+                                            @"ressource_vert.png",
+                                            @"ressource_gris.png",
+                                            nil];
+            self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:unitLevel - 1]];
+        }
         
-        self = [super initWithSpriteFrameName:[ressourcesTypeArray objectAtIndex:ressourceType]];
-     
         
-        _type = ressourceType;
-        self.tag = (42 * ressourceType);
+        level = unitLevel;
+        self.tag = (42 * level);
         
         self.position = self.initPosition = ccp(position.x, position.y);
-        hasUnits = YES;
-        self.touchEnabled = YES;
-        self.units = 3;
-        
-        [self schedule: @selector(hasUnits:) interval:0.5];
     }
     
     return self;
 }
+
+//+ (id)spriteWithSpriteFrameName:(NSString*)spriteFrameName
+//{
+//	CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:spriteFrameName];
+//    
+//	NSAssert1(frame!=nil, @"Invalid spriteFrameName: %@", spriteFrameName);
+//	return [self spriteWithSpriteFrame:frame];
+//}
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
@@ -65,13 +80,10 @@
     CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
     
-    if (hasUnits && self.touchEnabled == YES)
+    if([self isTouchOnSprite:touchPoint])
     {
-        if([self isTouchOnSprite:touchPoint])
-        {
-            touchLocation = ccpSub(self.position, touchPoint);
-            return YES;
-        }
+        touchLocation = ccpSub(self.position, touchPoint);
+        return YES;
     }
 	
 	return NO;
@@ -87,21 +99,6 @@
 {
     CGPoint touchPoint = [self locationFromTouch:touch];
 	self.position = ccpAdd(touchPoint, touchLocation);
-    
-    NSArray *objectsProperties = [[NSArray alloc] initWithObjects:
-                                  [NSNumber numberWithInt:self.tag],
-                                  [NSValue valueWithCGPoint:touchPoint],
-                                  [NSValue valueWithCGPoint:self.initPosition],
-                                  nil];
-    
-    NSArray *keysProperties = [[NSArray alloc] initWithObjects:@"tag", @"touchLocation", @"initPosition", nil];
-    
-    NSDictionary *optimumRessourceExtraProperties = [[NSDictionary alloc]
-                                                     initWithObjects:objectsProperties
-                                                     forKeys:keysProperties];
-	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"optimumRessourceConstructMove"
-     object:optimumRessourceExtraProperties];
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
@@ -110,21 +107,20 @@
 	CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
     
-//    [self hasUnits];
     NSArray *objectsProperties = [[NSArray alloc] initWithObjects:
                                   [NSValue valueWithCGPoint:self.initPosition],
                                   [NSNumber numberWithInt:self.tag],
                                   [NSValue valueWithCGPoint:touchPoint],
-                                  [NSNumber numberWithInt:_type],
+                                  [NSNumber numberWithInt:self.level],
                                   nil];
     
-    NSArray *keysProperties = [[NSArray alloc] initWithObjects:@"initPosition", @"tag", @"touchLocation", @"type", nil];
+    NSArray *keysProperties = [[NSArray alloc] initWithObjects:@"initPosition", @"tag", @"touchLocation", @"level", nil];
     
     NSDictionary *optimumRessourceExtraProperties = [[NSDictionary alloc]
                                                      initWithObjects:objectsProperties
                                                      forKeys:keysProperties];
 	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"optimumRessourceConstructEnd"
+     postNotificationName:@"unitBuiltEnd"
      object:optimumRessourceExtraProperties];
 }
 
@@ -143,36 +139,8 @@
     initPosition = position;
 }
 
-- (BOOL) touchEnabled{
-    return touchEnabled;
-}
-
-- (void) setTouchEnabled:(BOOL)_touchEnabled{
-    touchEnabled = _touchEnabled;
-}
-
-- (int) units{
-    return units;
-}
-
-- (void) setUnits:(int)unit{
-    units = unit;
-}
-
-- (void) hasUnits: (ccTime) dt
-{
-    if (self.units <= 0)
-    {
-        hasUnits = NO;
-        self.opacity = 100;
-    }else{
-        hasUnits = YES;
-        self.opacity = 255;
-    }
-}
-
-- (int) _type{
-    return _type;
+- (int) level{
+    return level;
 }
 
 @end
