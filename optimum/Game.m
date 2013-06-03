@@ -235,13 +235,13 @@ GameState;
                 Packet *packet = [Packet packetWithType:PacketTypeClientReady];
                 [self sendPacketToServer:packet];
                 [self beginGame];
-                
 			}
 			break;
             
         case PacketTypeTeam:
             if (_state == GameStateDealing) {
-                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
+//                [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self]];
+                [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject:self]];
             }
             break;
             
@@ -254,7 +254,6 @@ GameState;
         case PacketTypeMapGameStart:
             if (_state == GameStateDealing) {
                 [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject:self]];
-                CCLOG(@"string-pull");
             }
             break;
             

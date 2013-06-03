@@ -35,9 +35,9 @@ enum
     int grayResourceInCauldron, grayResource;
     int greenResourceInCauldron, greenResource;
     
-    CCLabelTTF *redResourceInCauldronLabel, *redResourceLabel;
-    CCLabelTTF *grayResourceInCauldronLabel, *grayResourceLabel;
-    CCLabelTTF *greenResourceInCauldronLabel, *greenResourceLabel;
+    CCLabelAtlas *redResourceInCauldronLabel, *redResourceLabel;
+    CCLabelAtlas *grayResourceInCauldronLabel, *grayResourceLabel;
+    CCLabelAtlas *greenResourceInCauldronLabel, *greenResourceLabel;
     
 }
 

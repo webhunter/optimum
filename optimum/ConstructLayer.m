@@ -310,9 +310,9 @@
                 
                 
                 //Ressources dans le Chaudron
-                redResource = 3;
-                grayResource = 5;
-                greenResource = 7;
+                redResource = 15;
+                grayResource = 22;
+                greenResource = 10;
                 
                 redResourceInCauldron = 0;
                 grayResourceInCauldron = 0;
@@ -426,55 +426,71 @@
                 
                 // Gestion des labels
                 
+                CGSize labelRessourceSize = CGSizeMake(8, 24);
+                CGSize labelRessourceInCauldronSize = CGSizeMake(8, 24);
                 //Hors chaudron
-                redResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", redResource]
-                                                           dimensions:CGSizeMake(19, 19)
-                                                           hAlignment:kCCTextAlignmentCenter
-                                                             fontName:@"HelveticaNeue-CondensedBold"
-                                                             fontSize:9];
+                redResourceLabel.contentSize = labelRessourceSize;
+                redResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", redResource]
+                                           charMapFile:@"number_unit_big_rouge.png"
+                                             itemWidth:7
+                                            itemHeight:12
+                                          startCharMap:'.'];
+                redResourceLabel.anchorPoint = ccp(.5, .5);
                 redResourceLabel.position = pastilleRouge.position;
                 [self addChild:redResourceLabel];
                 
-                grayResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
-                                                           dimensions:CGSizeMake(19, 19)
-                                                           hAlignment:kCCTextAlignmentCenter
-                                                             fontName:@"HelveticaNeue-CondensedBold"
-                                                             fontSize:9];
+                grayResourceLabel.contentSize = labelRessourceSize;
+                grayResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
+                                                             charMapFile:@"number_unit_big_gris.png"
+                                                               itemWidth:7
+                                                              itemHeight:12
+                                                            startCharMap:'.'];
+                grayResourceLabel.anchorPoint = ccp(.5, .5);
                 grayResourceLabel.position = pastilleGrise.position;
                 [self addChild:grayResourceLabel];
                 
-                greenResourceLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
-                                                            dimensions:CGSizeMake(19, 19)
-                                                            hAlignment:kCCTextAlignmentCenter
-                                                              fontName:@"HelveticaNeue-CondensedBold"
-                                                              fontSize:9];
+                greenResourceLabel.contentSize = labelRessourceSize;
+                greenResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
+                                                              charMapFile:@"number_unit_big_vert.png"
+                                                                itemWidth:7
+                                                               itemHeight:12
+                                                             startCharMap:'.'];
+                greenResourceLabel.anchorPoint = ccp(.5, .5);
                 greenResourceLabel.position = pastilleVerte.position;
                 [self addChild:greenResourceLabel];
                 
                 //In chaudron
-                redResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", redResourceInCauldron]
-                                                           dimensions:CGSizeMake(19, 19)
-                                                           hAlignment:kCCTextAlignmentCenter
-                                                             fontName:@"HelveticaNeue-CondensedBold"
-                                                             fontSize:9];
-                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(26, 78));
+                //ROUGE
+                redResourceInCauldronLabel.contentSize = labelRessourceInCauldronSize;
+                redResourceInCauldronLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", redResourceInCauldron]
+                                                                      charMapFile:@"number_unit_small_rouge.png"
+                                                                        itemWidth:8
+                                                                       itemHeight:11
+                                                                     startCharMap:'.'];
+                redResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
+                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(26, 80));
                 [self addChild:redResourceInCauldronLabel];
                 
-                grayResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", grayResourceInCauldron]
-                                                                  dimensions:CGSizeMake(19, 19)
-                                                                  hAlignment:kCCTextAlignmentCenter
-                                                                  fontName:@"HelveticaNeue-CondensedBold"
-                                                                  fontSize:9];
-                grayResourceInCauldronLabel.color = ccBLACK;
-                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(26, -78));
+                //GRISE
+                grayResourceInCauldronLabel.contentSize = labelRessourceInCauldronSize;
+                grayResourceInCauldronLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResourceInCauldron]
+                                                                       charMapFile:@"number_unit_small_gris.png"
+                                                                         itemWidth:8
+                                                                        itemHeight:11
+                                                                      startCharMap:'.'];
+                grayResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
+                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(23, -79));
                 [self addChild:grayResourceInCauldronLabel];
                 
-                greenResourceInCauldronLabel = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%i", greenResourceInCauldron]
-                                                             dimensions:CGSizeMake(19, 19)
-                                                             hAlignment:kCCTextAlignmentCenter
-                                                               fontName:@"HelveticaNeue-CondensedBold"
-                                                               fontSize:9];
-                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(26, -78));
+                //VERT
+                greenResourceInCauldronLabel.contentSize = labelRessourceInCauldronSize;
+                greenResourceInCauldronLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResourceInCauldron]
+                                                                        charMapFile:@"number_unit_small_vert.png"
+                                                                          itemWidth:8
+                                                                         itemHeight:11
+                                                                       startCharMap:'.'];
+                greenResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
+                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(-31, -79));
                 [self addChild:greenResourceInCauldronLabel];
                 
             }
