@@ -50,22 +50,25 @@
 
 - (id) init
 {
-    NSArray *optimumImages = [[NSArray alloc] initWithObjects:@"optimum-alpha.png", @"optimum-beta.png", @"optimum-sigma.png", @"optimum-enigma.png", nil];
-    int type ;//= arc4random() % [optimumImages count];
+    CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+    [frameCache addSpriteFramesWithFile:@"Ressources.plist"];
+    NSArray *optimumImages = [[NSArray alloc] initWithObjects:@"green.png", @"gray.png", @"red.png", @"mystere.png", nil];
+    int category ;//= arc4random() % [optimumImages count];
+    
     
     double val = (double)rand() / RAND_MAX;
     
     if (val < 0.05)       //  5%
-        type = 3;
+        category = 3;
     else if (val < 0.25)  //  5% + 20%
-        type = 1;
+        category = 1;
     else if (val < 0.55)  //  5% + 20% + 30%
-        type = 2;
+        category = 2;
     else
-        type = 0;
+        category = 0;
     
 
-    if ((self = [super initWithFile:[optimumImages objectAtIndex:type]]))
+    if ((self = [super initWithSpriteFrameName:[optimumImages objectAtIndex:type]]))
     {
         self.optimumType = self.speedFall = type;
     }

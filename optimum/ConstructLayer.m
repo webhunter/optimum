@@ -122,8 +122,6 @@
                                                 [NSNumber numberWithInt:2],
                               nil];
         
-        
-        
         unitLevelTwoRecipe = [[NSCountedSet alloc] initWithObjects:
                                                 [NSNumber numberWithInt:0],
                                                 [NSNumber numberWithInt:2],
