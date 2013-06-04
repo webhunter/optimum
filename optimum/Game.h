@@ -12,6 +12,10 @@
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason;
 - (void)gameDidBegin:(Game *)game;
+- (void)playerReceiveRessource:(Game *)game andParam:(int)ressource;
+- (void)player2ReceiveRessource:(Game *)game andParam:(int)ressource;
+- (void)sendUnitToPlayer:(Game *)game andParam:(int)unit;
+- (void)sendUnitToPlayer2:(Game *)game andParam:(int)unit;
 
 @end
 
@@ -31,5 +35,6 @@
 - (void)sendPacketToAllClients:(Packet *)packet;
 - (Player *)playerAtPosition:(PlayerPosition)position;
 - (void) sendPacketToOneClient:(Packet *)packet andClient:(NSArray*)client;
+- (void) sendPacketToServer:(Packet *)packet;
 
 @end

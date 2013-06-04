@@ -64,6 +64,7 @@
         hasUnits = YES;
         self.touchEnabled = YES;
         self.units = 3;
+        self.zOrder = 43;
         
         [self schedule: @selector(hasUnits:) interval:0.5];
     }

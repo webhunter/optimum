@@ -12,12 +12,17 @@
 
 #import "OptimumRessourceConstruct.h"
 #import "UnitBuilt.h"
+#import "Packet.h"
 
 enum
 {
 	chaudronTag = 9999,
     unitToiPad = 9998,
     unitBuiltTag = 4242,
+    
+    ressourceRedTag = 8001,
+    ressourceGreenTag = 8002,
+    ressourceGrayTag = 8003,
 };
 
 @interface ConstructLayer : CCLayer<GameDelegate> {

@@ -34,6 +34,26 @@ typedef enum
     
     PacketTypeMapGameStart,            // server to client
     PacketTypeMapGameStart2,
+    
+    PacketRessourceVert,
+    PacketRessourceGris,
+    PacketRessourceRouge,
+    
+    PacketRessourceVert2,
+    PacketRessourceGris2,
+    PacketRessourceRouge2,
+    
+    PacketUnitLeft,
+    PacketUnitLeft2,
+    PacketUnitLeft3,
+    PacketUnitLeft4,
+    PacketUnitLeft5,
+    
+    PacketUnitRight,
+    PacketUnitRight2,
+    PacketUnitRight3,
+    PacketUnitRight4,
+    PacketUnitRight5,
 }
 PacketType;
 

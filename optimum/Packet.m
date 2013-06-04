@@ -102,6 +102,70 @@ const size_t PACKET_HEADER_SIZE = 10;
             packet = [Packet packetWithType:packetType];
             break;
             
+        case PacketRessourceGris:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketRessourceRouge:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketRessourceVert:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketRessourceGris2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketRessourceRouge2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketRessourceVert2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitLeft:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitLeft2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitLeft3:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitLeft4:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitLeft5:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitRight:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitRight2:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitRight3:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitRight4:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
+        case PacketUnitRight5:
+            packet = [Packet packetWithType:packetType];
+            break;
+            
 		default:
 			NSLog(@"Error: Packet has invalid type");
 			return nil;
