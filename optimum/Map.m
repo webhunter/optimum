@@ -356,30 +356,36 @@
 
 - (void) displayInterface{
     
-    level1UnitLeft = 0;
+    level1UnitLeft = 1;
     level2UnitLeft = 0;
     level3UnitLeft = 0;
     level4UnitLeft = 0;
     level5UnitLeft = 0;
     //Affichage des unités
     //  Unité gauche (Ville)
-    UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0 atPosition:ccp(51, size.height - 40 * 2) withUnits:level1UnitLeft];
+    UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0
+                                                       atPosition:ccp(51, size.height - 40 * 2) withUnits:level1UnitLeft];
+    unitLeftLevelOne.tag = unitOddLevelOneTag;
     [self addChild:unitLeftLevelOne z:unitOddLevelOne];
     
     UnitSprite *unitLeftLevelTwo = [[UnitSprite alloc] initWithUnitType:2
                                                       atPosition:ccp(51, size.height - (40 * 5)) withUnits:level2UnitLeft];
+    unitLeftLevelTwo.tag = unitOddLevelTwoTag;
     [self addChild:unitLeftLevelTwo z:unitOddLevelTwo];
     
     UnitSprite *unitLeftLevelThree = [[UnitSprite alloc] initWithUnitType:4
                                                              atPosition:ccp(51, size.height - (40 * 8)) withUnits:level3UnitLeft];
+    unitLeftLevelThree.tag = unitOddLevelThreeTag;
     [self addChild:unitLeftLevelThree z:unitOddLevelThree];
     
     UnitSprite *unitLeftLevelFour = [[UnitSprite alloc] initWithUnitType:6
                                                                atPosition:ccp(51, size.height - (40 * 11)) withUnits:level4UnitLeft];
+    unitLeftLevelFour.tag = unitOddLevelFourTag;
     [self addChild:unitLeftLevelFour z:unitOddLevelFour];
     
     UnitSprite *unitLeftLevelFive = [[UnitSprite alloc] initWithUnitType:8
                                                               atPosition:ccp(51, size.height - (40 * 14)) withUnits:level5UnitLeft];
+    unitLeftLevelFive.tag = unitOddLevelFiveTag;
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
     
@@ -390,20 +396,25 @@
     level5UnitRight = 0;
     //  Unité droite (Nature)
     UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
+    unitRightLevelOne.tag = unitEvenLevelOneTag;
     [self addChild:unitRightLevelOne z:unitEvenLevelOne];
 
     
     UnitSprite *unitRightLevelTwo = [[UnitSprite alloc] initWithUnitType:3 atPosition:ccp(size.width - 51, size.height - 40 * 5) withUnits:level2UnitRight];
+    unitRightLevelTwo.tag = unitEvenLevelTwoTag;
     [self addChild:unitRightLevelTwo z:unitEvenLevelTwo];
   
     
     UnitSprite *unitRightLevelThree = [[UnitSprite alloc] initWithUnitType:5 atPosition:ccp(size.width - 51, size.height - 40 * 8) withUnits:level3UnitRight];
+    unitRightLevelThree.tag = unitEvenLevelThreeTag;
     [self addChild:unitRightLevelThree z:unitEvenLevelThree];
     
     UnitSprite *unitRightLevelFour = [[UnitSprite alloc] initWithUnitType:7 atPosition:ccp(size.width - 51, size.height - 40 * 11) withUnits:level4UnitRight];
+    unitRightLevelFour.tag = unitEvenLevelFourTag;
     [self addChild:unitRightLevelFour z:unitEvenLevelFour];
     
     UnitSprite *unitRightLevelFive = [[UnitSprite alloc] initWithUnitType:9 atPosition:ccp(size.width - 51, size.height - 40 * 14) withUnits:level5UnitRight];
+    unitRightLevelFive.tag = unitEvenLevelFiveTag;
     [self addChild:unitRightLevelFive z:unitEvenLevelFive];
 
     float fontSize = 18;
@@ -713,9 +724,9 @@
                 default:
                     break;
             }
-            //[stackElementLeft addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
+            [stackElementLeft addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
             [self removeChild:spriteTouched cleanup:YES];
-            //scoreLabelLeft.string = [NSString stringWithFormat:@"%d", [stackElementLeft count]];
+            scoreLabelLeft.string = [NSString stringWithFormat:@"%d", [stackElementLeft count]];
             
             // envoie données au joueur 2
             Player *player2 = [gameElement playerAtPosition:PlayerPositionLeft];
@@ -1120,8 +1131,8 @@
 
 
 //Lâcher d'unité
-- (void) unitRelease:(NSNotification *)notification {
-    
+- (void) unitRelease:(NSNotification *)notification
+{    
     NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
     CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
     CGPoint initPosition = [[[notification object] objectForKey:@"initPosition"] CGPointValue];
@@ -1476,67 +1487,143 @@
 {
     switch (unit) {
         case 1:
+        {
             level1UnitLeft++;
             [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level1UnitLeft]];
+            
+            CCNode *unitNode = [self getChildByTag:unitOddLevelOneTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            sprite.units = level1UnitLeft;
+            
+            CCLOG(@"sprite : %i, truc : %i", sprite.units, level1UnitLeft);
+            
+        }
             break;
         
         case 2:
+        {
             level2UnitLeft++;
             [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level2UnitLeft]];
+            
+            CCNode *unitNode = [self getChildByTag:unitOddLevelTwoTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level2UnitLeft;
+        }
             break;
             
         case 3:
+        {
             level3UnitLeft++;
             [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level3UnitLeft]];
+            
+            CCNode *unitNode = [self getChildByTag:unitOddLevelThreeTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level3UnitLeft;
+        }
             break;
             
         case 4:
+        {
             level4UnitLeft++;
             [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level4UnitLeft]];
+            
+            CCNode *unitNode = [self getChildByTag:unitOddLevelFourTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level4UnitLeft;
+        }
             break;
             
         case 5:
+        {
             level5UnitLeft++;
             [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level5UnitLeft]];
-            break;
             
+            CCNode *unitNode = [self getChildByTag:unitOddLevelFiveTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level5UnitLeft;
+            
+        }
+            break;
+        
         default:
             break;
     }
+    
+    
 }
 
 - (void)sendUnitToPlayer2:(Game *)game andParam:(int)unit
 {
     switch (unit) {
         case 1:
+        {
             level1UnitRight++;
             [level1UnitRightLabel setString:[NSString stringWithFormat:@"%i", level1UnitRight]];
+            
+            CCNode *unitNode = [self getChildByTag:unitEvenLevelOneTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            CCLOG(@"sprite : %i", sprite.units);
+            sprite.units = level1UnitRight;
+        }
             break;
             
         case 2:
+        {
             level2UnitRight++;
             [level2UnitRightLabel setString:[NSString stringWithFormat:@"%i", level2UnitRight]];
+            
+            CCNode *unitNode = [self getChildByTag:unitEvenLevelTwoTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level2UnitRight;
+        }
             break;
             
         case 3:
+        {
             level3UnitRight++;
             [level3UnitRightLabel setString:[NSString stringWithFormat:@"%i", level3UnitRight]];
+            
+            CCNode *unitNode = [self getChildByTag:unitEvenLevelThreeTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level3UnitRight;
+        }
             break;
             
         case 4:
+        {
             level4UnitRight++;
             [level4UnitRightLabel setString:[NSString stringWithFormat:@"%i", level4UnitRight]];
+            
+            CCNode *unitNode = [self getChildByTag:unitOddLevelFourTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level4UnitRight;
+            
+        }
             break;
             
         case 5:
+        {
             level5UnitRight++;
             [level5UnitRightLabel setString:[NSString stringWithFormat:@"%i", level5UnitRight]];
+            
+            CCNode *unitNode = [self getChildByTag:unitEvenLevelFiveTag];
+            UnitSprite *sprite = (UnitSprite*)unitNode;
+            
+            sprite.units = level5UnitRight;
+        }
             break;
             
         default:
             break;
     }
-
+    
 }
 
 // on "dealloc" you need to release all your retained objects

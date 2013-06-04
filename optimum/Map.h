@@ -34,12 +34,24 @@ enum
     unitOddLevelFour = 10003,
     unitOddLevelFive = 10004,
     
+    unitOddLevelOneTag = 10000,
+    unitOddLevelTwoTag = 10001,
+    unitOddLevelThreeTag = 10002,
+    unitOddLevelFourTag = 10003,
+    unitOddLevelFiveTag = 10004,
+    
     // "Nature" Chiffres pairs
     unitEvenLevelOne = 10005,
     unitEvenLevelTwo = 10006,
     unitEvenLevelThree = 10007,
     unitEvenLevelFour = 10008,
     unitEvenLevelFive = 10009,
+    
+    unitEvenLevelOneTag = 10005,
+    unitEvenLevelTwoTag = 10006,
+    unitEvenLevelThreeTag = 10007,
+    unitEvenLevelFourTag = 10008,
+    unitEvenLevelFiveTag = 10009,
 };
 
 

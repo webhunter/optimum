@@ -111,11 +111,17 @@
     bw.anchorPoint = ccp(0, 0);
     if (self.units <= 0)
     {
+//        [self removeChild:bw cleanup:YES];
         hasUnits = NO;
-        [self addChild:bw];
+//        bw.opacity = 255;
+        self.opacity = 100;
+
+//        [self addChild:bw];
     }else{
         hasUnits = YES;
-        [self removeChild:bw cleanup:YES];
+        self.opacity = 255;
+//        [self co]
+//        [self removeChild:bw cleanup:YES];
     }
 }
 
@@ -187,6 +193,7 @@
     NSDictionary *optimumRessourceExtraProperties = [[NSDictionary alloc]
                                                      initWithObjects:objectsProperties
                                                      forKeys:keysProperties];
+    
 	[[NSNotificationCenter defaultCenter]
         postNotificationName:@"unitPositionEnd"
         object:optimumRessourceExtraProperties];

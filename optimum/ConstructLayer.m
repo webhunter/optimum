@@ -473,7 +473,7 @@
                                                                  initWithRessourceType:1
                                                                  atPosition:ccp(size.width/2 - 113 , size.height/2 + 82 )
                                                                  forTeam:NO];
-                ressourceGriseDrag.tag = ressourceGreenTag;
+                ressourceGriseDrag.tag = ressourceGrayTag;
                 ressourceGriseDrag.units = grayResource;
                 [self addChild:ressourceGriseDrag];
                 
@@ -1267,10 +1267,10 @@
         
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
         if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
-            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
-            CCLOG(@"Level one !");
+            [self removePrevUnit];
             
-            if (team == YES) {
+            if (team == YES)
+            {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:1 atPosition:unitContructPosition ofTeam:YES];
             }else{
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:1 atPosition:unitContructPosition ofTeam:NO];
@@ -1278,9 +1278,10 @@
 
             [self addChild:unitBuilt z:0];
         }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
-            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
 
-            if (team == YES) {
+            [self removePrevUnit];
+            if (team == YES)
+            {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:2 atPosition:unitContructPosition ofTeam:YES];
             }else{
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:2 atPosition:unitContructPosition ofTeam:NO];
@@ -1288,10 +1289,10 @@
 
             [self addChild:unitBuilt z:0];
         }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
-            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
-            CCLOG(@"Level three !");
-
-            if (team == YES) {
+            [self removePrevUnit];
+            
+            if (team == YES)
+            {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:3 atPosition:unitContructPosition ofTeam:YES];
             }else{
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:3 atPosition:unitContructPosition ofTeam:NO];
@@ -1299,9 +1300,10 @@
 
             [self addChild:unitBuilt z:0];
         }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
-            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
 
-            if (team == YES) {
+            [self removePrevUnit];
+            if (team == YES)
+            {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:4 atPosition:unitContructPosition ofTeam:YES];
             }else{
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:4 atPosition:unitContructPosition ofTeam:NO];
@@ -1309,9 +1311,10 @@
 
             [self addChild:unitBuilt];
         }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
-            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
-            CCLOG(@"Level five !");
-            if (team == YES) {
+            [self removePrevUnit];
+            
+            if (team == YES)
+            {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:5 atPosition:unitContructPosition ofTeam:YES];
             }else{
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:5 atPosition:unitContructPosition ofTeam:NO];
@@ -1333,7 +1336,7 @@
     [redResourceLabel setString:[NSString stringWithFormat:@"%d", redResource]];
     [redResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", redResourceInCauldron]];
     
-    CCNode *optimumNodeRed = [self getChildByTag:84];
+    CCNode *optimumNodeRed = [self getChildByTag:ressourceRedTag];
     OptimumRessourceConstruct *optimumResourceRed = (OptimumRessourceConstruct*)optimumNodeRed;
     optimumResourceRed.units = redResource;
     
@@ -1343,7 +1346,7 @@
     [greenResourceLabel setString:[NSString stringWithFormat:@"%d", greenResource]];
     [greenResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", greenResourceInCauldron]];
     
-    CCNode *optimumNodeGreen = [self getChildByTag:0];
+    CCNode *optimumNodeGreen = [self getChildByTag:ressourceGreenTag];
     OptimumRessourceConstruct *optimumResourceGreen = (OptimumRessourceConstruct*)optimumNodeGreen;
     optimumResourceGreen.units = greenResource;
     
@@ -1353,12 +1356,14 @@
     [grayResourceLabel setString:[NSString stringWithFormat:@"%d", grayResource]];
     [grayResourceInCauldronLabel setString:[NSString stringWithFormat:@"%d", grayResourceInCauldron]];
     
-    CCNode *optimumNodeGray = [self getChildByTag:42];
+    CCNode *optimumNodeGray = [self getChildByTag:ressourceGrayTag];
     OptimumRessourceConstruct *optimumResourceGray = (OptimumRessourceConstruct*)optimumNodeGray;
     optimumResourceGray.units = grayResource;
     
-    CCNode *unitBuiltNode = [self getChildByTag:unitBuiltTag];
-	CCSprite *unitBuilt = (CCSprite*)unitBuiltNode;
+    
+    CCNode *unitBuiltNode = [self getChildByTag:megaTag];
+    CCLOG(@"megaTag : %i", megaTag);
+	UnitBuilt *unitBuilt = (UnitBuilt*)unitBuiltNode;
     
     [self removeChild:unitBuilt cleanup:YES];
     
@@ -1368,12 +1373,12 @@
 - (void) unitBuiltEnd:(NSNotification *)notification
 {
     NSInteger tag = [[[notification object] objectForKey:@"tag"] intValue];
+    megaTag = tag;
 //    NSInteger type = [[[notification object] objectForKey:@"type"] intValue];
     CGPoint touchLocation = [[[notification object] objectForKey:@"touchLocation"] CGPointValue];
     CGPoint initPosition = [[[notification object] objectForKey:@"initPosition"] CGPointValue];
     
     CCNode *unitBuiltNode = [self getChildByTag:tag];
-    CCLOG(@"tag : %i", tag);
     UnitBuilt *unitBuilt = (UnitBuilt*)unitBuiltNode;
     
     CCNode *iPadSenderNode = [self getChildByTag:unitToiPad];
@@ -1382,10 +1387,8 @@
     CCAction *back2InitPosition = [CCMoveTo actionWithDuration:.2f
                                             position: ccp(initPosition.x, initPosition.y)];
     
-    
     if (CGRectContainsPoint(iPadSender.boundingBox, touchLocation))
     {
-        
         // On envoit les données vers l'iPad
         if (team == NO)
         {
@@ -1433,9 +1436,6 @@
                 default:
                     break;
             }
-            
-            
-            
         }
         else
         {
@@ -1504,6 +1504,17 @@
     }
 }
 
+- (void) removePrevUnit
+{
+    for (UnitBuilt *sprite in self.children)
+    {
+        if ([sprite isKindOfClass:[UnitBuilt class]])
+        {
+            [sprite removeFromParentAndCleanup:YES];
+        }
+    }
+}
+
 - (void)playerReceiveRessource:(Game *)game andParam:(int)ressource
 {
     switch (ressource) {
@@ -1536,7 +1547,7 @@
             
             CCNode *optimumNode = [self getChildByTag:ressourceRedTag];
             OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
-            optimumRessource.units = grayResource;
+            optimumRessource.units = redResource;
         }
             break;
             
@@ -1583,7 +1594,7 @@
             
             CCNode *optimumNode = [self getChildByTag:ressourceRedTag];
             OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
-            optimumRessource.units = grayResource;
+            optimumRessource.units = redResource;
         }
             break;
             

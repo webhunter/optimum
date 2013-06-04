@@ -18,7 +18,7 @@ enum
 {
 	chaudronTag = 9999,
     unitToiPad = 9998,
-    unitBuiltTag = 4242,
+    unitBuiltTag = 4666,
     
     ressourceRedTag = 8001,
     ressourceGreenTag = 8002,
@@ -45,7 +45,7 @@ enum
     CCLabelAtlas *greenResourceInCauldronLabel, *greenResourceLabel;
     
     BOOL team;
-    
+    int megaTag;
 }
 
 + (CCScene *) scene;

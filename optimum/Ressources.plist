@@ -103,22 +103,11 @@
 		<key>size</key>
 		<string>{64, 256}</string>
 		<key>name</key>
-		<string>Untitled</string>
-		<key>target</key>
-		<dict>
-			<key>name</key>
-			<string>default</string>
-			<key>textureFileName</key>
-			<string>Untitled_default</string>
-			<key>textureFileExtension</key>
-			<string>.png</string>
-			<key>coordinatesFileName</key>
-			<string>Untitled_default</string>
-			<key>coordinatesFileExtension</key>
-			<string>.plist</string>
-			<key>premultipliedAlpha</key>
-			<false/>
-		</dict>
+		<string>Ressources</string>
+		<key>textureFileName</key>
+		<string>Ressources.png</string>
+		<key>premultipliedAlpha</key>
+		<false/>
 	</dict>
 </dict>
 </plist>

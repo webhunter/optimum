@@ -23,9 +23,8 @@
         
         randNum = rand() % (4000 - 1000) + 1000;
         double delay = arc4random() % 20;
-        
-        self.scale = CC_CONTENT_SCALE_FACTOR() + 1;
-        self.position = ccp(120 + arc4random() % ((int)size.width - (95*2)), size.height + 50);
+         
+        self.position = ccp(120 + arc4random() % ((int)size.width - (120*2)), size.height + 50);
         self.anchorPoint = ccp(.5, .5);
         self.touchEnabled = YES;
         
@@ -43,7 +42,7 @@
         [self runAction:fall];
         
         
-        [self schedule: @selector(outOfScreen:) interval:0.5];
+        [self schedule: @selector(outOfScreen:) interval:1];
     }
     return self;
 }
@@ -53,7 +52,7 @@
     CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
     [frameCache addSpriteFramesWithFile:@"Ressources.plist"];
     NSArray *optimumImages = [[NSArray alloc] initWithObjects:@"green.png", @"gray.png", @"red.png", @"mystere.png", nil];
-    int category ;//= arc4random() % [optimumImages count];
+    int category;//= arc4random() % [optimumImages count];
     
     
     double val = (double)rand() / RAND_MAX;
@@ -68,9 +67,9 @@
         category = 0;
     
 
-    if ((self = [super initWithSpriteFrameName:[optimumImages objectAtIndex:type]]))
+    if ((self = [super initWithSpriteFrameName:[optimumImages objectAtIndex:category]]))
     {
-        self.optimumType = self.speedFall = type;
+        self.optimumType = self.speedFall = category;
     }
     return self;
 }
@@ -96,7 +95,7 @@
 //Vérifie que l'Optimum est toujours visible à l'écran
 - (void) outOfScreen: (ccTime) dt
 {
-    if (self.boundingBox.origin.y <= 140)
+    if (self.boundingBox.origin.y <= 200)
     {
         [self removeFromParentAndCleanup:YES];
     }
@@ -112,6 +111,8 @@
         //Lorsque l'on touche le sprite, l'animation s'arrête
         [self stopAllActions];
 		touchLocation = ccpSub(self.position, touchPoint);
+        
+        self.scale = 1.5;
         
 		return YES;
 	}
@@ -167,6 +168,8 @@
         postNotificationName:@"optimumPosition"
         object:optimumRessourceExtraProperties
      ];
+    
+    self.scale = 1;
 }
 
 - (BOOL) touchEnabled{
