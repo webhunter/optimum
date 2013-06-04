@@ -13,6 +13,7 @@
 #import "EndGame.h" //Scene appelée lorsque la scene est terminée
 
 
+
 @implementation Map
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
@@ -56,8 +57,8 @@
     if( self=[super init] )
     {
         size = [[CCDirector sharedDirector] winSize];
-        self.game = [parameters objectForKey:@"game"];
-   
+        gameElement = [parameters objectForKey:@"game"];
+        gameElement.delegate = self;
 
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
@@ -342,7 +343,7 @@
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsRight] forKey:@"units"];
     
     
-    NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], self.game, nil];
+    NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], gameElement, nil];
     NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", @"game", nil];
     
     
@@ -355,11 +356,11 @@
 
 - (void) displayInterface{
     
-    level1UnitLeft = 42;
-    level2UnitLeft = 7;
-    level3UnitLeft = 7;
+    level1UnitLeft = 0;
+    level2UnitLeft = 0;
+    level3UnitLeft = 0;
     level4UnitLeft = 0;
-    level5UnitLeft = 7;
+    level5UnitLeft = 0;
     //Affichage des unités
     //  Unité gauche (Ville)
     UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0 atPosition:ccp(51, size.height - 40 * 2) withUnits:level1UnitLeft];
@@ -382,11 +383,11 @@
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
     
-    level1UnitRight = 1;
-    level2UnitRight = 7;
-    level3UnitRight = 7;
-    level4UnitRight = 7;
-    level5UnitRight = 70;
+    level1UnitRight = 0;
+    level2UnitRight = 0;
+    level3UnitRight = 0;
+    level4UnitRight = 0;
+    level5UnitRight = 0;
     //  Unité droite (Nature)
     UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
     [self addChild:unitRightLevelOne z:unitEvenLevelOne];
@@ -628,28 +629,98 @@
     //Tests de collision entre le sprite récupéré et les différents élements
     if(CGRectIntersectsRect(optimumBoundingBox, leftStack.boundingBox) || CGRectIntersectsRect(rightStack.boundingBox, optimumBoundingBox))
     {
-        /* Camp de gauche green | YES */
+        /* Camp de droite NATURE | YES */
         if (CGRectIntersectsRect(rightStack.boundingBox, optimumBoundingBox))
         {
-            if ([spriteTouched optimumType] == 3)
-            {
-                int disaster = arc4random() % 2;
-                [self mysticEvent:disaster forTeam:YES]; //Yes : partie de droite
+            Packet *packet;
+            switch ([spriteTouched optimumType]) {
+                case 0:
+                {
+                    //vert
+                    // envoie données au joueur 
+                   packet = [Packet packetWithType:PacketRessourceVert];
+                }
+                    break;
+                
+                case 1:
+                {
+                    //gris
+                    packet = [Packet packetWithType:PacketRessourceGris];
+                }
+                    break;
+                    
+                case 2:
+                {
+                    //rouge
+                    packet = [Packet packetWithType:PacketRessourceRouge];
+                }
+                    break;
+                    
+                case 3:
+                {
+                    //mystere
+                    int disaster = arc4random() % 2;
+                    [self mysticEvent:disaster forTeam:YES]; //Yes : partie de gauche
+                }
+                    break;
+                    
+                default:
+                    break;
             }
-            [stackElementRight addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
+            //[stackElementRight addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
             [self removeChild:spriteTouched cleanup:YES];
-            scoreLabelRight.string = [NSString stringWithFormat:@"%d", [stackElementRight count]];
+            //scoreLabelRight.string = [NSString stringWithFormat:@"%d", [stackElementRight count]];
             
-            /* Camp de droite rose | NO */
+            Player *player = [gameElement playerAtPosition:PlayerPositionRight];
+            NSArray *array = [[NSArray alloc] initWithObjects:player.peerID, nil];
+            [gameElement sendPacketToOneClient:packet andClient:array];
+
+            
+            /* Camp de gauche VILLE | NO */
         }else{
-            if ([spriteTouched optimumType] == 3)
-            {
-                int disaster = arc4random() % 2;
-                [self mysticEvent:disaster forTeam:NO]; //Yes : partie de gauche
+            Packet *packet2;
+            switch ([spriteTouched optimumType]) {
+                case 0:
+                {
+                    //vert
+                    // envoie données au joueur
+                    packet2 = [Packet packetWithType:PacketRessourceVert2];
+                }
+                    break;
+                    
+                case 1:
+                {
+                    //gris
+                    packet2 = [Packet packetWithType:PacketRessourceGris2];
+                }
+                    break;
+                    
+                case 2:
+                {
+                    //rouge
+                    packet2 = [Packet packetWithType:PacketRessourceRouge2];
+                }
+                    break;
+                    
+                case 3:
+                {
+                    //mystere
+                    int disaster = arc4random() % 2;
+                    [self mysticEvent:disaster forTeam:NO]; //Yes : partie de gauche
+                }
+                    break;
+                    
+                default:
+                    break;
             }
-            [stackElementLeft addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
+            //[stackElementLeft addObject:[NSNumber numberWithInteger:[spriteTouched optimumType]]];
             [self removeChild:spriteTouched cleanup:YES];
-            scoreLabelLeft.string = [NSString stringWithFormat:@"%d", [stackElementLeft count]];
+            //scoreLabelLeft.string = [NSString stringWithFormat:@"%d", [stackElementLeft count]];
+            
+            // envoie données au joueur 2
+            Player *player2 = [gameElement playerAtPosition:PlayerPositionLeft];
+            NSArray *array2 = [[NSArray alloc] initWithObjects:player2.peerID, nil];
+            [gameElement sendPacketToOneClient:packet2 andClient:array2];
         }
         
         /*
@@ -1399,6 +1470,73 @@
             }
         }
     }
+}
+
+- (void)sendUnitToPlayer:(Game *)game andParam:(int)unit
+{
+    switch (unit) {
+        case 1:
+            level1UnitLeft++;
+            [level1UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level1UnitLeft]];
+            break;
+        
+        case 2:
+            level2UnitLeft++;
+            [level2UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level2UnitLeft]];
+            break;
+            
+        case 3:
+            level3UnitLeft++;
+            [level3UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level3UnitLeft]];
+            break;
+            
+        case 4:
+            level4UnitLeft++;
+            [level4UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level4UnitLeft]];
+            break;
+            
+        case 5:
+            level5UnitLeft++;
+            [level5UnitLeftLabel setString:[NSString stringWithFormat:@"%i", level5UnitLeft]];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)sendUnitToPlayer2:(Game *)game andParam:(int)unit
+{
+    switch (unit) {
+        case 1:
+            level1UnitRight++;
+            [level1UnitRightLabel setString:[NSString stringWithFormat:@"%i", level1UnitRight]];
+            break;
+            
+        case 2:
+            level2UnitRight++;
+            [level2UnitRightLabel setString:[NSString stringWithFormat:@"%i", level2UnitRight]];
+            break;
+            
+        case 3:
+            level3UnitRight++;
+            [level3UnitRightLabel setString:[NSString stringWithFormat:@"%i", level3UnitRight]];
+            break;
+            
+        case 4:
+            level4UnitRight++;
+            [level4UnitRightLabel setString:[NSString stringWithFormat:@"%i", level4UnitRight]];
+            break;
+            
+        case 5:
+            level5UnitRight++;
+            [level5UnitRightLabel setString:[NSString stringWithFormat:@"%i", level5UnitRight]];
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 // on "dealloc" you need to release all your retained objects

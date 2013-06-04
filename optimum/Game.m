@@ -258,16 +258,60 @@ GameState;
             
         case PacketTypeMapGameStart2:
             if (_state == GameStateDealing) {
-                CCLOG(@"test");
                 [[CCDirector sharedDirector] pushScene:[ConstructLayer sceneWithGameObject2:self]];
             }
             break;
+         
+        case PacketRessourceVert:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam:0];
+            }
+            break;
             
+        case PacketRessourceRouge:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam:2];
+            }
+            break;
+            
+        case PacketRessourceGris:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam:1];
+            }
+            break;
+        
+        case PacketRessourceVert2:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam2:0];
+            }
+            break;
+            
+        case PacketRessourceRouge2:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam2:2];
+            }
+            break;
+            
+        case PacketRessourceGris2:
+            if (_state == GameStateDealing) {
+                [self envoieRessourceandParam2:1];
+            }
+            break;
             
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
 			break;
 	}
+}
+
+- (void)envoieRessourceandParam:(int)ressource
+{
+    [self.delegate playerReceiveRessource:self andParam:ressource];
+}
+
+- (void)envoieRessourceandParam2:(int)ressource
+{
+    [self.delegate player2ReceiveRessource:self andParam:ressource];
 }
 
 - (void)beginGame
@@ -301,11 +345,93 @@ GameState;
             {
                 [self beginGame];
             }
+            break;
+            
+        case PacketUnitLeft:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitLeftandParam:1];
+            }
+            break;
+            
+        case PacketUnitLeft2:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitLeftandParam:2];
+            }
+            break;
+            
+        case PacketUnitLeft3:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitLeftandParam:3];
+            }
+            break;
+            
+        case PacketUnitLeft4:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitLeftandParam:4];
+            }
+            break;
+            
+        case PacketUnitLeft5:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitLeftandParam:5];
+            }
+            break;
+        
+        case PacketUnitRight:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitRightandParam:1];
+            }
+            break;
+            
+        case PacketUnitRight2:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitRightandParam:2];
+            }
+            break;
+            
+        case PacketUnitRight3:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitRightandParam:3];
+            }
+            break;
+            
+        case PacketUnitRight4:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitRightandParam:4];
+            }
+            break;
+            
+        case PacketUnitRight5:
+            if (_state == GameStateDealing)
+            {
+                [self sendUnitRightandParam:5];
+            }
+            break;
+        
             
 		default:
 			NSLog(@"Server received unexpected packet: %@", packet);
 			break;
 	}
+}
+
+- (void)sendUnitLeftandParam:(int)unit
+{
+    [self.delegate sendUnitToPlayer:self andParam:unit];
+}
+
+- (void)sendUnitRightandParam:(int)unit
+{
+    [self.delegate sendUnitToPlayer2:self andParam:unit];
 }
 
 - (BOOL)receivedResponsesFromAllPlayers

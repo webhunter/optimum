@@ -110,6 +110,7 @@
         
         team = NO;
         gameElement = gameObject;
+        gameObject.delegate = self;
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"Chaudron_ville.plist"];
         cauldronContent = [[NSCountedSet alloc] init];
@@ -158,9 +159,9 @@
                               nil];
         
         //Ressources dans le Chaudron
-        redResource = 3;
-        grayResource = 5;
-        greenResource = 7;
+        redResource = 0;
+        grayResource = 0;
+        greenResource = 0;
         
         redResourceInCauldron = 0;
         grayResourceInCauldron = 0;
@@ -228,13 +229,14 @@
                                                                  initWithRessourceType:0
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 + 92 )
                                                                  forTeam:NO];
+                ressourceVerteDrag.tag = ressourceGreenTag;
                 ressourceVerteDrag.units = greenResource;
                 [self addChild:ressourceVerteDrag];
                 
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
                 [pastilleVerte setPosition:ccp(size.width/2 + 92 , size.height/2 + 115 )];
                 
-                [self addChild:pastilleVerte];
+                [self addChild:pastilleVerte z:160];
                 
                 // Ressource grise complete
                 CCSprite *ressourceGriseFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_gris.png"];
@@ -247,13 +249,14 @@
                                                                  initWithRessourceType:1
                                                                  atPosition:ccp(size.width/2 - 113 , size.height/2 + 92 )
                                                                  forTeam:NO];
+                ressourceGriseDrag.tag = ressourceGrayTag;
                 ressourceGriseDrag.units = grayResource;
                 [self addChild:ressourceGriseDrag];
                 
                 CCSprite *pastilleGrise = [CCSprite spriteWithSpriteFrameName:@"pastille_gris.png"];
                 [pastilleGrise setPosition:ccp(size.width/2 - 88 , size.height/2 + 111 )];
                 
-                [self addChild:pastilleGrise];
+                [self addChild:pastilleGrise z:160];
                 
                 // Ressource rouge complete
                 CCSprite *ressourceRougeFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_rouge.png"];
@@ -265,13 +268,14 @@
                                                                 initWithRessourceType:2
                                                                 atPosition:ccp(size.width/2 - 113 , size.height/2 - 170 )
                                                                 forTeam:NO];
+                ressourceRougeDrag.tag = ressourceRedTag;
                 ressourceRougeDrag.units = redResource;
                 [self addChild:ressourceRougeDrag];
                 
                 CCSprite *pastilleRouge = [CCSprite spriteWithSpriteFrameName:@"pastille_rouge.png"];
                 [pastilleRouge setPosition:ccp(size.width/2 - 90 , size.height/2 - 192 )];
                 
-                [self addChild:pastilleRouge];
+                [self addChild:pastilleRouge z:160];
                 
                 // Points pour ressource verte
                 CCSprite *point1Vert = [CCSprite spriteWithSpriteFrameName:@"point_01.png"];
@@ -334,7 +338,7 @@
                                                            startCharMap:'.'];
                 redResourceLabel.anchorPoint = ccp(.5, .5);
                 redResourceLabel.position = pastilleRouge.position;
-                [self addChild:redResourceLabel];
+                [self addChild:redResourceLabel z:162];
                 
                 grayResourceLabel.contentSize = labelRessourceSize;
                 grayResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
@@ -344,7 +348,7 @@
                                                             startCharMap:'.'];
                 grayResourceLabel.anchorPoint = ccp(.5, .5);
                 grayResourceLabel.position = pastilleGrise.position;
-                [self addChild:grayResourceLabel];
+                [self addChild:grayResourceLabel z:162];
                 
                 greenResourceLabel.contentSize = labelRessourceSize;
                 greenResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
@@ -354,7 +358,7 @@
                                                              startCharMap:'.'];
                 greenResourceLabel.anchorPoint = ccp(.5, .5);
                 greenResourceLabel.position = pastilleVerte.position;
-                [self addChild:greenResourceLabel];
+                [self addChild:greenResourceLabel z:162];
                 
                 //In chaudron
                 //ROUGE
@@ -447,6 +451,7 @@
                                                                  initWithRessourceType:0
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 + 82 )
                                                                  forTeam:NO];
+                resourceVerteDrag.tag = ressourceGreenTag;
                 resourceVerteDrag.units = greenResource;
                 [self addChild:resourceVerteDrag];
                 
@@ -454,7 +459,7 @@
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
                 [pastilleVerte setPosition:ccp(size.width/2 + 92 , size.height/2 + 105 )];
                 
-                [self addChild:pastilleVerte];
+                [self addChild:pastilleVerte z:160];
                 
                 // Ressource grise complete
                 CCSprite *ressourceGriseFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_gris.png"];
@@ -468,6 +473,7 @@
                                                                  initWithRessourceType:1
                                                                  atPosition:ccp(size.width/2 - 113 , size.height/2 + 82 )
                                                                  forTeam:NO];
+                ressourceGriseDrag.tag = ressourceGreenTag;
                 ressourceGriseDrag.units = grayResource;
                 [self addChild:ressourceGriseDrag];
                 
@@ -475,7 +481,7 @@
                 CCSprite *pastilleGrise = [CCSprite spriteWithSpriteFrameName:@"pastille_gris.png"];
                 [pastilleGrise setPosition:ccp(size.width/2 - 88 , size.height/2 + 101 )];
                 
-                [self addChild:pastilleGrise];
+                [self addChild:pastilleGrise z:160];
                 
                 // Ressource rouge complete
                 CCSprite *ressourceRougeFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_rouge.png"];
@@ -488,13 +494,14 @@
                                                                  initWithRessourceType:2
                                                                  atPosition:ccp(size.width/2 - 113 , size.height/2 - 180 )
                                                                  forTeam:NO];
+                ressourceRougeDrag.tag = ressourceRedTag;
                 ressourceRougeDrag.units = redResource;
                 [self addChild:ressourceRougeDrag];
                 
                 CCSprite *pastilleRouge = [CCSprite spriteWithSpriteFrameName:@"pastille_rouge.png"];
                 [pastilleRouge setPosition:ccp(size.width/2 - 90 , size.height/2 - 202 )];
                 
-                [self addChild:pastilleRouge];
+                [self addChild:pastilleRouge z:160];
                 
                 // Points pour ressource verte
                 CCSprite *point1Vert = [CCSprite spriteWithSpriteFrameName:@"point_01.png"];
@@ -557,7 +564,7 @@
                                           startCharMap:'.'];
                 redResourceLabel.anchorPoint = ccp(.5, .5);
                 redResourceLabel.position = pastilleRouge.position;
-                [self addChild:redResourceLabel];
+                [self addChild:redResourceLabel z:162];
                 
                 grayResourceLabel.contentSize = labelRessourceSize;
                 grayResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
@@ -567,7 +574,7 @@
                                                             startCharMap:'.'];
                 grayResourceLabel.anchorPoint = ccp(.5, .5);
                 grayResourceLabel.position = pastilleGrise.position;
-                [self addChild:grayResourceLabel];
+                [self addChild:grayResourceLabel z:162];
                 
                 greenResourceLabel.contentSize = labelRessourceSize;
                 greenResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
@@ -577,7 +584,7 @@
                                                              startCharMap:'.'];
                 greenResourceLabel.anchorPoint = ccp(.5, .5);
                 greenResourceLabel.position = pastilleVerte.position;
-                [self addChild:greenResourceLabel];
+                [self addChild:greenResourceLabel z:162];
                 
                 //In chaudron
                 //ROUGE
@@ -646,6 +653,7 @@
         
         team = YES;
         gameElement = gameObject;
+        gameObject.delegate = self;
         CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
         [frameCache addSpriteFramesWithFile:@"Chaudron_nature.plist"];
         cauldronContent = [[NSCountedSet alloc] init];
@@ -694,9 +702,9 @@
                                nil];
         
         //Ressources dans le Chaudron
-        redResource = 3;
-        grayResource = 5;
-        greenResource = 7;
+        redResource = 0;
+        grayResource = 0;
+        greenResource = 0;
         
         redResourceInCauldron = 0;
         grayResourceInCauldron = 0;
@@ -763,13 +771,14 @@
                                                                  initWithRessourceType:0
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 - 169 )
                                                                  forTeam:YES];
+                ressourceVerteDrag.tag = ressourceGreenTag;
                 ressourceVerteDrag.units = greenResource;
                 [self addChild:ressourceVerteDrag];
                 
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
                 [pastilleVerte setPosition:ccp(size.width/2 + 88 , size.height/2 - 189 )];
                 
-                [self addChild:pastilleVerte];
+                [self addChild:pastilleVerte z:160];
                 
                 // Ressource grise complete
                 CCSprite *ressourceGriseFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_gris_nature.png"];
@@ -782,13 +791,14 @@
                                                                  initWithRessourceType:1
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 + 92 )
                                                                  forTeam:YES];
+                ressourceGriseDrag.tag = ressourceGrayTag;
                 ressourceGriseDrag.units = grayResource;
                 [self addChild:ressourceGriseDrag];
                 
                 CCSprite *pastilleGrise = [CCSprite spriteWithSpriteFrameName:@"pastille_gris.png"];
                 [pastilleGrise setPosition:ccp(size.width/2 +92, size.height/2 + 115 )];
                 
-                [self addChild:pastilleGrise];
+                [self addChild:pastilleGrise z:160];
                 
                 // Ressource rouge complete
                 CCSprite *ressourceRougeFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_rouge_nature.png"];
@@ -801,13 +811,14 @@
                                                                 initWithRessourceType:2
                                                                 atPosition:ccp(size.width/2 - 113 , size.height/2 +92 )
                                                                 forTeam:YES];
+                ressourceRougeDrag.tag = ressourceRedTag;
                 ressourceRougeDrag.units = redResource;
                 [self addChild:ressourceRougeDrag];
                 
                 CCSprite *pastilleRouge = [CCSprite spriteWithSpriteFrameName:@"pastille_rouge.png"];
                 [pastilleRouge setPosition:ccp(size.width/2 - 88 , size.height/2 + 111 )];
                 
-                [self addChild:pastilleRouge];
+                [self addChild:pastilleRouge z:160];
                 
                 // Points pour ressource verte
                 CCSprite *point1Vert = [CCSprite spriteWithSpriteFrameName:@"point_01.png"];
@@ -870,7 +881,7 @@
                                                            startCharMap:'.'];
                 redResourceLabel.anchorPoint = ccp(.5, .5);
                 redResourceLabel.position = pastilleRouge.position;
-                [self addChild:redResourceLabel];
+                [self addChild:redResourceLabel z:162];
                 
                 grayResourceLabel.contentSize = labelRessourceSize;
                 grayResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
@@ -880,7 +891,7 @@
                                                             startCharMap:'.'];
                 grayResourceLabel.anchorPoint = ccp(.5, .5);
                 grayResourceLabel.position = pastilleGrise.position;
-                [self addChild:grayResourceLabel];
+                [self addChild:grayResourceLabel z:162];
                 
                 greenResourceLabel.contentSize = labelRessourceSize;
                 greenResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
@@ -890,7 +901,7 @@
                                                              startCharMap:'.'];
                 greenResourceLabel.anchorPoint = ccp(.5, .5);
                 greenResourceLabel.position = pastilleVerte.position;
-                [self addChild:greenResourceLabel];
+                [self addChild:greenResourceLabel z:162];
                 
                 //In chaudron
                 //ROUGE
@@ -901,7 +912,7 @@
                                                                        itemHeight:11
                                                                      startCharMap:'.'];
                 redResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(26, 80));
+                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(23, -79));
                 [self addChild:redResourceInCauldronLabel];
                 
                 //GRISE
@@ -912,7 +923,7 @@
                                                                         itemHeight:11
                                                                       startCharMap:'.'];
                 grayResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(23, -79));
+                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(-31, -79));
                 [self addChild:grayResourceInCauldronLabel];
                 
                 //VERT
@@ -923,7 +934,7 @@
                                                                          itemHeight:11
                                                                        startCharMap:'.'];
                 greenResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(-31, -79));
+                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(-24, 77));
                 [self addChild:greenResourceInCauldronLabel];
                 
             }
@@ -982,13 +993,14 @@
                                                                  initWithRessourceType:0
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 - 179 )
                                                                  forTeam:YES];
+                ressourceVerteDrag.tag = ressourceGreenTag;
                 ressourceVerteDrag.units = greenResource;
                 [self addChild:ressourceVerteDrag];
                 
                 CCSprite *pastilleVerte = [CCSprite spriteWithSpriteFrameName:@"pastille_vert.png"];
                 [pastilleVerte setPosition:ccp(size.width/2 + 88 , size.height/2 - 199 )];
                 
-                [self addChild:pastilleVerte];
+                [self addChild:pastilleVerte z:160];
                 
                 // Ressource grise complete
                 CCSprite *ressourceGriseFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_gris_nature.png"];
@@ -1001,13 +1013,14 @@
                                                                  initWithRessourceType:1
                                                                  atPosition:ccp(size.width/2 + 113 , size.height/2 + 82 )
                                                                  forTeam:YES];
+                ressourceGriseDrag.tag = ressourceGrayTag;
                 ressourceGriseDrag.units = grayResource;
                 [self addChild:ressourceGriseDrag];
                 
                 CCSprite *pastilleGrise = [CCSprite spriteWithSpriteFrameName:@"pastille_gris.png"];
                 [pastilleGrise setPosition:ccp(size.width/2 +92, size.height/2 + 105 )];
                 
-                [self addChild:pastilleGrise];
+                [self addChild:pastilleGrise z:160];
                 
                 // Ressource rouge complete
                 CCSprite *ressourceRougeFull = [CCSprite spriteWithSpriteFrameName:@"ressource_bis_rouge_nature.png"];
@@ -1020,13 +1033,14 @@
                                                                  initWithRessourceType:2
                                                                  atPosition:ccp(size.width/2 - 113 , size.height/2 +82 )
                                                                  forTeam:YES];
+                ressourceRougeDrag.tag = ressourceRedTag;
                 ressourceRougeDrag.units = redResource;
                 [self addChild:ressourceRougeDrag];
                 
                 CCSprite *pastilleRouge = [CCSprite spriteWithSpriteFrameName:@"pastille_rouge.png"];
                 [pastilleRouge setPosition:ccp(size.width/2 - 88 , size.height/2 + 101 )];
                 
-                [self addChild:pastilleRouge];
+                [self addChild:pastilleRouge z:160];
                 
                 // Points pour ressource verte
                 CCSprite *point1Vert = [CCSprite spriteWithSpriteFrameName:@"point_01.png"];
@@ -1089,7 +1103,7 @@
                                                            startCharMap:'.'];
                 redResourceLabel.anchorPoint = ccp(.5, .5);
                 redResourceLabel.position = pastilleRouge.position;
-                [self addChild:redResourceLabel];
+                [self addChild:redResourceLabel z:162];
                 
                 grayResourceLabel.contentSize = labelRessourceSize;
                 grayResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", grayResource]
@@ -1099,7 +1113,7 @@
                                                             startCharMap:'.'];
                 grayResourceLabel.anchorPoint = ccp(.5, .5);
                 grayResourceLabel.position = pastilleGrise.position;
-                [self addChild:grayResourceLabel];
+                [self addChild:grayResourceLabel z:162];
                 
                 greenResourceLabel.contentSize = labelRessourceSize;
                 greenResourceLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", greenResource]
@@ -1109,7 +1123,7 @@
                                                              startCharMap:'.'];
                 greenResourceLabel.anchorPoint = ccp(.5, .5);
                 greenResourceLabel.position = pastilleVerte.position;
-                [self addChild:greenResourceLabel];
+                [self addChild:greenResourceLabel z:162];
                 
                 //In chaudron
                 //ROUGE
@@ -1120,7 +1134,7 @@
                                                                        itemHeight:11
                                                                      startCharMap:'.'];
                 redResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(26, 80));
+                redResourceInCauldronLabel.position = ccpAdd(pastilleRouge.position, ccp(23, -79));
                 [self addChild:redResourceInCauldronLabel];
                 
                 //GRISE
@@ -1131,7 +1145,7 @@
                                                                         itemHeight:11
                                                                       startCharMap:'.'];
                 grayResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(23, -79));
+                grayResourceInCauldronLabel.position = ccpAdd(pastilleGrise.position, ccp(-31, -79));
                 [self addChild:grayResourceInCauldronLabel];
                 
                 //VERT
@@ -1142,7 +1156,7 @@
                                                                          itemHeight:11
                                                                        startCharMap:'.'];
                 greenResourceInCauldronLabel.anchorPoint = ccp(.5, .5);
-                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(-31, -79));
+                greenResourceInCauldronLabel.position = ccpAdd(pastilleVerte.position, ccp(-24, 77));
                 [self addChild:greenResourceInCauldronLabel];
                 
             }
@@ -1242,12 +1256,18 @@
 
         
         CGSize size = [[CCDirector sharedDirector] winSize];
-        CGPoint unitContructPosition = ccp(size.width/2, size.height/2 - 15);
+        CGPoint unitContructPosition;
+        if ([[UIScreen mainScreen] bounds].size.height == 568) {
+            unitContructPosition = ccp(size.width/2, size.height/2 - 15);
+        }else{
+            unitContructPosition = ccp(size.width/2, size.height/2 - 25);
+        }
+        
         
         
         // On vérifie que le contenu du chaudron n'est pas égal à une recette et que son contenu n'est pas supérieur à la recette
         if ([cauldronContent isEqualToSet:unitLevelOneRecipe] && [cauldronContent count] == [unitLevelOneRecipe count]) {
-            [self removeChild:unitBuilt cleanup:YES];
+            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
             CCLOG(@"Level one !");
             
             if (team == YES) {
@@ -1256,9 +1276,9 @@
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:1 atPosition:unitContructPosition ofTeam:NO];
             }
 
-            [self addChild:unitBuilt];
+            [self addChild:unitBuilt z:0];
         }else if([cauldronContent isEqualToSet:unitLevelTwoRecipe] && [cauldronContent count] == [unitLevelTwoRecipe count]) {
-            [self removeChild:unitBuilt cleanup:YES];
+            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
 
             if (team == YES) {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:2 atPosition:unitContructPosition ofTeam:YES];
@@ -1266,9 +1286,9 @@
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:2 atPosition:unitContructPosition ofTeam:NO];
             }
 
-            [self addChild:unitBuilt];
+            [self addChild:unitBuilt z:0];
         }else if ([cauldronContent isEqualToSet:unitLevelThreeRecipe] && [cauldronContent count] == [unitLevelThreeRecipe count]) {
-            [self removeChild:unitBuilt cleanup:YES];
+            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
             CCLOG(@"Level three !");
 
             if (team == YES) {
@@ -1277,9 +1297,9 @@
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:3 atPosition:unitContructPosition ofTeam:NO];
             }
 
-            [self addChild:unitBuilt];
+            [self addChild:unitBuilt z:0];
         }else if ([cauldronContent isEqualToSet:unitLevelFourRecipe] && [cauldronContent count] == [unitLevelFourRecipe count]) {
-            [self removeChild:unitBuilt cleanup:YES];
+            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
 
             if (team == YES) {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:4 atPosition:unitContructPosition ofTeam:YES];
@@ -1289,7 +1309,7 @@
 
             [self addChild:unitBuilt];
         }else if ([cauldronContent isEqualToSet:unitLevelFiveRecipe] && [cauldronContent count] == [unitLevelFiveRecipe count]) {
-            [self removeChild:unitBuilt cleanup:YES];
+            [self removeChild:[self getChildByTag:unitBuiltTag] cleanup:YES];
             CCLOG(@"Level five !");
             if (team == YES) {
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:5 atPosition:unitContructPosition ofTeam:YES];
@@ -1297,7 +1317,7 @@
                 unitBuilt = [[UnitBuilt alloc] initWithUnitLevel:5 atPosition:unitContructPosition ofTeam:NO];
             }
 
-            [self addChild:unitBuilt];
+            [self addChild:unitBuilt z:0];
         }
     }else{
         [optimumRessource runAction:back2InitPosition];
@@ -1365,7 +1385,106 @@
     
     if (CGRectContainsPoint(iPadSender.boundingBox, touchLocation))
     {
+        
         // On envoit les données vers l'iPad
+        if (team == NO)
+        {
+            switch (unitBuilt.level) {
+                case 1:
+                {
+                    // envoie données au joueur 1
+                    Packet *packet = [Packet packetWithType:PacketUnitLeft];
+                    [gameElement sendPacketToServer:packet];
+                }
+                    break;
+                
+                case 2:
+                {
+                    // envoie données au joueur 1
+                    Packet *packet = [Packet packetWithType:PacketUnitLeft2];
+                    [gameElement sendPacketToServer:packet];
+                }
+                    break;
+                
+                case 3:
+                {
+                    // envoie données au joueur 1
+                    Packet *packet = [Packet packetWithType:PacketUnitLeft3];
+                    [gameElement sendPacketToServer:packet];
+                }
+                    break;
+                    
+                case 4:
+                {
+                    // envoie données au joueur 1
+                    Packet *packet = [Packet packetWithType:PacketUnitLeft4];
+                    [gameElement sendPacketToServer:packet];
+                }
+                    break;
+                    
+                case 5:
+                {
+                    // envoie données au joueur 1
+                    Packet *packet = [Packet packetWithType:PacketUnitLeft5];
+                    [gameElement sendPacketToServer:packet];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            
+            
+        }
+        else
+        {
+            switch (unitBuilt.level) {
+                case 1:
+                {
+                    // envoie données au joueur 2
+                    Packet *packet2 = [Packet packetWithType:PacketUnitRight];
+                    [gameElement sendPacketToServer:packet2];
+                }
+                    break;
+                    
+                case 2:
+                {
+                    // envoie données au joueur 2
+                    Packet *packet2 = [Packet packetWithType:PacketUnitRight2];
+                    [gameElement sendPacketToServer:packet2];
+                }
+                    break;
+                    
+                case 3:
+                {
+                    // envoie données au joueur 2
+                    Packet *packet2 = [Packet packetWithType:PacketUnitRight3];
+                    [gameElement sendPacketToServer:packet2];
+                }
+                    break;
+                    
+                case 4:
+                {
+                    // envoie données au joueur 2
+                    Packet *packet2 = [Packet packetWithType:PacketUnitRight4];
+                    [gameElement sendPacketToServer:packet2];
+                }
+                    break;
+                    
+                case 5:
+                {
+                    // envoie données au joueur 2
+                    Packet *packet2 = [Packet packetWithType:PacketUnitRight5];
+                    [gameElement sendPacketToServer:packet2];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+
+        }
         
         //Le bâtiment disparait
         [self removeChild:unitBuilt cleanup:YES];
@@ -1385,6 +1504,98 @@
     }
 }
 
+- (void)playerReceiveRessource:(Game *)game andParam:(int)ressource
+{
+    switch (ressource) {
+        case 0:
+        {
+            greenResource++;
+            [greenResourceLabel setString:[NSString stringWithFormat:@"%d", greenResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceGreenTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = greenResource;
+        }
+            break;
+            
+        case 1:
+        {
+            grayResource++;
+            [grayResourceLabel setString:[NSString stringWithFormat:@"%d", grayResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceGrayTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = grayResource;
+        }
+            break;
+            
+        case 2:
+        {
+            redResource++;
+            [redResourceLabel setString:[NSString stringWithFormat:@"%d", redResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceRedTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = grayResource;
+        }
+            break;
+            
+        case 3:
+        {
+            CCLOG(@"ok");
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
+- (void)player2ReceiveRessource:(Game *)game andParam:(int)ressource
+{
+    switch (ressource) {
+        case 0:
+        {
+            greenResource++;
+            [greenResourceLabel setString:[NSString stringWithFormat:@"%d", greenResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceGreenTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = greenResource;
+        }
+            break;
+            
+        case 1:
+        {
+            grayResource++;
+            [grayResourceLabel setString:[NSString stringWithFormat:@"%d", grayResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceGrayTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = grayResource;
+        }
+            break;
+            
+        case 2:
+        {
+            redResource++;
+            [redResourceLabel setString:[NSString stringWithFormat:@"%d", redResource]];
+            
+            CCNode *optimumNode = [self getChildByTag:ressourceRedTag];
+            OptimumRessourceConstruct *optimumRessource = (OptimumRessourceConstruct*)optimumNode;
+            optimumRessource.units = grayResource;
+        }
+            break;
+            
+        case 3:
+        {
+            CCLOG(@"ok");
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 @end
