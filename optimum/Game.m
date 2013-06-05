@@ -158,6 +158,38 @@ GameState;
 #ifdef DEBUG
 	NSLog(@"Game: peer %@ changed state %d", peerID, state);
 #endif
+    
+	if (state == GKPeerStateDisconnected)
+	{
+            [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+            [self showDisconnectedAlert];
+            
+	}
+}
+
+- (void)showDisconnectedAlert
+{
+	UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:NSLocalizedString(@"Disconnected", @"Client disconnected alert title")
+                              message:NSLocalizedString(@"Vous avez été", @"Client disconnected alert message")
+                              delegate:nil
+                              cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK")
+                              otherButtonTitles:nil];
+    
+	[alertView show];
+}
+
+- (void)clientDidDisconnect:(NSString *)peerID
+{
+	if (_state != GameStateQuitting)
+	{
+		Player *player = [self playerWithPeerID:peerID];
+		if (player != nil)
+		{
+			[_players removeObjectForKey:peerID];
+			[self.delegate game:self playerDidDisconnect:player];
+		}
+	}
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
@@ -298,6 +330,11 @@ GameState;
             }
             break;
             
+        case PacketTypeBack:
+            [[CCDirector sharedDirector] popScene];
+
+            break;
+            
 		default:
 			NSLog(@"Client received unexpected packet: %@", packet);
 			break;
@@ -320,6 +357,7 @@ GameState;
     [self.delegate gameDidBegin:self];
     
 }
+
 
 - (void)serverReceivedPacket:(Packet *)packet fromPlayer:(Player *)player
 {

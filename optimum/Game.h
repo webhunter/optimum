@@ -5,7 +5,7 @@
 //  Created by REY Morgan on 01/05/13.
 //
 //
-
+#import "Player.h"
 @class Game;
 
 @protocol GameDelegate <NSObject>
@@ -16,12 +16,13 @@
 - (void)player2ReceiveRessource:(Game *)game andParam:(int)ressource;
 - (void)sendUnitToPlayer:(Game *)game andParam:(int)unit;
 - (void)sendUnitToPlayer2:(Game *)game andParam:(int)unit;
+- (void)game:(Game *)game playerDidDisconnect:(Player *)disconnectedPlayer;
 
 @end
 
 #import <Foundation/Foundation.h>
 #import "Packet.h"
-#import "Player.h"
+
 
 
 @interface Game : NSObject <GKSessionDelegate>

@@ -96,6 +96,7 @@
 {
     if( (self=[super init]) ) {
         gameElement = gameObject;
+        gameElement.delegate = self;
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
             if ([UIScreen instancesRespondToSelector:@selector(scale)])
@@ -154,6 +155,7 @@
     
     if( (self=[super init]) ) {
         gameElement = gameObject;
+        gameElement.delegate = self;
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
             if ([UIScreen instancesRespondToSelector:@selector(scale)])
@@ -303,6 +305,14 @@
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     
     [[CCDirector sharedDirector] pushScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"cityNature"] andUniverse:@"cityNature" andGameObject:gameElement]];
+}
+
+- (void) buttonPressedBack: (id) sender
+{
+    // envoie données au joueurs
+    Packet *packet = [Packet packetWithType:PacketTypeBack];
+	[gameElement sendPacketToAllClients:packet];
+    [[CCDirector sharedDirector] replaceScene:[GameLayer scene]];
 }
 
 -(void) onEnter

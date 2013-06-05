@@ -19,6 +19,10 @@
 		<string>optimum-icone-07.png</string>
 		<string>optimum-icone-08.png</string>
 		<string>optimum-icone-09.png</string>
+		<string>57-57.png</string>
+		<string>114-114.png</string>
+		<string>72-72.png</string>
+		<string>144-144.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -33,6 +37,10 @@
 				<string>optimum-icone-07.png</string>
 				<string>optimum-icone-08.png</string>
 				<string>optimum-icone-09.png</string>
+				<string>57-57.png</string>
+				<string>114-114.png</string>
+				<string>72-72.png</string>
+				<string>144-144.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>

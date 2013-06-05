@@ -298,7 +298,15 @@
 - (void) buttonPressedBack: (id) sender
 {
     [self.game quitGameWithReason:QuitReasonUserQuit];
-    [[CCDirector sharedDirector] replaceScene:[JoinLayer node]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
+    {
+        [[CCDirector sharedDirector] replaceScene:[JoinLayer node]];
+    }
+    else
+    {
+        [[CCDirector sharedDirector] replaceScene:[HostLayer node]];
+    }
+
 }
 
 
@@ -327,28 +335,6 @@
     [[CCDirector sharedDirector] pushScene:[TeamLayer sceneWithGameObject:self.game]];
 }
 
-- (void) archipalgoPressed: (CCMenuItem*) sender
-{
-/*    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
-    Packet *packet = [Packet packetWithType:PacketTypeDealCards];
-	[self.game sendPacketToAllClients:packet];
-//    [[CCDirector sharedDirector] pushScene:[TeamLayer scene]];
-    
-    switch (sender.tag)
-    {
-    //On a sélectionné le didacticiel
-        case 0:
-//            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"tutorial"] andUniverse:@"cityNature"]];
-            break;
-            
-        case 1:
-            [[CCDirector sharedDirector] replaceScene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:@"cityNature"] andUniverse:@"cityNature"]];
-            break;
-            
-        default:
-            break;
-    } */
-}
 
 #pragma mark - GameDelegate
 
@@ -394,14 +380,17 @@
                 }
             }
         }
-        else
-        {
-            // IPHONE SCREEN
-            
-        }
-        
-        
+
     }
 }
+
+
+-(void) onEnterTransitionDidFinish
+{
+    // Called right after onEnter.
+    // If using a CCTransitionScene: called when the transition has ended.
+    [super onEnterTransitionDidFinish];
+}
+
 
 @end
