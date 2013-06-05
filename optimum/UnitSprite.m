@@ -89,39 +89,14 @@
 
 //Vérifie que l'Optimum est toujours visible à l'écran
 - (void) hasUnits: (ccTime) dt
-{
-    NSArray *unitsTypeArrayBW = [[NSArray alloc] initWithObjects:
-                               //niveau 1
-                               @"unit-1-ville-nb.png",
-                               @"unit-1-nature-nb.png",
-                               //niveau 2
-                               @"unit-2-ville-nb.png",
-                               @"unit-2-nb-color.png",
-                               //niveau 3
-                               @"unit-3-ville-nb.png",
-                               @"unit-3-nature-nb.png",
-                               //niveau 4
-                               @"unit-4-ville-nb.png",
-                               @"unit-4-nature-nb.png",
-                               //niveau 5
-                               @"unit-5-ville-nb.png",
-                               @"unit-5-nature-nb.png",
-                               nil];
-    CCSprite *bw = [CCSprite spriteWithSpriteFrameName:[unitsTypeArrayBW objectAtIndex:unitTypeBW]];
-    bw.anchorPoint = ccp(0, 0);
+{    
     if (self.units <= 0)
     {
-//        [self removeChild:bw cleanup:YES];
         hasUnits = NO;
-//        bw.opacity = 255;
-        self.opacity = 100;
-
-//        [self addChild:bw];
+        self.opacity = 75;
     }else{
         hasUnits = YES;
         self.opacity = 255;
-//        [self co]
-//        [self removeChild:bw cleanup:YES];
     }
 }
 

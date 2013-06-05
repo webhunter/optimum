@@ -100,6 +100,23 @@
             mapType = @"maquette-map-2.tmx";
         }
         
+        switch (nbrGame) {
+            case 1:
+                CCLOG(@"Paer 1");
+                break;
+            
+            case 2:
+                CCLOG(@"Paer 2");
+                break;
+                
+            case 3:
+                CCLOG(@"Paer 3");
+                break;
+                
+            default:
+                break;
+        }
+        
         Mapquake *map = [[Mapquake alloc] initWithTMXFile:mapType];
         
         //Permet de compenser le bug lié à la présence d'une tuile sur la case (0, 0)
@@ -1085,7 +1102,7 @@
     coords.x -= (tiledMap.position.y / 3);
     
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation)){
-        //        sprite.position = coords;
+        sprite.position = coords;
         
         for (NSUInteger y = 0; y < tiledMap.mapSize.height; y++) {
             for (NSUInteger x = 0; x < tiledMap.mapSize.width; x++) {
@@ -1097,7 +1114,13 @@
                    CGPointEqualToPoint(p, [[[self getProximityTiles:tileCord] objectAtIndex:2] CGPointValue]) ||
                    CGPointEqualToPoint(p, [[[self getProximityTiles:tileCord] objectAtIndex:3] CGPointValue])
                    ) {
-                    [highlightLayer setTileGID:31 at:p];
+                    if (sprite.team == YES) //Equipe de droite
+                    {
+                        [highlightLayer setTileGID:31 at:p];
+                    }else{
+                        [highlightLayer setTileGID:32 at:p];
+                    }
+                    
                     
                     CCFadeTo *fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:127];
                     CCFadeTo *fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:255];
