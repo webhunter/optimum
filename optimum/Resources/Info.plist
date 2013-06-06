@@ -75,6 +75,13 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Economica-Bold.ttf</string>
+		<string>Economica-BoldItalic.ttf</string>
+		<string>Economica-Italic.ttf</string>
+		<string>Economica-Regular.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

@@ -202,11 +202,7 @@
                     }
                 }
             }
-            else
-            {
-                // IPHONE SCREEN
-                
-            }
+            
         }
 		else
         {
@@ -218,37 +214,42 @@
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
                 // BackGround
-                CCSprite *background = [CCSprite spriteWithFile:@"bg.jpg"];
+                CCSprite *background = [CCSprite spriteWithFile:@"background-hd.jpg"];
                 [background setPosition:ccp(size.width/2, size.height/2)];
                 
                 [self addChild:background];
                 
+                //Titre
+                CCLabelTTF *titre = [CCLabelTTF labelWithString:@"LES ÉQUIPES" fontName:@"Economica-Bold" fontSize:38];
+                titre.position = ccp( size.width/2, size.height/2 + 300);
+                
+                [self addChild:titre];
+                
                 // Bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn-hd.png" selectedImage:@"back_btn-hd.png" target:self selector:@selector(buttonPressedBack:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 [self addChild:menu_back];
                 
                 // Bouton Next
-                CCMenuItemFont *buttonNext = [CCMenuItemFont itemWithString:@"NEXT" target:self selector:@selector(onNewGame:)];
-                buttonNext.color = ccYELLOW;
+                CCMenuItemImage *buttonNext = [CCMenuItemImage itemWithNormalImage:@"suivant_btn-hd.png" selectedImage:@"suivant_btn-hd.png" target:self selector:@selector(onNewGame:)];
                 
                 CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
-                [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
+                [menu_next setPosition:ccp( size.width/2, size.height/2 - 360)];
                 
                 [self addChild:menu_next];
                 
                 
                 //Team
-                CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
-                [ville setPosition:ccp( size.width/2 - 300, size.height/2)];
+                CCSprite *ville = [CCSprite spriteWithFile:@"equipe_ville-hd.png"];
+                [ville setPosition:ccp( size.width/2 - 235, size.height/2)];
                 
                 [self addChild:ville];
                 
-                CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
-                [nature setPosition:ccp( size.width/2 + 300, size.height/2)];
+                CCSprite *nature = [CCSprite spriteWithFile:@"equipe_nature-hd.png"];
+                [nature setPosition:ccp( size.width/2 + 235, size.height/2 - 12)];
                 
                 [self addChild:nature];
             }
@@ -259,37 +260,42 @@
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
                 // BackGround
-                CCSprite *background = [CCSprite spriteWithFile:@"bg.jpg"];
+                CCSprite *background = [CCSprite spriteWithFile:@"background.jpg"];
                 [background setPosition:ccp(size.width/2, size.height/2)];
                 
                 [self addChild:background];
                 
+                //Titre
+                CCLabelTTF *titre = [CCLabelTTF labelWithString:@"LES ÉQUIPES" fontName:@"Economica-Bold" fontSize:38];
+                titre.position = ccp( size.width/2, size.height/2 + 300);
+                
+                [self addChild:titre];
+                
                 // Bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn.png" selectedImage:@"back_btn.png" target:self selector:@selector(buttonPressedBack:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 [self addChild:menu_back];
                 
                 // Bouton Next
-                CCMenuItemFont *buttonNext = [CCMenuItemFont itemWithString:@"NEXT" target:self selector:@selector(onNewGame:)];
-                buttonNext.color = ccYELLOW;
+                CCMenuItemImage *buttonNext = [CCMenuItemImage itemWithNormalImage:@"suivant_btn.png" selectedImage:@"suivant_btn.png" target:self selector:@selector(onNewGame:)];
                 
                 CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
-                [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
+                [menu_next setPosition:ccp( size.width/2, size.height/2 - 360)];
                 
                 [self addChild:menu_next];
                 
                 
                 //Team
-                CCSprite *ville = [CCSprite spriteWithFile:@"ville.png"];
-                [ville setPosition:ccp( size.width/2 - 300, size.height/2)];
+                CCSprite *ville = [CCSprite spriteWithFile:@"equipe_ville.png"];
+                [ville setPosition:ccp( size.width/2 - 235, size.height/2)];
                 
                 [self addChild:ville];
                 
-                CCSprite *nature = [CCSprite spriteWithFile:@"nature.png"];
-                [nature setPosition:ccp( size.width/2 + 300, size.height/2)];
+                CCSprite *nature = [CCSprite spriteWithFile:@"equipe_nature.png"];
+                [nature setPosition:ccp( size.width/2 + 235, size.height/2 - 12)];
                 
                 [self addChild:nature];
             }
@@ -300,6 +306,51 @@
 
 
 - (void) onNewGame: (CCMenuItem  *) menuItem
+{
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        if (scale > 1.0)
+        {
+            // IPAD RETINA SCREEN
+            CGSize size = [[CCDirector sharedDirector] winSize];
+            CCSprite *popup = [CCSprite spriteWithFile:@"popup_equipe-hd.png"];
+            [popup setPosition:ccp( size.width/2 , size.height/2)];
+            
+            [self addChild:popup];
+            
+            // Bouton Next
+            CCMenuItemImage *buttonNext = [CCMenuItemImage itemWithNormalImage:@"popup_equipe_check_btn-hd.png" selectedImage:@"popup_equipe_check_btn-hd.png" target:self selector:@selector(onNewGame2:)];
+            
+            CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
+            [menu_next setPosition:ccp( size.width/2, size.height/2 - 133)];
+            
+            [self addChild:menu_next];
+            
+        }
+        else
+        {
+            // IPAD
+            CGSize size = [[CCDirector sharedDirector] winSize];
+            CCSprite *popup = [CCSprite spriteWithFile:@"popup_equipe.png"];
+            [popup setPosition:ccp( size.width/2 , size.height/2)];
+            
+            [self addChild:popup];
+            
+            // Bouton Next
+            CCMenuItemImage *buttonNext = [CCMenuItemImage itemWithNormalImage:@"popup_equipe_check_btn.png" selectedImage:@"popup_equipe_check_btn.png" target:self selector:@selector(onNewGame2:)];
+            
+            CCMenu *menu_next = [CCMenu menuWithItems:buttonNext, nil];
+            [menu_next setPosition:ccp( size.width/2, size.height/2 - 133 )];
+            
+            [self addChild:menu_next];
+        }
+        
+        
+    }
+}
+
+- (void) onNewGame2: (CCMenuItem  *) menuItem
 {
     // affichage de l'écran de Archipelago
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];

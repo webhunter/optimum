@@ -94,13 +94,6 @@
                     }
                 }
             }
-            else
-            {
-                // IPHONE SCREEN
-                
-            }
-            
-            
         }
 		else
         {
@@ -111,86 +104,78 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                _message = [CCLabelTTF labelWithString:@"Select your Galaxy" fontName:@"Marker Felt" fontSize:32];
-                _message.position = ccp( size.width/2, size.height/2 + 200 );
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background-hd.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
+                _message = [CCLabelTTF labelWithString:@"CHOISIR UN ARCHIPEL" fontName:@"Economica-Bold" fontSize:38];
+                _message.position = ccp( size.width/2, size.height/2 + 300 );
                 
                 [self addChild:_message];
                 
                 // Bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn-hd.png" selectedImage:@"back_btn-hd.png" target:self selector:@selector(buttonPressedBack:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 // Add the menu to the layer
                 [self addChild:menu_back];
                 
                 //Archipels
-                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png" selectedImage:@"archipel_1.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01-hd.png" selectedImage:@"Archipel_01-hd.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(buttonVillePressed:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02-hd.png" selectedImage:@"Archipel_02-hd.png" target:self selector:@selector(buttonVillePressed:)];
                 archipel2.tag = 1;
                 
-                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png" selectedImage:@"archipel_3.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03-hd.png" selectedImage:@"Archipel_03-hd.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel3.tag = 2;
                 
-                CCMenuItemImage *archipel4 = [CCMenuItemImage itemWithNormalImage:@"archipel_4.png" selectedImage:@"archipel_4.png" target:self selector:@selector(archipalgoPressed:)];
-                archipel4.tag = 3;
-                
-                CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, archipel4, nil];
-                [menuArchipel alignItemsHorizontallyWithPadding:90];
-                [menuArchipel setPosition:ccp( size.width/2, size.height/2 - 60)];
-                
-                
+                CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, nil];
+                [menuArchipel alignItemsHorizontallyWithPadding:-90];
+                [menuArchipel setPosition:ccp( size.width/2, size.height/2)];
                 
                 [self addChild:menuArchipel];
                 
+                // 3 petits points
+                CCSprite *point1 = [CCSprite spriteWithFile:@"slide_point_01-hd.png"];
+                [point1 setPosition:ccp(size.width/2 - 26, size.height/2 -350)];
+                
+                [self addChild:point1];
+                
+                CCSprite *point2 = [CCSprite spriteWithFile:@"slide_point_02-hd.png"];
+                [point2 setPosition:ccp(size.width/2, size.height/2 - 350)];
+                
+                [self addChild:point2];
+                
+                CCSprite *point3 = [CCSprite spriteWithFile:@"slide_point_02-hd.png"];
+                [point3 setPosition:ccp(size.width/2 + 26, size.height/2 - 350)];
+                
+                [self addChild:point3];
+                
+                
                 // Name Archipels
                 //archipel 1
-                CCLabelTTF *archipel1Name = [CCLabelTTF labelWithString:@"ARCHIPEL 1" fontName:@"Marker Felt" fontSize:28];
-                archipel1Name.position = ccp( size.width/2 - 300, size.height/2 - 160);
+                CCSprite *archipel1Name = [CCSprite spriteWithFile:@"Archipel_txt_01-hd.png"];
+                archipel1Name.position = ccp( size.width/2 - 316, size.height/2 - 200);
                 
                 [self addChild:archipel1Name];
                 
-                CCLabelTTF *didactitiel = [CCLabelTTF labelWithString:@"Didacticiel" fontName:@"Marker Felt" fontSize:24];
-                didactitiel.position = ccp( size.width/2 - 300, size.height/2 - 200);
-                
-                [self addChild:didactitiel];
-                
                 //archipel 2
-                CCLabelTTF *archipel2Name = [CCLabelTTF labelWithString:@"ARCHIPEL 2" fontName:@"Marker Felt" fontSize:28];
-                archipel2Name.position = ccp( size.width/2 -100, size.height/2 +80 );
+                CCSprite *archipel2Name = [CCSprite spriteWithFile:@"Archipel_txt_02-hd.png"];
+                archipel2Name.position = ccp( size.width/2 , size.height/2 - 200 );
                 
                 [self addChild:archipel2Name];
                 
-                CCLabelTTF *ville = [CCLabelTTF labelWithString:@"Ville vs. Nature" fontName:@"Marker Felt" fontSize:24];
-                ville.position = ccp( size.width/2 - 100, size.height/2 +40);
-                
-                [self addChild:ville];
-                
                 //archipel 3
-                CCLabelTTF *archipel3Name = [CCLabelTTF labelWithString:@"ARCHIPEL 3" fontName:@"Marker Felt" fontSize:28];
-                archipel3Name.position = ccp( size.width/2 +100, size.height/2 -160 );
+                CCSprite *archipel3Name = [CCSprite spriteWithFile:@"Archipel_txt_03-hd.png"];
+                archipel3Name.position = ccp( size.width/2 +316, size.height/2 - 200 );
                 
                 [self addChild:archipel3Name];
                 
-                CCLabelTTF *venus = [CCLabelTTF labelWithString:@"Venus vs. Mars" fontName:@"Marker Felt" fontSize:24];
-                venus.position = ccp( size.width/2 + 100, size.height/2 -200);
-                
-                [self addChild:venus];
-                
-                //archipel 4
-                CCLabelTTF *archipel4Name = [CCLabelTTF labelWithString:@"ARCHIPEL 4" fontName:@"Marker Felt" fontSize:28];
-                archipel4Name.position = ccp( size.width/2 +300, size.height/2 +80 );
-                
-                [self addChild:archipel4Name];
-                
-                CCLabelTTF *humain = [CCLabelTTF labelWithString:@"Humain vs. Zombie" fontName:@"Marker Felt" fontSize:24];
-                humain.position = ccp( size.width/2 +300, size.height/2 +40);
-                
-                [self addChild:humain];
             }
             else
             {
@@ -198,90 +183,76 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                _message = [CCLabelTTF labelWithString:@"Select your Galaxy" fontName:@"Marker Felt" fontSize:32];
-                _message.position = ccp( size.width/2, size.height/2 + 200 );
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
+                _message = [CCLabelTTF labelWithString:@"CHOISIR UN ARCHIPEL" fontName:@"Economica-Bold" fontSize:38];
+                _message.position = ccp( size.width/2, size.height/2 + 300 );
                 
                 [self addChild:_message];
                 
                 // Bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
-                
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn.png" selectedImage:@"back_btn.png" target:self selector:@selector(buttonPressedBack:)];
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 // Add the menu to the layer
                 [self addChild:menu_back];
                 
                 //Archipels
-                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"archipel_1.png" selectedImage:@"archipel_1.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01.png" selectedImage:@"Archipel_01.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"archipel_2.png" selectedImage:@"archipel_2.png" target:self selector:@selector(buttonVillePressed:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02.png" selectedImage:@"Archipel_02.png" target:self selector:@selector(buttonVillePressed:)];
                 archipel2.tag = 1;
                 
-                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"archipel_3.png" selectedImage:@"archipel_3.png" target:self selector:@selector(archipalgoPressed:)];
+                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03.png" selectedImage:@"Archipel_03.png" target:self selector:@selector(archipalgoPressed:)];
                 archipel3.tag = 2;
                 
-                CCMenuItemImage *archipel4 = [CCMenuItemImage itemWithNormalImage:@"archipel_4.png" selectedImage:@"archipel_4.png" target:self selector:@selector(archipalgoPressed:)];
-                archipel4.tag = 3;
-                
-                CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, archipel4, nil];
-                [menuArchipel alignItemsHorizontallyWithPadding:-30];
-                [menuArchipel setPosition:ccp( size.width/2, size.height/2 - 60)];
-                
-                archipel1.scale = 0.5;
-                archipel2.scale = 0.5;
-                archipel3.scale = 0.5;
-                archipel4.scale = 0.5;
+                CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, nil];
+                [menuArchipel alignItemsHorizontallyWithPadding:-90];
+                [menuArchipel setPosition:ccp( size.width/2, size.height/2)];
                 
                 [self addChild:menuArchipel];
                 
+                // 3 petits points
+                CCSprite *point1 = [CCSprite spriteWithFile:@"slide_point_01.png"];
+                [point1 setPosition:ccp(size.width/2 - 26, size.height/2 -350)];
+                
+                [self addChild:point1];
+                
+                CCSprite *point2 = [CCSprite spriteWithFile:@"slide_point_02.png"];
+                [point2 setPosition:ccp(size.width/2, size.height/2 - 350)];
+                
+                [self addChild:point2];
+                
+                CCSprite *point3 = [CCSprite spriteWithFile:@"slide_point_02.png"];
+                [point3 setPosition:ccp(size.width/2 + 26, size.height/2 - 350)];
+                
+                [self addChild:point3];
+                
+                
                 // Name Archipels
                 //archipel 1
-                CCLabelTTF *archipel1Name = [CCLabelTTF labelWithString:@"ARCHIPEL 1" fontName:@"Marker Felt" fontSize:28];
-                archipel1Name.position = ccp( size.width/2 - 300, size.height/2 - 160);
+                CCSprite *archipel1Name = [CCSprite spriteWithFile:@"Archipel_txt_01.png"];
+                archipel1Name.position = ccp( size.width/2 - 316, size.height/2 - 200);
                 
                 [self addChild:archipel1Name];
                 
-                CCLabelTTF *didactitiel = [CCLabelTTF labelWithString:@"Didactitiel" fontName:@"Marker Felt" fontSize:24];
-                didactitiel.position = ccp( size.width/2 - 300, size.height/2 - 200);
-                
-                [self addChild:didactitiel];
-                
                 //archipel 2
-                CCLabelTTF *archipel2Name = [CCLabelTTF labelWithString:@"ARCHIPEL 2" fontName:@"Marker Felt" fontSize:28];
-            
-                archipel2Name.position = ccp( size.width/2 -100, size.height/2 +80 );
+                CCSprite *archipel2Name = [CCSprite spriteWithFile:@"Archipel_txt_02.png"];
+                archipel2Name.position = ccp( size.width/2 , size.height/2 - 200 );
                 
                 [self addChild:archipel2Name];
                 
-                CCLabelTTF *ville = [CCLabelTTF labelWithString:@"Ville vs. Nature" fontName:@"Marker Felt" fontSize:24];
-                ville.position = ccp( size.width/2 - 100, size.height/2 +40);
-                
-                [self addChild:ville];
-                
                 //archipel 3
-                CCLabelTTF *archipel3Name = [CCLabelTTF labelWithString:@"ARCHIPEL 3" fontName:@"Marker Felt" fontSize:28];
-                archipel3Name.position = ccp( size.width/2 +100, size.height/2 -160 );
+                CCSprite *archipel3Name = [CCSprite spriteWithFile:@"Archipel_txt_03.png"];
+                archipel3Name.position = ccp( size.width/2 +316, size.height/2 - 200 );
                 
                 [self addChild:archipel3Name];
-                
-                CCLabelTTF *venus = [CCLabelTTF labelWithString:@"Venus vs. Mars" fontName:@"Marker Felt" fontSize:24];
-                venus.position = ccp( size.width/2 + 100, size.height/2 -200);
-                
-                [self addChild:venus];
-                
-                //archipel 4
-                CCLabelTTF *archipel4Name = [CCLabelTTF labelWithString:@"ARCHIPEL 4" fontName:@"Marker Felt" fontSize:28];
-                archipel4Name.position = ccp( size.width/2 +300, size.height/2 +80 );
-                
-                [self addChild:archipel4Name];
-                
-                CCLabelTTF *humain = [CCLabelTTF labelWithString:@"Humain vs. Zombie" fontName:@"Marker Felt" fontSize:24];
-                humain.position = ccp( size.width/2 +300, size.height/2 +40);
-                
-                [self addChild:humain];
                 
             }
             

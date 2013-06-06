@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Game.h"
+#import "TeamLayer.h"
 
 @interface Archipelago : CCLayer <GameDelegate> {
     
