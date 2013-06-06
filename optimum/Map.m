@@ -95,9 +95,9 @@
         
         if ([archipelago isEqualToString:@"cityNature"])
         {
-            mapType = @"maquette-map-2.tmx";
+            mapType = @"tile-map-1.tmx";
         }else{
-            mapType = @"maquette-map-2.tmx";
+            mapType = @"tile-map-1.tmx";
         }
         
         switch (nbrGame) {
@@ -289,7 +289,7 @@
         for (NSUInteger x = 0; x < layer.layerSize.width; x++)
         {
             if (
-                [layer tileGIDAt:ccp(x, y)] != 33 ||
+                [layer tileGIDAt:ccp(x, y)] != emptyTileTag ||
                 [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {
@@ -374,10 +374,10 @@
 - (void) displayInterface{
     
     level1UnitLeft = 1;
-    level2UnitLeft = 0;
-    level3UnitLeft = 0;
-    level4UnitLeft = 0;
-    level5UnitLeft = 0;
+    level2UnitLeft = 2;
+    level3UnitLeft = 4;
+    level4UnitLeft = 5;
+    level5UnitLeft = 6;
     //Affichage des unités
     //  Unité gauche (Ville)
     UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0
@@ -406,10 +406,10 @@
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
     
-    level1UnitRight = 0;
-    level2UnitRight = 0;
-    level3UnitRight = 0;
-    level4UnitRight = 0;
+    level1UnitRight = 1;
+    level2UnitRight = 4;
+    level3UnitRight = 5;
+    level4UnitRight = 4;
     level5UnitRight = 0;
     //  Unité droite (Nature)
     UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
@@ -1061,7 +1061,7 @@
 //    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
 //    
 //    if (
-//        [layer tileGIDAt:tileCord] != 33 ||
+//        [layer tileGIDAt:tileCord] != emptyTileTag ||
 //        [layer tileGIDAt:tileCord] != 0
 //        )
 //    {
@@ -1091,7 +1091,8 @@
 	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
     CCTMXLayer *highlightLayer;
     
-    if (sprite.team) { //Equipe de droite
+    if (sprite.team) //Equipe de droite
+    { 
         highlightLayer = [tiledMap layerNamed:@"HighlightRight"];
     }else{
         highlightLayer = [tiledMap layerNamed:@"HighlightLeft"];
@@ -1101,8 +1102,10 @@
     CGPoint coords = [self positionForTileCoord:ccp(tileCord.x, tileCord.y-1) tileMap:tiledMap];
     coords.x -= (tiledMap.position.y / 3);
     
+  
+    
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation)){
-        sprite.position = coords;
+//        sprite.position = coords;
         
         for (NSUInteger y = 0; y < tiledMap.mapSize.height; y++) {
             for (NSUInteger x = 0; x < tiledMap.mapSize.width; x++) {
@@ -1114,6 +1117,7 @@
                    CGPointEqualToPoint(p, [[[self getProximityTiles:tileCord] objectAtIndex:2] CGPointValue]) ||
                    CGPointEqualToPoint(p, [[[self getProximityTiles:tileCord] objectAtIndex:3] CGPointValue])
                    ) {
+                    
                     if (sprite.team == YES) //Equipe de droite
                     {
                         [highlightLayer setTileGID:31 at:p];
@@ -1190,7 +1194,7 @@
     {
         //On vérifie que la tuile sélectionnée est vide
         if (
-            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 33 ||
+            [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == emptyTileTag ||
             [tilesLayer tileGIDAt:ccp(tileCord.x, tileCord.y + 1)] == 0
             )
         {
@@ -1361,8 +1365,8 @@
 
 - (CGPoint)positionForTileCoord:(CGPoint)tileLocation tileMap:(CCTMXTiledMap*)tileMap
 {
-	int x = (tileMap.position.x + (tileMap.mapSize.width * (tileMap.tileSize.width/2))) + ((tileLocation.x - tileLocation.y) * (tileMap.tileSize.width/2));
-	int y = (tileMap.position.y + (tileMap.mapSize.height * (tileMap.tileSize.width/2)) - (tileMap.tileSize.height/2)) - ((tileLocation.y + tileLocation.x) * (tileMap.tileSize.height/2));
+	int x = (tileMap.position.x + (tileMap.mapSize.width * (tileMap.tileSize.width/CC_CONTENT_SCALE_FACTOR()))) + ((tileLocation.x - tileLocation.y) * (tileMap.tileSize.width/CC_CONTENT_SCALE_FACTOR()));
+	int y = (tileMap.position.y + (tileMap.mapSize.height * (tileMap.tileSize.width/CC_CONTENT_SCALE_FACTOR())) - (tileMap.tileSize.height/CC_CONTENT_SCALE_FACTOR())) - ((tileLocation.y + tileLocation.x) * (tileMap.tileSize.height/CC_CONTENT_SCALE_FACTOR()));
     
 	return ccp(x, y);
 }
@@ -1374,8 +1378,8 @@
 	
 	float halfMapWidth = (tileMap.mapSize.width) * 0.5f;
 	float mapHeight = (tileMap.mapSize.height);
-	float tileWidth = (tileMap.tileSize.width / 1);
-	float tileHeight = (tileMap.tileSize.height / 1);
+	float tileWidth = (tileMap.tileSize.width / CC_CONTENT_SCALE_FACTOR());
+	float tileHeight = (tileMap.tileSize.height / CC_CONTENT_SCALE_FACTOR());
 	
 	CGPoint tilePosDiv = CGPointMake(pos.x / tileWidth, pos.y / tileHeight);
     
@@ -1436,7 +1440,7 @@
         for (NSUInteger x = 0; x < layer.layerSize.width; x++)
         {
             if (
-                [layer tileGIDAt:ccp(x, y)] != 33 ||
+                [layer tileGIDAt:ccp(x, y)] != emptyTileTag ||
                 [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {

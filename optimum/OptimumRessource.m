@@ -35,6 +35,7 @@
 //        [self addChild:system z:1 tag:1];
         
         self.tag = randNum;
+        self.scale = 1.1;
         
         CCAction* fall = [CCMoveTo actionWithDuration:5 + self.speedFall + (delay/3)
                                    position: ccp(self.position.x, 0)];
@@ -53,7 +54,6 @@
     [frameCache addSpriteFramesWithFile:@"Ressources.plist"];
     NSArray *optimumImages = [[NSArray alloc] initWithObjects:@"green.png", @"gray.png", @"red.png", @"mystere.png", nil];
     int category;//= arc4random() % [optimumImages count];
-    
     
     double val = (double)rand() / RAND_MAX;
     
@@ -79,8 +79,8 @@
     return optimumType;
 }
 
-- (void) setOptimumType:(int)type{
-    optimumType = type;
+- (void) setOptimumType:(int)_type{
+    optimumType = _type;
 }
 
 //Vitesse de chute de l'optimum
@@ -154,6 +154,7 @@
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    self.scale = 1.1;
     NSArray *objectsProperties = [[NSArray alloc] initWithObjects:
                                                     [NSValue valueWithCGRect:self.boundingBox],
                                                     [NSNumber numberWithInt:self.tag],

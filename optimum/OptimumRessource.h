@@ -24,7 +24,7 @@
 
 - (BOOL) isTouchOnSprite:(CGPoint)touch;
 - (int) optimumType;
-- (void) setOptimumType:(int)type;
+- (void) setOptimumType:(int)_type;
 - (float) speedFall;
 - (void) setSpeedFall:(float)speed;
 

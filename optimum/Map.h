@@ -52,6 +52,8 @@ enum
     unitEvenLevelThreeTag = 10007,
     unitEvenLevelFourTag = 10008,
     unitEvenLevelFiveTag = 10009,
+    
+    emptyTileTag = 82,
 };
 
 

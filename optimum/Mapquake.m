@@ -15,22 +15,22 @@
 - (id) initWithTMXFile:(NSString *)tmxFile
 {
     self = [CCTMXTiledMap tiledMapWithTMXFile:tmxFile];
-//    self.scale = CC_CONTENT_SCALE_FACTOR();
     
-    CCSprite *islandSprite = [CCSprite spriteWithFile:@"island.png"];
-    
-    CGFloat scale = [[UIScreen mainScreen] scale];
-    if (scale > 1.0)
-    {
-        islandSprite.position = ccp(210.2, 15.3);
-    }else{
-        
-        islandSprite.position = ccp(420.2, 30.3);
-    }
+    NSString* file = @"fond-grille.png";
 
-    islandSprite.anchorPoint = ccp(.5, .5);
-    self.scale = CC_CONTENT_SCALE_FACTOR();
-    [self addChild:islandSprite];
+    CCTMXLayer* layer = [self layerNamed:@"Ground"];
+    
+    CCSprite *mapGrid = [CCSprite spriteWithFile:file];
+    mapGrid.anchorPoint = ccp(.5, 0);
+    mapGrid.position = ccp((mapGrid.boundingBox.size.width / 2), 0);
+    [self addChild:mapGrid z:layer.zOrder];
+    
+    CCSprite *islandSprite = [CCSprite spriteWithFile:@"pic_socle.png"];
+    islandSprite.anchorPoint = ccp(.5, 0);
+        
+    islandSprite.position = ccp((islandSprite.boundingBox.size.width / 2) - 3, - 118);
+
+    [self addChild:islandSprite z:-1];
     
     return self;
 }
