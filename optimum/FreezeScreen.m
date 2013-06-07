@@ -29,7 +29,7 @@
         winter01.anchorPoint = ccp(0, 0);
         winter01.position = [[CCDirector sharedDirector] convertToGL: ccp(395, 488)];
         [self addChild:winter01];
- 
+
         CCSprite *winter02 = [CCSprite spriteWithSpriteFrameName:@"winter02.png"];
         winter02.tag = 2;
         winter02.anchorPoint = ccp(0, 0);
