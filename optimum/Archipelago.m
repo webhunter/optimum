@@ -585,6 +585,7 @@
 {
     // envoie données au joueurs
     [[CCDirector sharedDirector] replaceScene:[TeamLayer sceneWithGameObject:self.game]];
+    //test
 }
 
 @end
