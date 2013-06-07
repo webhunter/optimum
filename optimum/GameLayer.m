@@ -125,13 +125,13 @@
                 [self addChild:menu_back];
                 
                 //Archipels
-                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01-hd.png" selectedImage:@"Archipel_01-hd.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01-hd.png" selectedImage:@"Archipel_01_clic-hd.png" target:self selector:@selector(selectArchipel:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02-hd.png" selectedImage:@"Archipel_02-hd.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02-hd.png" selectedImage:@"Archipel_02_clic-hd.png" target:self selector:@selector(selectArchipel:)];
                 archipel2.tag = 1;
                 
-                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03-hd.png" selectedImage:@"Archipel_03-hd.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03-hd.png" selectedImage:@"Archipel_03_clic-hd.png" target:self selector:@selector(selectArchipel:)];
                 archipel3.tag = 2;
                 
                 CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, nil];
@@ -203,13 +203,13 @@
                 [self addChild:menu_back];
                 
                 //Archipels
-                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01.png" selectedImage:@"Archipel_01.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel1 = [CCMenuItemImage itemWithNormalImage:@"Archipel_01.png" selectedImage:@"Archipel_01_clic.png" target:self selector:@selector(selectArchipel:)];
                 archipel1.tag = 0;
                 
-                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02.png" selectedImage:@"Archipel_02.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel2 = [CCMenuItemImage itemWithNormalImage:@"Archipel_02.png" selectedImage:@"Archipel_02_clic.png" target:self selector:@selector(selectArchipel:)];
                 archipel2.tag = 1;
                 
-                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03.png" selectedImage:@"Archipel_03.png" target:self selector:@selector(selectArchipel:)];
+                CCMenuItemImage *archipel3 = [CCMenuItemImage itemWithNormalImage:@"Archipel_03.png" selectedImage:@"Archipel_03_clic.png" target:self selector:@selector(selectArchipel:)];
                 archipel3.tag = 2;
                 
                 CCMenu *menuArchipel = [CCMenu menuWithItems:archipel1, archipel2, archipel3, nil];
