@@ -23,7 +23,6 @@
 
 
 @interface GameLayer : CCLayer <UIAlertViewDelegate, GameDelegate> {
-    
 }
 
 @property (nonatomic, weak) id <GameViewDelegate> delegate;

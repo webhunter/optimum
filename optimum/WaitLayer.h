@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "JoinLayer.h"
+#import "MatchmakingClient.h"
 
-@interface WaitLayer : CCLayer {
-    
+@interface WaitLayer : CCLayer<MatchmakingClientDelegate> {
+    MatchmakingClient *test;
 }
 
 +(CCScene *) scene;

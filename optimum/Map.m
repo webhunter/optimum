@@ -471,7 +471,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = 60 * 4;
+    countdown = floor(60 * 1);
     NSString *string = @"string";
     countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
                                              dimensions:CGSizeMake(150, 130)
@@ -612,10 +612,6 @@
     level5UnitRightLabel.anchorPoint = ccp(.5, .5);
     level5UnitRightLabel.position = ccp(unitsRightLabelX, units5Label);
     [self addChild:level5UnitRightLabel z: 6000];
-    
-    // 60, 31, 30 - 2px 90° - ombre interne
-    // 
-    
 }
 
 
@@ -688,6 +684,7 @@
                 {
                     //mystere
                     int disaster = arc4random() % 2;
+                    packet = [Packet packetWithType:PacketRessourceRouge];
                     [self mysticEvent:disaster forTeam:YES]; //Yes : partie de gauche
                 }
                     break;
@@ -734,6 +731,7 @@
                 {
                     //mystere
                     int disaster = arc4random() % 2;
+                    packet2 = [Packet packetWithType:PacketRessourceRouge2];
                     [self mysticEvent:disaster forTeam:NO]; //Yes : partie de gauche
                 }
                     break;
@@ -781,7 +779,10 @@
     
     int randEvent = 0;
     
-    if (randNumber == 0) //L'évèment est positif
+//    [self earthquakeTimer];
+    [self earthquake];
+    
+    /*if (randNumber == 0) //L'évèment est positif
     {
         //On génère un évènement positif aléatoire
         randEvent = arc4random() % [positiveEventsList count];
@@ -839,7 +840,7 @@
                 CCLOG(@"Default");
                 break;
         }
-    }
+    }*/
 }
 
 
@@ -1030,53 +1031,128 @@
     }
 }
 
-- (void) earthquake{
+- (void) initEarthquake
+{
     CCNode* node = [self getChildByTag:TileMapTag];
 	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
     
-    CCMoveTo* moveForward = [CCMoveTo actionWithDuration:0.15f position:ccp(tiledMap.boundingBox.origin.x + 10, tiledMap.boundingBox.origin.y)];
-    CCMoveTo* moveBackward = [CCMoveTo actionWithDuration:0.15f position:ccp(tiledMap.boundingBox.origin.x, tiledMap.boundingBox.origin.y)];
+    CCTMXLayer *layer = [tiledMap layerNamed:@"Tiles"];
     
-    CCSequence *pulseSequence = [CCSequence actionOne:moveForward two:moveBackward];
-    CCRepeat *repeat = [CCRepeat actionWithAction:pulseSequence times:5];
-    [tiledMap runAction:repeat];
+    for (NSUInteger y = 0; y < layer.layerSize.height; y++)
+    {
+        for (NSUInteger x = 0; x < layer.layerSize.width; x++)
+        {
+            if (
+                ([layer tileGIDAt:ccp(x, y)] != emptyTileTag ||
+                 [layer tileGIDAt:ccp(x, y)] != 0) &&
+                [layer tileAt:ccp(x, y)].team == YES
+                )
+            {
+                CCSprite *sprite = [layer tileAt:ccp(x, y)];
+                sprite.isShaked = YES;
+            }
+        }
+    }
 }
 
+- (void) earthquakeTimer
+{
+    [self schedule: @selector(earthquake:) interval:1 repeat:5 delay:0];
+}
+
+// Fonction appelée à chaque repeat pour enlever les points de vie aux victimes du séisme
+- (void) earthquakeAttack:(id) sender datas:(NSDictionary*)data
+{
+    CCNode* node = [self getChildByTag:TileMapTag];
+	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
+    
+    CCTMXLayer *layer = [tiledMap layerNamed:@"Tiles"];
+    
+    [self checkLifePoints:layer atCoordinate:[[data objectForKey:@"position"] CGPointValue] forAttackPoint:[[data objectForKey:@"attack"] intValue]];
+}
+
+
+- (void) earthquake
+{
+    CCNode* node = [self getChildByTag:TileMapTag];
+	CCTMXTiledMap* tiledMap = (CCTMXTiledMap*)node;
+    
+    CCTMXLayer *layer = [tiledMap layerNamed:@"Tiles"];
+    
+    [self initEarthquake];
+    
+    for (NSUInteger y = 0; y < layer.layerSize.height; y++)
+    {
+        for (NSUInteger x = 0; x < layer.layerSize.width; x++)
+        {
+            if (
+                ([layer tileGIDAt:ccp(x, y)] != emptyTileTag ||
+                [layer tileGIDAt:ccp(x, y)] != 0) &&
+                [layer tileAt:ccp(x, y)].team == YES
+                )
+            {
+                CCSprite *truc = [layer tileAt:ccp(x, y)];
+                
+                if (truc.isShaked == YES)
+                {
+                    CCMoveTo* moveForward = [CCMoveTo actionWithDuration:0.15f position:ccp(truc.boundingBox.origin.x + 5, truc.boundingBox.origin.y)];
+                    CCMoveTo* moveBackward = [CCMoveTo actionWithDuration:0.15f position:ccp(truc.boundingBox.origin.x, truc.boundingBox.origin.y)];
+                    
+                    CCSequence *pulseSequence = [CCSequence actionOne:moveForward two:moveBackward];
+                    
+                    NSDictionary *tileEarthquakeInfos = [[NSDictionary alloc]
+                                                            initWithObjectsAndKeys:[NSValue valueWithCGPoint:ccp(x, y)], @"position",
+                                                                                   [NSNumber numberWithInt:50], @"attack"
+                    , nil];
+                    id callback = [CCCallFuncO actionWithTarget:self selector:@selector(earthquakeAttack:datas:) object:tileEarthquakeInfos];
+                    id repeat   = [CCRepeat actionWithAction:[CCSequence actions:pulseSequence, callback, nil] times:10];
+                    
+                    [truc runAction:repeat];
+                                        
+                }else{
+                    [truc stopAllActions];
+                }
+            }
+        }
+    }
+}
+
+// Freeze l'écran lors de l'ère glacière
 - (void) freeze{
     FreezeScreen *freezeMap = [[FreezeScreen alloc] init];
     [self addChild:freezeMap z:9999 tag:0];
 }
 
-//- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	// get the position in tile coordinates from the touch location
-//	CGPoint touchLocation = [self locationFromTouches:touches];
-//    
-//    CCNode* node = [self getChildByTag:TileMapTag];
-//	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
-//	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
-//    
-//    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
-//    
-//    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
-//    
-//    if (
-//        [layer tileGIDAt:tileCord] != emptyTileTag ||
-//        [layer tileGIDAt:tileCord] != 0
-//        )
-//    {
-////        CCLOG([layer tileAt:tileCord].team ? @"Yes" : @"No");
-//        CCLOG(@"%i", [layer tileAt:tileCord].frequency);
-//    }
-//}
+- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	// get the position in tile coordinates from the touch location
+	CGPoint touchLocation = [self locationFromTouches:touches];
+    
+    CCNode* node = [self getChildByTag:TileMapTag];
+	NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
+	CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
+    
+    CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
+    
+    CGPoint tileCord = [self tilePosFromLocation:touchLocation tileMap:tileMap];
+    
+    if (
+        ([layer tileGIDAt:tileCord] != emptyTileTag ||
+         [layer tileGIDAt:tileCord] != 0) &&
+        [layer tileAt:tileCord].team == YES
+        )
+    {
+        [layer tileAt:tileCord].isShaked = NO;
+        [[layer tileAt:tileCord] stopAllActions];
+        NSLog([layer tileAt:tileCord].isShaked ? @"Yes" : @"No");
+    }
+}
 
 
 -(CGPoint) locationFromTouches:(NSSet*)touches
 {
 	return [self locationFromTouch:[touches anyObject]];
 }
-
-
 
 #pragma mark - Gestion des déplacements et actions sur la carte isométrique
 
@@ -1101,8 +1177,6 @@
     CGPoint tileCord = [self tilePosFromLocation:sprite.position tileMap:tiledMap];
     CGPoint coords = [self positionForTileCoord:ccp(tileCord.x, tileCord.y-1) tileMap:tiledMap];
     coords.x -= (tiledMap.position.y / 3);
-    
-  
     
     if (CGRectContainsPoint(tiledMap.boundingBox, touchLocation)){
 //        sprite.position = coords;
@@ -1444,8 +1518,6 @@
                 [layer tileGIDAt:ccp(x, y)] != 0
                 )
             {
-                
-//                [self actionAtCoordinate: ccp(x, y)];
                 [self actionAtCoordinate: ccp(x, y)];
             }
         }
@@ -1469,7 +1541,6 @@
     // On s'assure que l'unité a le "droit" d'attaquer
     if (timeElapse % frequencyAttack == 0)
     {
-        
         //On recupère les tuiles aux alentours
         NSArray *arroundTiles = [[NSArray alloc] initWithArray:[self getProximityTiles:tile]];
         
@@ -1482,30 +1553,35 @@
             {
                 if ([layer tileGIDAt:p] != 0 && [layer tileAt:p].team != teamTile)
                 {
-                    if ([layer tileAt:p].HP <= 0)
-                    {
-                        if ([layer tileAt:p].team == YES) {
-                            unitLeftDestroyed++;
-                        }else{
-                            unitRightDestroyed++;
-                        }
-                        [layer removeTileAt:p];
-                    }else{
-                        [layer tileAt:p].HP -= attackPoint;
-                        //Est-ce qu'on a atteint la moitié de la barre de vie ?
-                        if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/2 && [layer tileAt:p].demi == NO)
-                        {
-                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer tileAt:p].demi = YES;
-                            //Est-ce qu'on a atteint la tiers de la barre de vie ?
-                        }else if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/3 && [layer tileAt:p].tiers == NO)
-                        {
-                            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
-                            [layer tileAt:p].tiers = YES;
-                        }
-                    }
+                    [self checkLifePoints:layer atCoordinate:p forAttackPoint:attackPoint];
                 }
             }
+        }
+    }
+}
+
+- (void) checkLifePoints:(CCTMXLayer *)layer atCoordinate:(CGPoint)p forAttackPoint:(int)attackPoint
+{
+    if ([layer tileAt:p].HP <= 0)
+    {
+        if ([layer tileAt:p].team == YES) {
+            unitLeftDestroyed++;
+        }else{
+            unitRightDestroyed++;
+        }
+        [layer removeTileAt:p];
+    }else{
+        [layer tileAt:p].HP -= attackPoint;
+        //Est-ce qu'on a atteint la moitié de la barre de vie ?
+        if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/2 && [layer tileAt:p].demi == NO)
+        {
+            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+            [layer tileAt:p].demi = YES;
+            //Est-ce qu'on a atteint la tiers de la barre de vie ?
+        }else if ([layer tileAt:p].HP <= [layer tileAt:p].HPMax/3 && [layer tileAt:p].tiers == NO)
+        {
+            [layer setTileGID:[layer tileGIDAt:p] + 10 at:p];
+            [layer tileAt:p].tiers = YES;
         }
     }
 }

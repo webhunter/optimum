@@ -109,6 +109,7 @@ enum
     CCLabelAtlas *label1;
 }
 
+
 + (CCScene *) scene;
 + (CCScene *) sceneWithParameters:(NSDictionary*)parameters;
 

@@ -9,8 +9,9 @@
 #import "WaitLayer.h"
 
 
-@implementation WaitLayer{
- 
+@implementation WaitLayer
+{
+    QuitReason _quitReason;
 }
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
@@ -101,6 +102,8 @@
 
 - (void) buttonPressedBack: (id) sender
 {
+    _quitReason = QuitReasonUserQuit;
+    [test disconnectFromServer];
     [[CCDirector sharedDirector] replaceScene:[JoinLayer node]];
 }
 

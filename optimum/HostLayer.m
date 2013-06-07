@@ -55,7 +55,6 @@
 {
     if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
     {
-        //Ecran Ipad
         if((self=[super init]))
         {
             CGFloat scale = [[UIScreen mainScreen] scale];

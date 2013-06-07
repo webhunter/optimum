@@ -109,7 +109,7 @@
 	BOOL	flipY_;
     
     
-    //Ghost of CCSprite
+    //Ghost of UnitSpriteMap
     
     //Gestion de l'attaque
     int attackPoint;
@@ -125,6 +125,7 @@
     BOOL tiers; //Permet de savoir s'il reste le tiers de l'énergie
     BOOL demi; //Permet de savoir s'il reste moitié de l'énergie
     int type;
+    BOOL isShaked;
 }
 
 /** whether or not the Sprite needs to be updated in the Atlas */
@@ -328,5 +329,7 @@
 - (void) setDemi:(BOOL) liveLevel;
 - (int) type;
 - (void) setType:(int) theType;
+- (void) setIsShaked:(BOOL) shakeState;
+- (BOOL) isShaked;
 
 @end

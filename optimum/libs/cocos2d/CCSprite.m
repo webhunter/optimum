@@ -160,6 +160,9 @@
 		// by default use "Self Render".
 		// if the sprite is added to a batchnode, then it will automatically switch to "batchnode Render"
 		[self setBatchNode:nil];
+        
+        
+        isShaked = NO;
 
 	}
 	return self;
@@ -1127,6 +1130,14 @@
 - (void) setType:(int)theType
 {
     type = theType;
+}
+
+- (void) setIsShaked:(BOOL) shakeState{
+    isShaked = shakeState;
+}
+
+- (BOOL) isShaked{
+    return isShaked;
 }
 
 @end

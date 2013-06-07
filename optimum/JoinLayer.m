@@ -268,9 +268,9 @@
 
 - (void) buttonPressedBack: (id) sender
 {
-    _quitReason = QuitReasonUserQuit;
-    [_matchmakingClient disconnectFromServer];
-    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+    //_quitReason = QuitReasonUserQuit;
+    //[_matchmakingClient disconnectFromServer];
+    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer node]];
 }
 
 #pragma mark - MatchmakingClientDelegate
