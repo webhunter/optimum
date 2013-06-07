@@ -44,7 +44,19 @@
 	CCSprite *background;
 	
 	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-		background = [CCSprite spriteWithFile:@"Default.png"];
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        if (scale > 1.0)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height == 568)
+            {
+                background = [CCSprite spriteWithFile:@"Default-568h@2x.png"];
+            }
+            else
+            {
+                background = [CCSprite spriteWithFile:@"Default@2x.png"];
+            }
+        }
+		
 	} else {
 		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
 	}
