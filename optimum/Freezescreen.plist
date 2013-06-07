@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>winter01.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {216, 216}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{216, 216}</string>
+			<key>spriteSourceSize</key>
+			<string>{216, 216}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1063, 321}, {216, 216}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter02.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {283, 200}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{283, 200}</string>
+			<key>spriteSourceSize</key>
+			<string>{283, 200}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{250, 819}, {283, 200}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter03.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {160, 271}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{160, 271}</string>
+			<key>spriteSourceSize</key>
+			<string>{160, 271}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{535, 752}, {160, 271}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter04.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {248, 201}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{248, 201}</string>
+			<key>spriteSourceSize</key>
+			<string>{248, 201}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 819}, {248, 201}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter05.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {263, 325}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{263, 325}</string>
+			<key>spriteSourceSize</key>
+			<string>{263, 325}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{684, 0}, {263, 325}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter06.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {270, 340}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{270, 340}</string>
+			<key>spriteSourceSize</key>
+			<string>{270, 340}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{332, 410}, {270, 340}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter07.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {355, 319}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{355, 319}</string>
+			<key>spriteSourceSize</key>
+			<string>{355, 319}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{949, 0}, {355, 319}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter08.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {371, 408}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{371, 408}</string>
+			<key>spriteSourceSize</key>
+			<string>{371, 408}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {371, 408}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter09.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {430, 283}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{430, 283}</string>
+			<key>spriteSourceSize</key>
+			<string>{430, 283}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1049, 666}, {430, 283}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter10.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {298, 155}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{298, 155}</string>
+			<key>spriteSourceSize</key>
+			<string>{298, 155}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1281, 321}, {298, 155}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter11.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {309, 332}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{309, 332}</string>
+			<key>spriteSourceSize</key>
+			<string>{309, 332}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{373, 0}, {309, 332}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter12.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {330, 407}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{330, 407}</string>
+			<key>spriteSourceSize</key>
+			<string>{330, 407}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 410}, {330, 407}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter13.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {457, 330}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{457, 330}</string>
+			<key>spriteSourceSize</key>
+			<string>{457, 330}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{604, 334}, {457, 330}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>winter14.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {350, 307}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{350, 307}</string>
+			<key>spriteSourceSize</key>
+			<string>{350, 307}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{697, 666}, {350, 307}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>version</key>
+		<string>1.6.0</string>
+		<key>format</key>
+		<integer>3</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+		<key>name</key>
+		<string>FreezeScreen</string>
+		<key>textureFileName</key>
+		<string>Freezescreen.png</string>
+		<key>premultipliedAlpha</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

@@ -56,6 +56,8 @@
     
     if( self=[super init] )
     {
+        [self freeze];
+        
         size = [[CCDirector sharedDirector] winSize];
         gameElement = [parameters objectForKey:@"game"];
         gameElement.delegate = self;
@@ -1118,9 +1120,15 @@
 }
 
 // Freeze l'écran lors de l'ère glacière
-- (void) freeze{
+- (void) freeze
+{
+    CCLayer *freezeLayer = [[CCLayer alloc] init];
+    
     FreezeScreen *freezeMap = [[FreezeScreen alloc] init];
-    [self addChild:freezeMap z:9999 tag:0];
+    freezeMap.opacity = 100;
+    [freezeLayer addChild:freezeMap];
+    
+    [self addChild:freezeLayer z:99999];
 }
 
 - (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
