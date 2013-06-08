@@ -56,7 +56,7 @@
     
     if( self=[super init] )
     {
-        [self freeze];
+//        [self freeze];
         
         size = [[CCDirector sharedDirector] winSize];
         gameElement = [parameters objectForKey:@"game"];
@@ -168,25 +168,30 @@
         [emitter2 runAction:[CCSequence actions:emitMove, nil]];
         emitter2.autoRemoveOnFinish = YES;
         
-        //Hitbox
-        
-        CCMenuItemFont *buttonPause = [CCMenuItemFont itemWithString:@"Pause" target:self selector:@selector(pauseGame:)];
-        buttonPause.color = ccORANGE;
-        buttonPause.tag = 4;
-        
-        
-        CCMenu *menu_next = [CCMenu menuWithItems:buttonPause, nil];
-        [menu_next setPosition:ccp( size.width/2, size.height/2 - 300)];
-        
-        [self addChild:menu_next];
-        
 //         [[CCDirector sharedDirector] pause];
         
         
         [self schedule: @selector(tilesAttacks:) interval:1];
         
-        //Récupère le nombre d'unité détruites pour chaque clan
         unitLeftDestroyed = 0, unitRightDestroyed = 0;
+        
+        //Récupère le nombre d'unité détruites pour chaque clan
+        
+        CCSpriteFrameCache* pauseFrameLayer = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [pauseFrameLayer addSpriteFramesWithFile:@"pause-screen.plist"];
+        
+        CCMenuItemSprite *buttonPause = [CCMenuItemSprite
+                                         itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"pause_jeu_btn.png"]
+                                         selectedSprite:[CCSprite spriteWithSpriteFrameName:@"pause_jeu_enfonce_btn.png"]
+                                         target:self
+                                         selector:@selector(displayPauseScreen:)];
+        
+        CCMenu *menu_pause = [CCMenu menuWithItems:buttonPause, nil];
+        menu_pause.tag = 9094;
+        menu_pause.anchorPoint = ccp(0, 0);
+        [menu_pause setPosition:ccp(size.width/2, 22.75)];
+        
+        [self addChild:menu_pause];
         
         // Le jeu n'est pas en pause par défaut
         gameIsPause = NO;
@@ -195,25 +200,107 @@
     return self;
 }
 
-// Permet de mettre le jeu en pause
-- (void) pauseGame: (CCMenuItem  *) menuItem
+- (void) displayPauseScreen: (CCMenuItem  *) menuItem
 {
-    CCNode* node = [self getChildByTag:4];
-    CCMenuItemFont* label = (CCMenuItemFont*)node;
+    // On cache l'indication du pause
+    CCNode* node = [self getChildByTag:9094];
+    CCMenu* menu_pause = (CCMenu*)node;
+    menu_pause.position = ccp(size.width/2, -50);
     
-    if (gameIsPause == NO) {
+    CCLayer *pauseLayer = [[CCLayer alloc] init];
+    pauseLayer.tag = 6754;
+
+    CCMenuItemSprite *buttonResume = [CCMenuItemSprite
+                                    itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"play_btn.png"]
+                                    selectedSprite:[CCSprite spriteWithSpriteFrameName:@"play_btn.png"]
+                                    target:self
+                                    selector:@selector(resumeGame:)];
+
+    CCMenu *menu_resume = [CCMenu menuWithItems:buttonResume, nil];
+    menu_resume.anchorPoint = ccp(0, 0);
+    menu_resume.position = [[CCDirector sharedDirector] convertToGL: ccp(515, 375)];
+    [pauseLayer addChild:menu_resume];
+    
+    CCMenuItemSprite *buttonSound = [CCMenuItemSprite
+                                     itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_OFF_btn.png"]
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_ON_btn.png"]
+                                     target:self
+                                     selector:@selector(resumeGame:)];
+    [buttonSound setPosition:ccp(0, 61)];
+    
+    CCMenuItemSprite *buttonQuit = [CCMenuItemSprite
+                                     itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"quitter_btn.png"]
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"quitter_btn.png"]
+                                     target:self
+                                     selector:@selector(resumeGame:)];
+    [buttonQuit setPosition:ccp(60, 31)];
+    
+    CCMenuItemSprite *buttonMusicOff = [CCMenuItemSprite
+                                    itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"musique_OFF_btn.png"]
+                                    selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_OFF_btn.png"]
+                                    target:self
+                                    selector:@selector(voidFunc)];
+    CCMenuItemSprite *buttonMusicOn = [CCMenuItemSprite
+                                     itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"musique_ON_btn.png"]
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_ON_btn.png"]
+                                     target:self
+                                     selector:@selector(voidFunc)];
+    
+    
+    CCMenuItemToggle *toggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(voidFunc) items:buttonMusicOff, buttonMusicOn, nil];
+    [toggle setPosition:ccp(119, 61)];
+    
+    [toggle setSelectedIndex:1];
+    
+    CCMenu *menu_option = [CCMenu menuWithItems:buttonSound, buttonQuit, toggle, nil];
+    menu_option.anchorPoint = ccp(0, 0);
+    [menu_option setPosition:[[CCDirector sharedDirector] convertToGL: ccp(457, 513)]];
+    [pauseLayer addChild:menu_option];
+    
+    
+    CCSprite *pauseScreen = [CCSprite spriteWithSpriteFrameName:@"pause-screen-container.png"];
+    pauseScreen.anchorPoint = ccp(0, 0);
+    pauseScreen.position = ccp(0, 0);
+    [pauseLayer addChild:pauseScreen z:-1];
+    
+    if (gameIsPause == NO)
+    {
         [[CCDirector sharedDirector] pause];
         gameIsPause = YES;
         [self gameIsPaused: NO];
-        [label setString:@"Reprendre"];
-    }else{
-        [[CCDirector sharedDirector] resume];
-        gameIsPause = NO;
-        [self gameIsPaused: YES];
-        [label setString:@"Pause"];
+        
+        [self addChild:pauseLayer z: 10010];
     }
 }
 
+// Permet de relancer le jeu
+- (void) resumeGame: (CCMenuItem  *) menuItem
+{
+    CCNode* node = [self getChildByTag:9094];
+    CCMenu* menu_pause = (CCMenu*)node;
+    
+    // On récupère le layer pour ensuite pouvoir le supprimer
+    CCNode* nodePauseLayer = [self getChildByTag:6754];
+    CCLayer* pauseLayer = (CCMenu*)nodePauseLayer;
+    
+    
+    if (gameIsPause == YES)
+    {
+        [[CCDirector sharedDirector] resume];
+        gameIsPause = NO;
+        [self gameIsPaused: YES];
+        
+        [menu_pause setPosition:ccp(size.width/2, 22.75)];
+        [self removeChild:pauseLayer cleanup:YES];
+    }
+}
+
+- (void) voidFunc{
+    CCLOG(@"kikoo");
+}
+
+
+// Gère tous les évènements liés à la mise en pause du jeu
 - (void) gameIsPaused:(BOOL)gameState
 {
     // Désactive le déplacement d'unités
@@ -490,14 +577,14 @@
     
     //Affichage du temps imparti
     countdown = floor(60 * 1);
-    NSString *string = @"string";
-    countdownLabel = [[CCLabelTTF alloc] initWithString:[string timeFormatted:countdown]
-                                             dimensions:CGSizeMake(150, 130)
-                                             hAlignment:kCCTextAlignmentLeft
-                                               fontName:@"HelveticaNeue-Bold"
-                                               fontSize:42.0f];
-    countdownLabel.position = ccp(525, 705);
-    countdownLabel.color = ccc3(200, 140, 48);
+    
+    countdownLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", countdown]
+                                              charMapFile:@"number_chrono.png"
+                                                itemWidth:11
+                                               itemHeight:17
+                                             startCharMap:'.'];
+    countdownLabel.anchorPoint = ccp(.5, .5);
+    countdownLabel.position = [[CCDirector sharedDirector] convertToGL: ccp(528, 746)];
     [self addChild:countdownLabel z: 6000];
     
     //Lancement du chronomètre

@@ -65,7 +65,7 @@ enum
     
     NSMutableArray *stackElementLeft;
     NSMutableArray *stackElementRight;
-    CCLabelTTF *countdownLabel; //Texte contenant décompte du chronomètre
+    CCLabelAtlas *countdownLabel; //Texte contenant décompte du chronomètre
     int countdown; //Chronomètre
     NSString *archipelago; //Archipel sélectionné, cela influe sur la map et les unités
     
