@@ -157,7 +157,7 @@
             }
         }
         
-        CCLabelTTF *titre = [CCLabelTTF labelWithString:@"LES MANCHES DU JEU" fontName:@"Economica-Bold" fontSize:38];
+        CCLabelTTF *titre = [CCLabelTTF labelWithString:@"SÉLECTION DE LA MANCHE" fontName:@"Economica-Bold" fontSize:38];
         titre.position = ccp( size.width/2, size.height/2 + 300);
         
         [self addChild:titre];
@@ -193,7 +193,6 @@
         //On gère la troisième manche | Si les deux manches n'ont pas le même nom de vainqueur
         if ([[parameters valueForKeyPath:@"winnerOne"] isEqualToString:[parameters valueForKeyPath:@"winnerTwo"]] && ![[parameters valueForKeyPath:@"winnerOne"] isEqualToString:@"nil"] && nbrGame == 3)
         {
-//            CCLOG(@"winnerOne : %@", [parameters objectForKey:@"winnerOne"]);
             canPlayFirstGame = NO;
             canPlaySecondGame = NO;
             canPlayThirdGame = NO;

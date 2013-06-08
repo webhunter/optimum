@@ -189,7 +189,7 @@
                 
                 [self addChild:background];
                 
-                _message = [CCLabelTTF labelWithString:@"CHOISIR UN ARCHIPEL" fontName:@"Economica-Bold" fontSize:38];
+                _message = [CCLabelTTF labelWithString:@"CHOIX DE L'ARCHIPEL" fontName:@"Economica-Bold" fontSize:38];
                 _message.position = ccp( size.width/2, size.height/2 + 300 );
                 
                 [self addChild:_message];

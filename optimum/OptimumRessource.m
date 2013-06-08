@@ -57,11 +57,11 @@
     
     double val = (double)rand() / RAND_MAX;
     
-    if (val < 0.75)       //  5% .05
+    if (val < 0.05)       //  5% .05
         category = 3;
-    else if (val < 0.025)  //  5% + 20% .25
+    else if (val < 0.25)  //  5% + 20% .25
         category = 1;
-    else if (val < 0.055)  //  5% + 20% + 30% .055
+    else if (val < 0.45)  //  5% + 20% + 30% .055
         category = 2;
     else
         category = 0;

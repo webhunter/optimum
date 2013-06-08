@@ -373,13 +373,29 @@
                                                                              withColor:ccGREEN]];
 }
 
+- (int) randNumberUnitAtIndex:(int)index enabled:(BOOL)_enabled
+{
+    int unit = 0;
+    
+    //On demande à générer des unités au hasard
+    if (_enabled)
+    {
+        int randNumberUnit = arc4random() % abs(6 - index);
+        unit = randNumberUnit;
+    }else{
+        unit = 0;
+    }
+    
+    return unit;
+}
+
 - (void) displayInterface{
     
-    level1UnitLeft = 1;
-    level2UnitLeft = 2;
-    level3UnitLeft = 4;
-    level4UnitLeft = 5;
-    level5UnitLeft = 6;
+    level1UnitLeft = [self randNumberUnitAtIndex:1 enabled:YES];
+    level2UnitLeft = [self randNumberUnitAtIndex:2 enabled:YES];
+    level3UnitLeft = [self randNumberUnitAtIndex:3 enabled:YES];
+    level4UnitLeft = [self randNumberUnitAtIndex:4 enabled:YES];
+    level5UnitLeft = [self randNumberUnitAtIndex:5 enabled:YES];
     //Affichage des unités
     //  Unité gauche (Ville)
     UnitSprite *unitLeftLevelOne = [[UnitSprite alloc] initWithUnitType:0
@@ -408,11 +424,11 @@
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
     
-    level1UnitRight = 1;
-    level2UnitRight = 4;
-    level3UnitRight = 5;
-    level4UnitRight = 4;
-    level5UnitRight = 0;
+    level1UnitRight = [self randNumberUnitAtIndex:1 enabled:YES];
+    level2UnitRight = [self randNumberUnitAtIndex:2 enabled:YES];
+    level3UnitRight = [self randNumberUnitAtIndex:3 enabled:YES];
+    level4UnitRight = [self randNumberUnitAtIndex:4 enabled:YES];
+    level5UnitRight = [self randNumberUnitAtIndex:5 enabled:YES];
     //  Unité droite (Nature)
     UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
     unitRightLevelOne.tag = unitEvenLevelOneTag;
@@ -1522,8 +1538,8 @@
         for (NSUInteger x = 0; x < layer.layerSize.width; x++)
         {
             if (
-                [layer tileGIDAt:ccp(x, y)] != emptyTileTag ||
-                [layer tileGIDAt:ccp(x, y)] != 0
+                [layer tileGIDAt:ccp(x, y)] != 0 &&
+                [layer tileGIDAt:ccp(x, y)] != emptyTileTag
                 )
             {
                 [self actionAtCoordinate: ccp(x, y)];
