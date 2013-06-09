@@ -15,6 +15,7 @@
 #import "HostLayer.h"
 #import "JoinLayer.h"
 #import "GameLayer.h"
+#import "CreditLayer.h"
 
 
 // HelloWorldLayer

@@ -55,17 +55,22 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        _message = [CCLabelTTF labelWithString:@"Waiting for game to start..." fontName:@"Marker Felt" fontSize:24];
-                        _message.position = ccp( size.width/2, size.height/2 );
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"background_iph-hd.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
                         
-                        [self addChild:_message];
+                        [self addChild:background];
+                        
+                        CCLabelTTF *message = [CCLabelTTF labelWithString:@"EN ATTENTE D'AUTRES JOUEURS..." fontName:@"Economica-Bold" fontSize:24];
+                        message.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:message];
                         
                         // Bouton back
-                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn_iph-hd.png" selectedImage:@"back_btn_iph-hd.png" target:self selector:@selector(buttonPressedBack:)];
                         
                         CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu_back setPosition:ccp( size.width/2 - 130, size.height/2 + 220)];
+                        [menu_back setPosition:ccp( size.width/2 - 128, size.height/2 + 252)];
                         
                         // Add the menu to the layer
                         [self addChild:menu_back];
@@ -77,17 +82,22 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
-                        _message = [CCLabelTTF labelWithString:@"Waiting for game to start..." fontName:@"Marker Felt" fontSize:24];
-                        _message.position = ccp( size.width/2, size.height/2 );
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"background_iph.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
                         
-                        [self addChild:_message];
+                        [self addChild:background];
+                        
+                        CCLabelTTF *message = [CCLabelTTF labelWithString:@"EN ATTENTE D'AUTRES JOUEURS..." fontName:@"Economica-Bold" fontSize:24];
+                        message.position = ccp( size.width/2, size.height/2 );
+                        
+                        [self addChild:message];
                         
                         // Bouton back
-                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                        CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn_iph.png" selectedImage:@"back_btn_iph.png" target:self selector:@selector(buttonPressedBack:)];
                         
                         CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
-                        [menu_back setPosition:ccp( size.width/2 - 130, size.height/2 + 190)];
+                        [menu_back setPosition:ccp( size.width/2 - 128, size.height/2 + 208)];
                         
                         // Add the menu to the layer
                         [self addChild:menu_back];
@@ -349,28 +359,28 @@
                 {
                     // IPHONE 5
                     // ask director for the window size
-                    [_message setVisible:NO];
                     
                     CGSize size = [[CCDirector sharedDirector] winSize];
                     
-                    CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
-                    newMessage.position = ccp( size.width/2, size.height/2 );
+                    // BackGround
+                    CCSprite *background = [CCSprite spriteWithFile:@"choix_archipel_iPhone5.png"];
+                    [background setPosition:ccp(size.width/2, size.height/2)];
                     
-                    [self addChild:newMessage];
+                    [self addChild:background];
                     
                 }
                 else
                 {
                     // IPHONE RETINA SCREEN
                     // ask director for the window size
-                    [_message setVisible:NO];
                     
                     CGSize size = [[CCDirector sharedDirector] winSize];
                     
-                    CCLabelTTF *newMessage = [CCLabelTTF labelWithString:@"Waiting for choice of galaxy..." fontName:@"Marker Felt" fontSize:24];
-                    newMessage.position = ccp( size.width/2, size.height/2 );
+                    // BackGround
+                    CCSprite *background = [CCSprite spriteWithFile:@"choix_archipel.png"];
+                    [background setPosition:ccp(size.width/2, size.height/2)];
                     
-                    [self addChild:newMessage];
+                    [self addChild:background];
                 }
             }
         }

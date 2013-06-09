@@ -73,13 +73,44 @@
 - (id) initWithGameObject:(Game*)gameObject
 {
     
-    if( self=[super init] )
-    {
-        CGSize size = [[CCDirector sharedDirector] winSize];
-        CCLabelTTF *test = [CCLabelTTF labelWithString:@"autre" fontName:@"Marker Felt" fontSize:24];
-        test.position = ccp( size.width/2, size.height/2 - 100);
-        
-        [self addChild:test];
+    if( (self=[super init]) ) {
+        if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
+        {
+            
+            if ([UIScreen instancesRespondToSelector:@selector(scale)])
+            {
+                CGFloat scale = [[UIScreen mainScreen] scale];
+                if (scale > 1.0)
+                {
+                    if ([[UIScreen mainScreen] bounds].size.height == 568)
+                    {
+                        // IPHONE 5
+                        // ask director for the window size
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"manches_dujeu_iPhone5.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                    }
+                    else
+                    {
+                        // IPHONE RETINA SCREEN
+                        // ask director for the window size
+                        CGSize size = [[CCDirector sharedDirector] winSize];
+                        
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"manches_dujeu.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                    }
+                }
+            }
+        }
     }
     return self;
 }

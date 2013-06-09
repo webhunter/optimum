@@ -106,11 +106,17 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"background_iph-hd.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
                         // Menu
-                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
+                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"rejoindrePartie_btn-hd.png" selectedImage:@"rejoindrePartie_btn-hd.png" target:self selector:@selector(buttonPressed:)];
                         
                         CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
                         [menu setPosition:ccp( size.width/2, size.height/2)];
                         
                         // Add the menu to the layer
@@ -123,11 +129,17 @@
                         // ask director for the window size
                         CGSize size = [[CCDirector sharedDirector] winSize];
                         
+                        // BackGround
+                        CCSprite *background = [CCSprite spriteWithFile:@"background_iph.png"];
+                        [background setPosition:ccp(size.width/2, size.height/2)];
+                        
+                        [self addChild:background];
+                        
+                        
                         // Menu
-                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"button_join.png" selectedImage:@"button_join.png" target:self selector:@selector(buttonPressed:)];
+                        CCMenuItemImage *button_join = [CCMenuItemImage itemWithNormalImage:@"rejoindrePartie_btn.png" selectedImage:@"rejoindrePartie_btn.png" target:self selector:@selector(buttonPressed:)];
                         
                         CCMenu *menu = [CCMenu menuWithItems:button_join, nil];
-                        //[menu alignItemsHorizontallyWithPadding:-10];
                         [menu setPosition:ccp( size.width/2, size.height/2)];
                         
                         // Add the menu to the layer
@@ -136,13 +148,6 @@
                     }
                 }
             }
-            else
-            {
-                // IPHONE SCREEN 
-                
-            }
-            
-            
         }
 		else
         {
@@ -150,33 +155,25 @@
             if (scale > 1.0)
             {
                 // IPAD RETINA SCREEN
-                
-                // create and initialize a Label
-                CCLabelTTF *label = [CCLabelTTF labelWithString:@"Optimum"
-                                                fontName:@"Marker Felt"
-                                                fontSize:64];
-                
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                // position the label on the center of the screen
-                label.position =  ccp( size.width /2 , size.height/2 + 150);
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background-hd.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
                 
-                // add the label as a child to this Layer
-                [self addChild: label];
+                [self addChild:background];
                 
                 // Menu
-                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Jouer-hd.png" selectedImage:@"Menu_btn_Jouer-hd.png" target:self selector:@selector(buttonPressedPlay:)];
                 
-                CCMenuItemImage *button_tuto = [CCMenuItemImage itemWithNormalImage:@"button_tuto.png" selectedImage:@"button_tuto.png" target:self selector:@selector(buttonPressedTuto:)];
+                CCMenuItemImage *button_regle = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Regles-hd.png" selectedImage:@"Menu_btn_Regles-hd.png" target:self selector:@selector(buttonPressedRegle:)];
                 
-                CCMenuItemImage *button_reglages = [CCMenuItemImage itemWithNormalImage:@"button_reglages.png" selectedImage:@"button_reglages.png" target:self selector:@selector(buttonPressedReglages:)];
+                CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Credits-hd.png" selectedImage:@"Menu_btn_Credits-hd.png" target:self selector:@selector(buttonPressedCredit:)];
                 
-                CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"button_credit.png" selectedImage:@"button_credit.png" target:self selector:@selector(buttonPressedCredit:)];
-                
-                CCMenu *menu = [CCMenu menuWithItems:button_play, button_tuto, button_reglages, button_credit, nil];
-                [menu alignItemsHorizontallyWithPadding:-100];
-                [menu setPosition:ccp( size.width/2, size.height/2 - 60)];
+                CCMenu *menu = [CCMenu menuWithItems:button_play, button_regle, button_credit, nil];
+                [menu alignItemsHorizontallyWithPadding:150];
+                [menu setPosition:ccp( size.width/2, size.height/2)];
                 
                 
                 // Add the menu to the layer
@@ -186,35 +183,25 @@
             {
                 // IPAD SCREEN
                 
-                // create and initialize a Label
-                CCLabelTTF *label = [CCLabelTTF labelWithString:@"Optimum" fontName:@"Marker Felt" fontSize:64];
-                
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                // position the label on the center of the screen
-                label.position =  ccp( size.width /2 , size.height/2 + 150);
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
                 
-                // add the label as a child to this Layer
-                [self addChild: label];
+                [self addChild:background];
                 
                 // Menu
-                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Jouer.png" selectedImage:@"Menu_btn_Jouer.png" target:self selector:@selector(buttonPressedPlay:)];
                 
-                CCMenuItemImage *button_tuto = [CCMenuItemImage itemWithNormalImage:@"button_tuto.png" selectedImage:@"button_tuto.png" target:self selector:@selector(buttonPressedTuto:)];
+                CCMenuItemImage *button_regle = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Regles.png" selectedImage:@"Menu_btn_Regles.png" target:self selector:@selector(buttonPressedRegle:)];
                 
-                CCMenuItemImage *button_reglages = [CCMenuItemImage itemWithNormalImage:@"button_reglages.png" selectedImage:@"button_reglages.png" target:self selector:@selector(buttonPressedReglages:)];
+                CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"Menu_btn_Credits.png" selectedImage:@"Menu_btn_Credits.png" target:self selector:@selector(buttonPressedCredit:)];
                 
-                CCMenuItemImage *button_credit = [CCMenuItemImage itemWithNormalImage:@"button_credit.png" selectedImage:@"button_credit.png" target:self selector:@selector(buttonPressedCredit:)];
-                
-                button_credit.scale = 0.5;
-                button_play.scale = 0.5;
-                button_reglages.scale = 0.5;
-                button_tuto.scale = 0.5;
-                
-                CCMenu *menu = [CCMenu menuWithItems:button_play, button_tuto, button_reglages, button_credit, nil];
-                [menu alignItemsHorizontallyWithPadding:-100];
-                [menu setPosition:ccp( size.width/2, size.height/2 - 60)];
+                CCMenu *menu = [CCMenu menuWithItems:button_play, button_regle, button_credit, nil];
+                [menu alignItemsHorizontallyWithPadding:150];
+                [menu setPosition:ccp( size.width/2, size.height/2)];
                 
                 
                 // Add the menu to the layer
@@ -237,19 +224,14 @@
     [[CCDirector sharedDirector] replaceScene:[PlayLayer scene]];
 }
 
-- (void) buttonPressedTuto: (id) sender
-{
-    
-}
-
-- (void) buttonPressedReglages: (id) sender
+- (void) buttonPressedRegle: (id) sender
 {
     
 }
 
 - (void) buttonPressedCredit: (id) sender
 {
-    
+    [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]];
 }
 
 - (void) buttonPressed: (id) sender

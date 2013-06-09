@@ -12,6 +12,7 @@
 #import "PacketServerReady.h"
 #import "TeamLayer.h"
 #import "ConstructLayer.h"
+#import "Archipelago.h"
 
 typedef enum
 {
@@ -332,7 +333,10 @@ GameState;
             
         case PacketTypeBack:
             [[CCDirector sharedDirector] popScene];
-
+            break;
+            
+        case PacketTypeArchipelago:
+            [[CCDirector sharedDirector] pushScene:[Archipelago sceneWithGameObject:self]];
             break;
             
 		default:
