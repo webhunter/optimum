@@ -38,6 +38,9 @@
     
     if( (self=[super init]) )
     {
+        CCSpriteFrameCache* frameEndgame = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameEndgame addSpriteFramesWithFile:@"Endgame.plist"];
+        
         nbrGame = [[parameters objectForKey:@"nbrGame"] intValue];
         archipelago = [parameters objectForKey:@"universe"];
         self.game = [parameters objectForKey:@"game"];
@@ -67,6 +70,11 @@
         
         teamLeftPoints = (unitsLevelOneLeft * 1) + (unitsLevelTwoLeft * 2) + (unitsLevelThreeLeft * 3) + (unitsLevelFourLeft * 4) + (unitsLevelFiveLeft * 5);
         teamRightPoints = (unitsLevelOneRight * 1) + (unitsLevelTwoRight * 2) + (unitsLevelThreeRight * 3) + (unitsLevelFourRight * 4) + (unitsLevelFiveRight * 5);
+        
+        CCSprite *background = [CCSprite spriteWithFile:@"BG6.png"];
+        background.anchorPoint = ccp(0, 0);
+        background.position = ccp(0, 0);
+        [self addChild:background z:-1];
         
         
         NSString *winnerName = @"nil";
@@ -107,26 +115,52 @@
         [archipelagosGameSave setObject:dict forKey:archipelago];
         [archipelagosGameSave synchronize];
         
-        CCLabelTTF *label = [CCLabelTTF labelWithString:winnerName
-                                          fontName:@"Arial"
-                                          fontSize:12.0];
-        label.color = ccc3(255, 255, 255);
-        label.position = ccp(50, 120);
-        [self addChild:label z:99];
         
-        CCMenuItemFont *buttonOne = [CCMenuItemFont itemWithString:@"Manche suivante"
-                                                    target:self
-                                                    selector:@selector(nextGame:)];
-        buttonOne.color = ccRED;
+        //Affichage
+        CCSprite *reasonToStop = [CCSprite spriteWithSpriteFrameName:@"Scores_carte_remplie.png"];
+        reasonToStop.anchorPoint = ccp(0, 0);
+        reasonToStop.position = [[CCDirector sharedDirector] convertToGL: ccp(349, 121)];
+        [self addChild:reasonToStop];
         
-        CCMenu *menu_back = [CCMenu menuWithItems: buttonOne, nil];
-        [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
         
-        [self addChild:menu_back];
+        CCMenuItemSprite *next = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"manche_suivante_btn.png"]
+                                                        selectedSprite:[CCSprite spriteWithSpriteFrameName:@"manche_suivante_btn.png"]
+                                                        target:self
+                                                        selector:@selector(nextGame:)];
         
-        CCLabelTTF *winnerNameLabel = [[CCLabelTTF alloc] initWithString:winnerName fontName:@"Helvetica" fontSize:13];
-        winnerNameLabel.position = ccp(50, 120);
-        [self addChild:winnerNameLabel];
+        CCMenu *menu_next = [CCMenu menuWithItems: next, nil];
+        menu_next.anchorPoint = ccp(0, 0);
+        [menu_next setPosition: [[CCDirector sharedDirector] convertToGL: ccp(474, 768 - 21)]];
+        [self addChild:menu_next];
+        
+        CCSprite *cityImg = [CCSprite spriteWithSpriteFrameName:@"Scores_ile_Ville.png"];
+        cityImg.anchorPoint = ccp(0, 0);
+        cityImg.position = [[CCDirector sharedDirector] convertToGL: ccp(98, 305)];
+        [self addChild:cityImg];
+        
+        CCSprite *natureImg = [CCSprite spriteWithSpriteFrameName:@"Scores_ile_Nature.png"];
+        natureImg.anchorPoint = ccp(0, 0);
+        natureImg.position = [[CCDirector sharedDirector] convertToGL: ccp(741, 305)];
+        [self addChild:natureImg];
+        
+        NSArray *arrayStats = [[NSArray alloc] initWithObjects:@"Optimum récolté", @"Unités construites", @"Unités perdues", @"Unités restantes", nil];
+        for (int i = 0; i < 4; i++)
+        {
+            CCSprite *stat = [CCSprite spriteWithSpriteFrameName:@"Scores_champsTxt.png"];
+            stat.anchorPoint = ccp(0, 0);
+            [stat setPosition: [[CCDirector sharedDirector] convertToGL: ccp(355, 439 + (63 * i))]];
+            
+            CCLabelTTF *labelStat = [[CCLabelTTF alloc] initWithString:[arrayStats objectAtIndex:i] fontName:@"Economica" fontSize:21];
+            [labelStat setAnchorPoint:ccp(.5, .5)];
+            [labelStat setPosition:ccp(
+                                        (stat.boundingBox.size.width - 0) / 2,
+                                        (stat.boundingBox.size.height - 0) / 2
+                                       )];
+            [stat addChild:labelStat];
+            
+            [self addChild:stat];
+        }
+        
     }
     
     return self;

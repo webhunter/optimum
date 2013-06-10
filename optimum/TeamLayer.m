@@ -161,7 +161,6 @@
                         [background setPosition:ccp(size.width/2, size.height/2)];
                         
                         [self addChild:background];
-                        
                     }
                     else
                     {
@@ -176,7 +175,6 @@
                     }
                 }
             }
-            
         }
 		else
         {
@@ -214,7 +212,6 @@
                 [menu_next setPosition:ccp( size.width/2, size.height/2 - 360)];
                 
                 [self addChild:menu_next];
-                
                 
                 //Team
                 CCSprite *ville = [CCSprite spriteWithFile:@"equipe_ville-hd.png"];
@@ -320,8 +317,6 @@
             
             [self addChild:menu_next];
         }
-        
-        
     }
 }
 
@@ -341,8 +336,7 @@
     [[CCDirector sharedDirector] replaceScene:[GameLayer scene]];
 }
 
--(void) onEnter
-
+- (void) onEnter
 {
     // Called right after a node’s init method is called.
     // If using a CCTransitionScene: called when the transition begins.

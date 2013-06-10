@@ -27,7 +27,7 @@
         CCSprite *winter01 = [CCSprite spriteWithSpriteFrameName:@"winter01.png"];
         winter01.tag = 1;
         winter01.anchorPoint = ccp(0, 0);
-        winter01.position = [[CCDirector sharedDirector] convertToGL: ccp(395, 488)];
+        winter01.position = [[CCDirector sharedDirector] convertToGL: ccp(386, 488)];
         [self addChild:winter01];
 
         CCSprite *winter02 = [CCSprite spriteWithSpriteFrameName:@"winter02.png"];
@@ -51,7 +51,7 @@
         CCSprite *winter05 = [CCSprite spriteWithSpriteFrameName:@"winter05.png"];
         winter05.tag = 5;
         winter05.anchorPoint = ccp(0, 0);
-        winter05.position = [[CCDirector sharedDirector] convertToGL: ccp(528, 414)];
+        winter05.position = [[CCDirector sharedDirector] convertToGL: ccp(568, 378)]; // 528, 414
         [self addChild:winter05];
 
         CCSprite *winter06 = [CCSprite spriteWithSpriteFrameName:@"winter06.png"];
@@ -63,19 +63,19 @@
         CCSprite *winter07 = [CCSprite spriteWithSpriteFrameName:@"winter07.png"];
         winter07.tag = 7;
         winter07.anchorPoint = ccp(0, 0);
-        winter07.position = [[CCDirector sharedDirector] convertToGL: ccp(669, 320)];
+        winter07.position = [[CCDirector sharedDirector] convertToGL: ccp(669, 300)];
         [self addChild:winter07];
         
         CCSprite *winter08 = [CCSprite spriteWithSpriteFrameName:@"winter08.png"];
         winter08.tag = 8;
         winter08.anchorPoint = ccp(0, 0);
-        winter08.position = [[CCDirector sharedDirector] convertToGL: ccp(653, 644)];
+        winter08.position = [[CCDirector sharedDirector] convertToGL: ccp(653, 628)];
         [self addChild:winter08];
         
         CCSprite *winter09 = [CCSprite spriteWithSpriteFrameName:@"winter09.png"];
         winter09.tag = 9;
         winter09.anchorPoint = ccp(0, 0);
-        winter09.position = [[CCDirector sharedDirector] convertToGL: ccp(594, 768)];
+        winter09.position = [[CCDirector sharedDirector] convertToGL: ccp(594, 762)];
         [self addChild:winter09];
         
         CCSprite *winter10 = [CCSprite spriteWithSpriteFrameName:@"winter10.png"];
@@ -86,30 +86,30 @@
         
         CCSprite *winter11 = [CCSprite spriteWithSpriteFrameName:@"winter11.png"];
         winter11.tag = 11;
-        winter11.anchorPoint = ccp(5, 0);
-        winter11.position = [[CCDirector sharedDirector] convertToGL: ccp(183.5, 601.5)];
+        winter11.anchorPoint = ccp(0, 0);
+        winter11.position = [[CCDirector sharedDirector] convertToGL: ccp(0, 768)];
         [self addChild:winter11];
         
         CCSprite *winter12 = [CCSprite spriteWithSpriteFrameName:@"winter12.png"];
         winter12.tag = 12;
-        winter12.anchorPoint = ccp(0, 13);
-        winter12.position = [[CCDirector sharedDirector] convertToGL: ccp(0, 489)];
+        winter12.anchorPoint = ccp(0, 0);
+        winter12.position = [[CCDirector sharedDirector] convertToGL: ccp(0, 482)];
         [self addChild:winter12];
         
         CCSprite *winter13 = [CCSprite spriteWithSpriteFrameName:@"winter13.png"];
         winter13.tag = 13;
         winter13.anchorPoint = ccp(0, 0);
-        winter13.position = [[CCDirector sharedDirector] convertToGL: ccp(0, 328)];
+        winter13.position = [[CCDirector sharedDirector] convertToGL: ccp(0, 320)];
         [self addChild:winter13];
         
         CCSprite *winter14 = [CCSprite spriteWithSpriteFrameName:@"winter14.png"];
         winter14.tag = 14;
         winter14.anchorPoint = ccp(0, 0);
-        winter14.position = [[CCDirector sharedDirector] convertToGL: ccp(330, 308)];
+        winter14.position = [[CCDirector sharedDirector] convertToGL: ccp(340, 296)];
         [self addChild:winter14];
     }
     
-    [self setPosition:ccp(15, 15)];
+    [self setPosition:ccp(24, 15)];
 //    [self schedule: @selector(removeFreeze:) interval:10];
     
     return self;
@@ -150,9 +150,13 @@
     {
         CCNode* node = [self getChildByTag:child.tag];
         CCSprite* spriteTouched = (CCSprite*)node;
-        //CCLOG(@"%@, %i", CGRectCreateDictionaryRepresentation(spriteTouched.boundingBox), spriteTouched.tag);
+
         if(CGRectContainsPoint(spriteTouched.boundingBox, touchLocation)){
-            [spriteTouched removeFromParentAndCleanup: YES];
+            spriteTouched.opacity -= 85;
+            if (spriteTouched.opacity <= 0) {
+                [spriteTouched removeFromParentAndCleanup: YES];
+            }
+            
         }
     }
 }

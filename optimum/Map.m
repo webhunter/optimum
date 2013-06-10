@@ -58,12 +58,19 @@
     {
 //        [self freeze];
         
+        // Chargement des sprites
+        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
+        
+        CCSpriteFrameCache* frameEndgame = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameEndgame addSpriteFramesWithFile:@"Endgame.plist"];
+        
+        
         size = [[CCDirector sharedDirector] winSize];
         gameElement = [parameters objectForKey:@"game"];
         gameElement.delegate = self;
 
-        CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-        [frameCache addSpriteFramesWithFile:@"sprites-interface.plist"];
+        
         
         timeElapse = 0;
 
@@ -173,7 +180,7 @@
         
         [self schedule: @selector(tilesAttacks:) interval:1];
         
-        unitLeftDestroyed = 0, unitRightDestroyed = 0;
+        
         
         //Récupère le nombre d'unité détruites pour chaque clan
         
@@ -195,6 +202,12 @@
         
         // Le jeu n'est pas en pause par défaut
         gameIsPause = NO;
+        
+        //Comptage des unités construites
+        unitsBuiltLeft = 0, unitsBuiltRight = 0;
+        
+        //Comptage des unités détruites / perdues
+        unitsLeftDestroyed = 0, unitsRightDestroyed = 0;
     }
     
     return self;
@@ -203,8 +216,8 @@
 - (void) displayPauseScreen: (CCMenuItem  *) menuItem
 {
     // On cache l'indication du pause
-    CCNode* node = [self getChildByTag:9094];
-    CCMenu* menu_pause = (CCMenu*)node;
+    CCNode* nodeMenuPause = [self getChildByTag:9094];
+    CCMenu* menu_pause = (CCMenu*)nodeMenuPause;
     menu_pause.position = ccp(size.width/2, -50);
     
     CCLayer *pauseLayer = [[CCLayer alloc] init];
@@ -221,38 +234,47 @@
     menu_resume.position = [[CCDirector sharedDirector] convertToGL: ccp(515, 375)];
     [pauseLayer addChild:menu_resume];
     
-    CCMenuItemSprite *buttonSound = [CCMenuItemSprite
+    CCMenuItemSprite *buttonSoundsOff = [CCMenuItemSprite
                                      itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_OFF_btn.png"]
-                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_ON_btn.png"]
-                                     target:self
-                                     selector:@selector(resumeGame:)];
-    [buttonSound setPosition:ccp(0, 61)];
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_OFF_btn.png"]];
+    
+    CCMenuItemSprite *buttonSoundsOn = [CCMenuItemSprite
+                                     itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_ON_btn.png"]
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"bruitage_ON_btn.png"]];
+    
     
     CCMenuItemSprite *buttonQuit = [CCMenuItemSprite
                                      itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"quitter_btn.png"]
                                      selectedSprite:[CCSprite spriteWithSpriteFrameName:@"quitter_btn.png"]
                                      target:self
-                                     selector:@selector(resumeGame:)];
+                                     selector:@selector(quitGame)];
     [buttonQuit setPosition:ccp(60, 31)];
+    
     
     CCMenuItemSprite *buttonMusicOff = [CCMenuItemSprite
                                     itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"musique_OFF_btn.png"]
-                                    selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_OFF_btn.png"]
-                                    target:self
-                                    selector:@selector(voidFunc)];
+                                    selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_OFF_btn.png"]];
+    
     CCMenuItemSprite *buttonMusicOn = [CCMenuItemSprite
                                      itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"musique_ON_btn.png"]
-                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_ON_btn.png"]
-                                     target:self
-                                     selector:@selector(voidFunc)];
+                                     selectedSprite:[CCSprite spriteWithSpriteFrameName:@"musique_ON_btn.png"]];
+    
+    NSUserDefaults *parametersPlayer = [NSUserDefaults standardUserDefaults];
+    
+    CCLOG(@"parameters : %@", [parametersPlayer objectForKey:@"parameters"]);
     
     
-    CCMenuItemToggle *toggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(voidFunc) items:buttonMusicOff, buttonMusicOn, nil];
-    [toggle setPosition:ccp(119, 61)];
+    CCMenuItemToggle *toggleMusic = [CCMenuItemToggle itemWithTarget:self selector:@selector(musicEnable:) items:buttonMusicOff, buttonMusicOn, nil];
+    [toggleMusic setPosition:ccp(119, 61)];
+    //  On récupère les informations concernant la musique du jeu
+    [toggleMusic setSelectedIndex:[[parametersPlayer valueForKeyPath:@"parameters.music"] intValue]];
     
-    [toggle setSelectedIndex:1];
+    CCMenuItemToggle *toggleSounds = [CCMenuItemToggle itemWithTarget:self selector:@selector(soundsEnable:) items:buttonSoundsOff, buttonSoundsOn, nil];
+    [toggleSounds setPosition:ccp(0, 61)];
+    //  On récupère les informations concernant les bruitages du jeu
+    [toggleSounds setSelectedIndex:[[parametersPlayer valueForKeyPath:@"parameters.sounds"] intValue]];
     
-    CCMenu *menu_option = [CCMenu menuWithItems:buttonSound, buttonQuit, toggle, nil];
+    CCMenu *menu_option = [CCMenu menuWithItems:toggleSounds, buttonQuit, toggleMusic, nil];
     menu_option.anchorPoint = ccp(0, 0);
     [menu_option setPosition:[[CCDirector sharedDirector] convertToGL: ccp(457, 513)]];
     [pauseLayer addChild:menu_option];
@@ -267,10 +289,81 @@
     {
         [[CCDirector sharedDirector] pause];
         gameIsPause = YES;
-        [self gameIsPaused: NO];
+        [self gamePaused: NO];
         
         [self addChild:pauseLayer z: 10010];
+        
+        // #Packet : mise en pause des iPhones
     }
+}
+
+- (void) musicEnable:(id)sender 
+{
+    CCMenuItemToggle *toggleItem = (CCMenuItemToggle *)sender;
+    
+    NSUserDefaults *parametersPlayer = [NSUserDefaults standardUserDefaults];
+    
+    switch (toggleItem.selectedIndex)
+    {
+        // On ne veut pas de musique
+        case 0:
+            [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+            [[[NSUserDefaults standardUserDefaults] objectForKey:@"parameters"] setObject:[NSNumber numberWithInt:0] forKey:@"music"];
+            
+            break;
+            
+        case 1:
+            [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+            [[[NSUserDefaults standardUserDefaults] objectForKey:@"parameters"] setObject:[NSNumber numberWithInt:1] forKey:@"music"];
+            break;
+            
+        default:
+            break;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    CCLOG(@"parameters : %@", [parametersPlayer objectForKey:@"parameters"]);
+}
+
+- (void) quitGame
+{
+    //# Packet : On retourne à l'écran de sélection de la manche
+    
+    NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+    
+    //On envoit toutes les données relatives à cet univers concernant les parties
+    [[CCDirector sharedDirector]
+     replaceScene:[CCTransitionFade transitionWithDuration:0.5f
+                                    scene:[Archipelago sceneWithParameters:[archipelagosGameSave objectForKey:archipelago]
+                                    andUniverse:archipelago
+                                    andGameObject:gameElement]
+                   ]];
+}
+
+- (void) soundsEnable:(id)sender
+{
+    CCMenuItemToggle *toggleItem = (CCMenuItemToggle *)sender;
+    
+    NSUserDefaults *parametersPlayer = [NSUserDefaults standardUserDefaults];
+    
+    switch (toggleItem.selectedIndex)
+    {
+        case 0:
+            
+            [[parametersPlayer objectForKey:@"parameters"] setObject:[NSNumber numberWithInt:0] forKey:@"sounds"];
+            break;
+            
+        case 1:
+            
+            [[parametersPlayer objectForKey:@"parameters"] setObject:[NSNumber numberWithInt:1] forKey:@"sounds"];
+            break;
+            
+        default:
+            break;
+    }
+    
+    [parametersPlayer synchronize];
 }
 
 // Permet de relancer le jeu
@@ -283,25 +376,19 @@
     CCNode* nodePauseLayer = [self getChildByTag:6754];
     CCLayer* pauseLayer = (CCMenu*)nodePauseLayer;
     
-    
     if (gameIsPause == YES)
     {
         [[CCDirector sharedDirector] resume];
         gameIsPause = NO;
-        [self gameIsPaused: YES];
+        [self gamePaused: YES];
         
         [menu_pause setPosition:ccp(size.width/2, 22.75)];
         [self removeChild:pauseLayer cleanup:YES];
     }
 }
 
-- (void) voidFunc{
-    CCLOG(@"kikoo");
-}
-
-
 // Gère tous les évènements liés à la mise en pause du jeu
-- (void) gameIsPaused:(BOOL)gameState
+- (void) gamePaused:(BOOL)gameState
 {
     // Désactive le déplacement d'unités
     for (UnitSprite *sprite in self.children)
@@ -345,6 +432,12 @@
     NSString *string = @"Is not an invalid string";
     [countdownLabel setString:[string timeFormatted:countdown]];
     
+    // S'il reste 
+    if (countdown <= 30)
+    {
+        countdownLabel.color = ccRED;
+    }
+    
     if (countdown <= 0)
     {
         [self endGame];
@@ -360,18 +453,26 @@
     NSAssert([node isKindOfClass:[CCTMXTiledMap class]], @"not a CCTMXTiledMap");
     CCTMXTiledMap* tileMap = (CCTMXTiledMap*)node;
     
+    // On cache l'indication du pause
+    CCNode* nodeMenuPause = [self getChildByTag:9094];
+    CCMenu* menu_pause = (CCMenu*)nodeMenuPause;
+    menu_pause.position = ccp(size.width/2, -50);
+    
+    // On arrête la musique de fond
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    
     CCTMXLayer *layer = [tileMap layerNamed:@"Tiles"];
     
     NSMutableDictionary *unitTeamLeft = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *unitTeamRight = [[NSMutableDictionary alloc] init];
     
     int unitsLevelOneRight = 0, unitsLevelTwoRight = 0, unitsLevelThreeRight = 0;
-    int unitsLevelFourRight = 0, unitsLevelFiveRight = 0;
-    int unitsRight = 0;
+    int unitsLevelFourRight = 0, unitsLevelFiveRight = 0, unitsRight = 0, lifeUnitsRightCount = 0;
+ 
     
     int unitsLevelOneLeft = 0, unitsLevelTwoLeft = 0, unitsLevelThreeLeft = 0;
-    int unitsLevelFourLeft = 0, unitsLevelFiveLeft = 0;
-    int unitsLeft = 0;
+    int unitsLevelFourLeft = 0, unitsLevelFiveLeft = 0, unitsLeft = 0, lifeUnitsLeftCount = 0;
+   
     
     for (NSUInteger y = 0; y < layer.layerSize.height; y++)
     {
@@ -405,6 +506,7 @@
                         default:
                             break;
                     }
+                    lifeUnitsRightCount += [layer tileAt: ccp(x, y)].HP;
                 }else{
                     switch ([layer tileAt: ccp(x, y)].type)
                     {
@@ -426,39 +528,101 @@
                         default:
                             break;
                     }
+                    lifeUnitsLeftCount += [layer tileAt: ccp(x, y)].HP;
                 }
             }
         }
     }
     
-    unitsLeft = unitsLevelOneLeft + unitsLevelTwoLeft + unitsLevelThreeLeft + unitsLevelFourLeft + unitsLevelFiveLeft;
-    unitsRight = unitsLevelOneRight + unitsLevelTwoRight + unitsLevelThreeRight + unitsLevelFourRight + unitsLevelFiveRight;
+    unitsBuiltLeft = unitsLevelOneLeft + unitsLevelTwoLeft + unitsLevelThreeLeft + unitsLevelFourLeft + unitsLevelFiveLeft;
+    unitsBuiltRight = unitsLevelOneRight + unitsLevelTwoRight + unitsLevelThreeRight + unitsLevelFourRight + unitsLevelFiveRight;
     
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelOneLeft] forKey:@"unitsLevelOne"];
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelTwoLeft] forKey:@"unitsLevelTwo"];
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelThreeLeft] forKey:@"unitsLevelThree"];
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelFourLeft] forKey:@"unitsLevelFour"];
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLevelFiveLeft] forKey:@"unitsLevelFive"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsBuiltLeft] forKey:@"unitsBuilt"];
     [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLeft] forKey:@"units"];
+    [unitTeamLeft setObject:[NSNumber numberWithInt:unitsLeftDestroyed] forKey:@"unitsDestroyed"];
     
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelOneRight] forKey:@"unitsLevelOne"];
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelTwoRight] forKey:@"unitsLevelTwo"];
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelThreeRight] forKey:@"unitsLevelThree"];
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelFourRight] forKey:@"unitsLevelFour"];
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsLevelFiveRight] forKey:@"unitsLevelFive"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsBuiltRight] forKey:@"unitsBuilt"];
     [unitTeamRight setObject:[NSNumber numberWithInt:unitsRight] forKey:@"units"];
+    [unitTeamRight setObject:[NSNumber numberWithInt:unitsRightDestroyed] forKey:@"unitsDestroyed"];
     
     
     NSArray *objects = [NSArray arrayWithObjects:unitTeamLeft, unitTeamRight, archipelago, [NSNumber numberWithInt:nbrGame], gameElement, nil];
     NSArray *keys = [NSArray arrayWithObjects:@"unitTeamLeft", @"unitTeamRight", @"universe", @"nbrGame", @"game", nil];
     
     
-    NSDictionary *stats = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    stats = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                                 scene:[EndGame sceneWithParameters:stats]
-                                                                             withColor:ccGREEN]];
+    
+    //  Affichage du vainqueur
+    CCLayer *winnerLayer = [[CCLayer alloc] init];
+    CCSprite *backgroundWinner;
+    
+    int ptsTeamLeft = (unitsLevelOneLeft * 1) + (unitsLevelTwoLeft * 2) + (unitsLevelThreeLeft * 3) + (unitsLevelFourLeft * 4) + (unitsLevelFiveLeft * 5),
+    ptsTeamRight = (unitsLevelOneRight * 1) + (unitsLevelTwoRight * 2) + (unitsLevelThreeRight * 3) + (unitsLevelFourRight * 4) + (unitsLevelFiveRight * 5);
+    
+    // On arrête le jeu pour afficher le vainqueur
+    if (gameIsPause == NO)
+    {
+//        [[CCDirector sharedDirector] pause];
+        gameIsPause = YES;
+        [self gamePaused: NO];
+        
+        // #Packet : Affichage des résultat
+    }
+    
+    if (ptsTeamLeft < ptsTeamRight)
+    {
+        backgroundWinner = [[CCSprite alloc] initWithSpriteFrameName:@"vainqueur_Nature_popup.png"];
+    }else if (ptsTeamLeft > ptsTeamRight) {
+        backgroundWinner = [[CCSprite alloc] initWithSpriteFrameName:@"vainqueur_Ville_popup.png"];
+    }else{
+        //  Si au terme du match il y a égalité on compte le nombre de points de vie restant, l'équipe ayant le plus de données gagne
+        if (lifeUnitsLeftCount < lifeUnitsRightCount) {
+            backgroundWinner = [[CCSprite alloc] initWithSpriteFrameName:@"vainqueur_Nature_popup.png"];
+        }else{
+            backgroundWinner = [[CCSprite alloc] initWithSpriteFrameName:@"vainqueur_Ville_popup.png"];
+        }
+    }
+    
+    backgroundWinner.anchorPoint = ccp(0, 0);
+    backgroundWinner.position = ccp(0, 0);
+    [winnerLayer addChild:backgroundWinner];
+    
+    [self addChild:winnerLayer z:999999];
+    
+    victorySound = [[CDAudioManager sharedManager] audioSourceForChannel:kASC_Right];
+    
+    [victorySound load:@"Fin_victoire.aif"];
+    victorySound.delegate = self;
+    [victorySound play];
+    
+    [self schedule: @selector(victorySoundCallback:) interval:1];
+    
+//    
+    
 }
+
+- (void) victorySoundCallback: (ccTime) dt
+{
+    if (![victorySound isPlaying])
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
+                                     scene:[EndGame sceneWithParameters:stats]
+                                     withColor:ccGREEN]];
+        // #Packet : Statistiques de la manche
+    }
+}
+
 
 - (int) randNumberUnitAtIndex:(int)index enabled:(BOOL)_enabled
 {
@@ -476,8 +640,9 @@
     return unit;
 }
 
-- (void) displayInterface{
-    
+- (void) displayInterface
+{
+    //  Unités de gauche
     level1UnitLeft = [self randNumberUnitAtIndex:1 enabled:YES];
     level2UnitLeft = [self randNumberUnitAtIndex:2 enabled:YES];
     level3UnitLeft = [self randNumberUnitAtIndex:3 enabled:YES];
@@ -510,14 +675,16 @@
     unitLeftLevelFive.tag = unitOddLevelFiveTag;
     [self addChild:unitLeftLevelFive z:unitOddLevelFive];
     
-    
+    //  Unités de droite
     level1UnitRight = [self randNumberUnitAtIndex:1 enabled:YES];
     level2UnitRight = [self randNumberUnitAtIndex:2 enabled:YES];
     level3UnitRight = [self randNumberUnitAtIndex:3 enabled:YES];
     level4UnitRight = [self randNumberUnitAtIndex:4 enabled:YES];
     level5UnitRight = [self randNumberUnitAtIndex:5 enabled:YES];
     //  Unité droite (Nature)
-    UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1 atPosition:ccp(size.width - 51, size.height - 40 * 2) withUnits:level1UnitRight];
+    UnitSprite *unitRightLevelOne = [[UnitSprite alloc] initWithUnitType:1
+                                                        atPosition:ccp(size.width - 51, size.height - 40 * 2)
+                                                        withUnits:level1UnitRight];
     unitRightLevelOne.tag = unitEvenLevelOneTag;
     [self addChild:unitRightLevelOne z:unitEvenLevelOne];
 
@@ -576,7 +743,7 @@
     [self addChild:leftStackBar];
     
     //Affichage du temps imparti
-    countdown = floor(60 * 1);
+    countdown = floor(60 * .15);
     
     countdownLabel = [[CCLabelAtlas alloc] initWithString:[NSString stringWithFormat:@"%i", countdown]
                                               charMapFile:@"number_chrono.png"
@@ -652,12 +819,7 @@
     level5UnitLeftLabel.anchorPoint = ccp(.5, .5);
     level5UnitLeftLabel.position = ccp(unitsLeftLabelX, units5Label);
     [self addChild:level5UnitLeftLabel z: 6000];
-    
-//    for (UnitSprite *sprite in self.children) {
-//        
-//        if ([sprite isKindOfClass:[UnitSprite class]])
-//        {
-    
+        
     
     //Affichage du nombre unités - Right
     
@@ -762,7 +924,8 @@
         if (CGRectIntersectsRect(rightStack.boundingBox, optimumBoundingBox))
         {
             Packet *packet;
-            switch ([spriteTouched optimumType]) {
+            switch ([spriteTouched optimumType])
+            {
                 case 0:
                 {
                     //vert
@@ -1675,10 +1838,10 @@
 {
     if ([layer tileAt:p].HP <= 0)
     {
-        if ([layer tileAt:p].team == YES) {
-            unitLeftDestroyed++;
+        if ([layer tileAt:p].team == NO) {
+            unitsLeftDestroyed++;
         }else{
-            unitRightDestroyed++;
+            unitsRightDestroyed++;
         }
         [layer removeTileAt:p];
     }else{
@@ -1699,6 +1862,8 @@
 
 - (void)sendUnitToPlayer:(Game *)game andParam:(int)unit
 {
+    // On indique qu'une unité a été crée
+    unitsBuiltLeft++;
     switch (unit) {
         case 1:
         {
@@ -1772,6 +1937,8 @@
 
 - (void)sendUnitToPlayer2:(Game *)game andParam:(int)unit
 {
+    // On indique qu'une unité a été crée
+    unitsBuiltRight++;
     switch (unit) {
         case 1:
         {
@@ -1862,12 +2029,20 @@
 
 -(void) onEnterTransitionDidFinish
 {
-    // Called right after onEnter.
+    // Called right after onEnter.[mySound isPlaying]
     // If using a CCTransitionScene: called when the transition has ended.
     [super onEnterTransitionDidFinish];
     [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"jeu_loop.aif"];
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"jeu_loop.aif" loop:YES];
+    
+    NSUserDefaults *parametersPlayer = [NSUserDefaults standardUserDefaults];
+    
+    CCLOG(@"parameters enter : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"parameters"]);
+    if ([[[NSUserDefaults standardUserDefaults] valueForKeyPath:@"parameters.sounds"] intValue])
+    {
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"jeu_loop.aif" loop:YES];
+    }
+    
 }
 
 -(void) onExit

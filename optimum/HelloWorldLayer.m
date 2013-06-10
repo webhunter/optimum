@@ -41,11 +41,22 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
         NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *parametersPlayer = [NSUserDefaults standardUserDefaults];
         
         // La personne vient d'installer le jeu donc on lui crée une sauvegarde
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstRun"])
         {
-            CCLOG(@"string enter");
+            CCLOG(@"new save");
+            NSArray *parametersKeys = [[NSArray alloc] initWithObjects:@"sounds", @"music", nil];
+            NSArray *parametersObjects = [[NSArray alloc] initWithObjects:
+                                          [NSNumber numberWithInt:1],
+                                          [NSNumber numberWithInt:1],
+                                          nil];
+            
+            NSDictionary *parametersDict = [[NSDictionary alloc] initWithObjects:parametersObjects
+                                                                       forKeys:parametersKeys];
+            
+            
             NSArray *tutorialKeys = [[NSArray alloc] initWithObjects:@"stage1", @"stage2", nil];
             NSArray *tutorialObjects = [[NSArray alloc] initWithObjects:
                                         [NSNumber numberWithBool:YES],
@@ -87,6 +98,9 @@
             [archipelagosGameSave setObject:tutorialDict forKey:@"tutorial"];
             [archipelagosGameSave setObject:cityNatureDict forKey:@"cityNature"];
             [archipelagosGameSave synchronize];
+            
+            [parametersPlayer setObject:parametersDict forKey:@"parameters"];
+            [parametersPlayer synchronize];
             
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstRun"];
         }

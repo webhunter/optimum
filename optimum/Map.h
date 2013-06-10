@@ -22,6 +22,18 @@
 #import "Mapquake.h"
 #import "Game.h"
 
+#import "Archipelago.h"
+
+#import "CDAudioManager.h"
+
+@protocol CDLongAudioSourceDelegate <NSObject>
+@optional
+/** The audio source completed playing */
+- (void) cdAudioSourceDidFinishPlaying:(CDLongAudioSource *) audioSource;
+/** The file used to load the audio source has changed */
+- (void) cdAudioSourceFileDidChange:(CDLongAudioSource *) audioSource;
+@end
+
 enum
 {
 	TileMapTag = 9999,
@@ -57,7 +69,7 @@ enum
 };
 
 
-@interface Map : CCLayer  <GameDelegate>
+@interface Map : CCLayer  <GameDelegate, CDLongAudioSourceDelegate>
 {
     Game *gameElement;
     CCSprite *rightStack;
@@ -84,7 +96,7 @@ enum
     int timeElapse, nbrGame;
     
     //Gestion des unités
-    int level1UnitLeft, level2UnitLeft, level3UnitLeft, level4UnitLeft, level5UnitLeft;
+    int level1UnitLeft, level2UnitLeft, level3UnitLeft, level4UnitLeft, level5UnitLeft, unitsBuiltLeft;
     
     CCLabelAtlas *level1UnitLeftLabel, *level2UnitLeftLabel, *level3UnitLeftLabel, *level4UnitLeftLabel, *level5UnitLeftLabel;
     
@@ -92,12 +104,12 @@ enum
     int level2UnitRight;
     int level3UnitRight;
     int level4UnitRight;
-    int level5UnitRight;
+    int level5UnitRight, unitsBuiltRight;
     
     CCLabelAtlas *level1UnitRightLabel, *level2UnitRightLabel, *level3UnitRightLabel, *level4UnitRightLabel, *level5UnitRightLabel;
     
-    int unitLeftDestroyed;
-    int unitRightDestroyed;
+    int unitsLeftDestroyed;
+    int unitsRightDestroyed;
     
     //Système de pause
     BOOL gameIsPause;
@@ -106,7 +118,9 @@ enum
     //Gestion de l'écran
     CGSize size;
     
-    CCLabelAtlas *label1;
+    CDLongAudioSource* victorySound;
+    // NSdictionnary contenant toutes les données de la manche
+    NSDictionary *stats; 
 }
 
 
