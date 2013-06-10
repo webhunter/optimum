@@ -322,6 +322,9 @@
 
 - (void) onNewGame2: (CCMenuItem  *) menuItem
 {
+    Packet *packet = [Packet packetWithType:PacketTypeArchipelago];
+	[gameElement sendPacketToAllClients:packet];
+    
     // affichage de l'écran de Archipelago
     NSUserDefaults *archipelagosGameSave = [NSUserDefaults standardUserDefaults];
     

@@ -35,31 +35,7 @@
 	if( (self=[super init]) ) {
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         {
-            if ([UIScreen instancesRespondToSelector:@selector(scale)])
-            {
-                CGFloat scale = [[UIScreen mainScreen] scale];
-                if (scale > 1.0)
-                {
-                    if ([[UIScreen mainScreen] bounds].size.height == 568)
-                    {
-                        // IPHONE 5
-                        
-                    }
-                    else
-                    {
-                        // IPHONE RETINA SCREEN
-                        
-                    
-                    }
-                }
-            }
-            else
-            {
-                // IPHONE SCREEN
-                
-            }
-            
-            
+            //nothing
         }
 		else
         {
@@ -71,22 +47,29 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                // Menu
-                CCMenuItemImage *button_create = [CCMenuItemImage itemWithNormalImage:@"button_create.png" selectedImage:@"button_create.png" target:self selector:@selector(buttonPressed:)];
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background-hd.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
                 
-                CCMenu *menu = [CCMenu menuWithItems:button_create, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
+                [self addChild:background];
+                
+                // Menu
+                CCMenuItemImage *button_create = [CCMenuItemImage itemWithNormalImage:@"creer_partie_btn-hd.png" selectedImage:@"creer_partie_btn-hd.png" target:self selector:@selector(buttonPressed:)];
+                
+                CCMenuItemImage *button_reprendre = [CCMenuItemImage itemWithNormalImage:@"reprendre_partie_btn-hd.png" selectedImage:@"reprendre_partie_btn-hd.png" target:self selector:@selector(buttonPressed:)];
+                
+                CCMenu *menu = [CCMenu menuWithItems:button_create,button_reprendre, nil];
+                [menu alignItemsVerticallyWithPadding:80];
                 [menu setPosition:ccp( size.width/2, size.height/2 )];
                 
                 // Add the menu to the layer
                 [self addChild:menu];
                 
-                //bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                // Bouton back
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn-hd.png" selectedImage:@"back_btn-hd.png" target:self selector:@selector(buttonPressedBack:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 // Add the menu to the layer
                 [self addChild:menu_back];
@@ -98,22 +81,29 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
-                // Menu
-                CCMenuItemImage *button_create = [CCMenuItemImage itemWithNormalImage:@"button_create.png" selectedImage:@"button_create.png" target:self selector:@selector(buttonPressed:)];
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
                 
-                CCMenu *menu = [CCMenu menuWithItems:button_create, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
+                [self addChild:background];
+                
+                // Menu
+                CCMenuItemImage *button_create = [CCMenuItemImage itemWithNormalImage:@"creer_partie_btn.png" selectedImage:@"creer_partie_btn.png" target:self selector:@selector(buttonPressed:)];
+                
+                CCMenuItemImage *button_reprendre = [CCMenuItemImage itemWithNormalImage:@"reprendre_partie_btn.png" selectedImage:@"reprendre_partie_btn.png" target:self selector:@selector(buttonPressed:)];
+                
+                CCMenu *menu = [CCMenu menuWithItems:button_create,button_reprendre, nil];
+                [menu alignItemsVerticallyWithPadding:80];
                 [menu setPosition:ccp( size.width/2, size.height/2 )];
                 
                 // Add the menu to the layer
                 [self addChild:menu];
                 
-                //bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                // Bouton back
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn.png" selectedImage:@"back_btn.png" target:self selector:@selector(buttonPressedBack:)];
                 
                 CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                //[menu alignItemsHorizontallyWithPadding:-10];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
                 
                 // Add the menu to the layer
                 [self addChild:menu_back];

@@ -130,7 +130,7 @@
         
         CCMenu *menu_next = [CCMenu menuWithItems: next, nil];
         menu_next.anchorPoint = ccp(0, 0);
-        [menu_next setPosition: [[CCDirector sharedDirector] convertToGL: ccp(474, 768 - 21)]];
+        [menu_next setPosition: [[CCDirector sharedDirector] convertToGL: ccp(484, 768 - 21)]];
         [self addChild:menu_next];
         
         CCSprite *cityImg = [CCSprite spriteWithSpriteFrameName:@"Scores_ile_Ville.png"];

@@ -64,45 +64,94 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background-hd.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
+                // Bouton back
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn-hd.png" selectedImage:@"back_btn-hd.png" target:self selector:@selector(buttonPressedBack:)];
+                
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
+                
+                // Add the menu to the layer
+                [self addChild:menu_back];
+
+                
                 //titre
-                CCLabelTTF *hostlabel = [CCLabelTTF labelWithString:@"HostGame" fontName:@"Marker Felt" fontSize:32];
+                CCLabelTTF *hostlabel = [CCLabelTTF labelWithString:@"CONNEXION ENTRE LES APPAREILS" fontName:@"Economica-Bold" fontSize:32];
                 hostlabel.position = ccp( size.width/2, size.height/2 + 280);
                 
                 [self addChild:hostlabel];
                 
                 // your name label
-                CCLabelTTF *name = [CCLabelTTF labelWithString:@"Your Name :" fontName:@"Marker Felt" fontSize:32];
-                name.position = ccp( size.width/2 - 230, size.height/2 + 200);
+                CCLabelTTF *name = [CCLabelTTF labelWithString:@"Nom de l'iPad" fontName:@"Economica-Bold" fontSize:26];
+                name.position = ccp( size.width/2 - 260, size.height/2 + 139);
                 
                 [self addChild:name];
                 
+                CCSprite *champs = [CCSprite spriteWithFile:@"Connexion_champsTxt-hd.png"];
+                [champs setPosition:ccp(size.width/2 +80 , size.height/2 + 138)];
+                
+                [self addChild:champs];
+                
+                //textfield
+                textField = [[UITextField alloc]init];
+                textField.frame = CGRectMake(size.width/2 - 140 , size.height/2 - 155 , 300, 80);
+                textField.font = [UIFont fontWithName:@"Economica-Regular" size:26];
+                textField.textColor = [UIColor whiteColor];
+                textField.enabled = NO;
+                textField.delegate = self;
+                
+                textFieldWrapper = [CCUIViewWrapper wrapperForUIView:textField];
+                
+                [self addChild:textFieldWrapper];
+                
                 //recherche de joueurs label
-                CCLabelTTF *message = [CCLabelTTF labelWithString:@"Recherche de joueurs en cours..." fontName:@"Marker Felt" fontSize:32];
-                message.position = ccp( size.width/2, size.height/2 + 100);
+                CCLabelTTF *message = [CCLabelTTF labelWithString:@"RECHERCHE DES JOUEURS EN COURS..." fontName:@"Economica-Bold" fontSize:26];
+                message.position = ccp( size.width/2, size.height/2);
                 
                 [self addChild:message];
                 
-                //bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                //message 2
+                CCLabelTTF *message2 = [CCLabelTTF labelWithString:@"Veuillez allumer vos iPhones" fontName:@"Economica-Regular" fontSize:22];
+                message2.position = ccp( size.width/2, size.height/2 - 50);
                 
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [self addChild:message2];
+                                
+                // Nom des joueurs
+                CCLabelTTF *name2 = [CCLabelTTF labelWithString:@"Joueur n°1" fontName:@"Economica-Bold" fontSize:26];
+                name2.position = ccp( size.width/2 - 270, size.height/2 - 150);
                 
-                // Add the menu to the layer
-                [self addChild:menu_back];
+                [self addChild:name2];
                 
-                //bouton play
-                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                CCLabelTTF *name3 = [CCLabelTTF labelWithString:@"Joueur n°2" fontName:@"Economica-Bold" fontSize:26];
+                name3.position = ccp( size.width/2 - 270, size.height/2 - 220);
                 
-                CCMenu *menu_play = [CCMenu menuWithItems:button_play, nil];
-                [menu_play setPosition:ccp( size.width/2, size.height/2 - 250)];
+                [self addChild:name3];
                 
+                CCSprite *champs2 = [CCSprite spriteWithFile:@"Connexion_champsTxt-hd.png"];
+                [champs2 setPosition:ccp(size.width/2 +80 , size.height/2 - 152)];
                 
-                // Add the menu to the layer
-                [self addChild:menu_play];
+                [self addChild:champs2];
+                
+                CCSprite *champs3 = [CCSprite spriteWithFile:@"Connexion_champsTxt-hd.png"];
+                [champs3 setPosition:ccp(size.width/2 +80 , size.height/2 - 222)];
+                
+                [self addChild:champs3];
+                
                 
                 // Table View
-                tableView = [[UITableView alloc]initWithFrame:CGRectMake( 210, 350, 600, 200) style:UITableViewStyleGrouped];
+                tableView = [[UITableView alloc]initWithFrame:CGRectMake( 332, 469, 450, 200) style:UITableViewStyleGrouped];
+                tableView.backgroundColor = [UIColor clearColor];
+                tableView.separatorColor = [UIColor clearColor];
+                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+                tableView.opaque = NO;
+                tableView.backgroundView = nil;
+                tableView.scrollEnabled = NO;
+                
                 tableView.delegate = self;
                 tableView.dataSource = self;
                 
@@ -110,15 +159,15 @@
                 
                 [self addChild:tableViewWrapper];
                 
-                //textfield
-                textField = [[UITextField alloc]init];
-                textField.frame = CGRectMake(size.width/2 - 140, size.height/2 - 220, 400, 40);
-                [textField  setBackgroundColor:[UIColor grayColor]];
-                textField.delegate = self;
+                //bouton play
+                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"jouer_btn-hd.png" selectedImage:@"jouer_btn-hd.png" target:self selector:@selector(buttonPressedPlay:)];
                 
-                textFieldWrapper = [CCUIViewWrapper wrapperForUIView:textField];
+                CCMenu *menu_play = [CCMenu menuWithItems:button_play, nil];
+                [menu_play setPosition:ccp( size.width/2, size.height/2 - 360)];
                 
-                [self addChild:textFieldWrapper];
+                
+                // Add the menu to the layer
+                [self addChild:menu_play];
 
             }
             else
@@ -127,45 +176,94 @@
                 // ask director for the window size
                 CGSize size = [[CCDirector sharedDirector] winSize];
                 
+                // BackGround
+                CCSprite *background = [CCSprite spriteWithFile:@"background.jpg"];
+                [background setPosition:ccp(size.width/2, size.height/2)];
+                
+                [self addChild:background];
+                
+                // Bouton back
+                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn.png" selectedImage:@"back_btn.png" target:self selector:@selector(buttonPressedBack:)];
+                
+                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
+                [menu_back setPosition:ccp( size.width/2 - 472, size.height/2 + 345)];
+                
+                // Add the menu to the layer
+                [self addChild:menu_back];
+                
+                
                 //titre
-                CCLabelTTF *hostlabel = [CCLabelTTF labelWithString:@"HostGame" fontName:@"Marker Felt" fontSize:32];
+                CCLabelTTF *hostlabel = [CCLabelTTF labelWithString:@"CONNEXION ENTRE LES APPAREILS" fontName:@"Economica-Bold" fontSize:32];
                 hostlabel.position = ccp( size.width/2, size.height/2 + 280);
                 
                 [self addChild:hostlabel];
                 
                 // your name label
-                CCLabelTTF *name = [CCLabelTTF labelWithString:@"Your Name :" fontName:@"Marker Felt" fontSize:32];
-                name.position = ccp( size.width/2 - 230, size.height/2 + 200);
+                CCLabelTTF *name = [CCLabelTTF labelWithString:@"Nom de l'iPad" fontName:@"Economica-Bold" fontSize:26];
+                name.position = ccp( size.width/2 - 260, size.height/2 + 139);
                 
                 [self addChild:name];
                 
+                CCSprite *champs = [CCSprite spriteWithFile:@"Connexion_champsTxt.png"];
+                [champs setPosition:ccp(size.width/2 +80 , size.height/2 + 138)];
+                
+                [self addChild:champs];
+                
+                //textfield
+                textField = [[UITextField alloc]init];
+                textField.frame = CGRectMake(size.width/2 - 140 , size.height/2 - 155 , 300, 80);
+                textField.font = [UIFont fontWithName:@"Economica-Regular" size:26];
+                textField.textColor = [UIColor whiteColor];
+                textField.enabled = NO;
+                textField.delegate = self;
+                
+                textFieldWrapper = [CCUIViewWrapper wrapperForUIView:textField];
+                
+                [self addChild:textFieldWrapper];
+                
                 //recherche de joueurs label
-                CCLabelTTF *message = [CCLabelTTF labelWithString:@"Recherche de joueurs en cours..." fontName:@"Marker Felt" fontSize:32];
-                message.position = ccp( size.width/2, size.height/2 + 100);
+                CCLabelTTF *message = [CCLabelTTF labelWithString:@"RECHERCHE DES JOUEURS EN COURS..." fontName:@"Economica-Bold" fontSize:26];
+                message.position = ccp( size.width/2, size.height/2);
                 
                 [self addChild:message];
                 
-                //bouton back
-                CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"button_back.png" selectedImage:@"button_back.png" target:self selector:@selector(buttonPressedBack:)];
+                //message 2
+                CCLabelTTF *message2 = [CCLabelTTF labelWithString:@"Veuillez allumer vos iPhones" fontName:@"Economica-Regular" fontSize:22];
+                message2.position = ccp( size.width/2, size.height/2 - 50);
                 
-                CCMenu *menu_back = [CCMenu menuWithItems:button_back, nil];
-                [menu_back setPosition:ccp( size.width/2 - 450, size.height/2 + 300)];
+                [self addChild:message2];
                 
-                // Add the menu to the layer
-                [self addChild:menu_back];
+                // Nom des joueurs
+                CCLabelTTF *name2 = [CCLabelTTF labelWithString:@"Joueur n°1" fontName:@"Economica-Bold" fontSize:26];
+                name2.position = ccp( size.width/2 - 270, size.height/2 - 150);
                 
-                //bouton play
-                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"button_play.png" selectedImage:@"button_play.png" target:self selector:@selector(buttonPressedPlay:)];
+                [self addChild:name2];
                 
-                CCMenu *menu_play = [CCMenu menuWithItems:button_play, nil];
-                [menu_play setPosition:ccp( size.width/2 - 260, size.height/2 -450)];
-                menu_play.scale = 0.5;
+                CCLabelTTF *name3 = [CCLabelTTF labelWithString:@"Joueur n°2" fontName:@"Economica-Bold" fontSize:26];
+                name3.position = ccp( size.width/2 - 270, size.height/2 - 220);
                 
-                // Add the menu to the layer
-                [self addChild:menu_play];
+                [self addChild:name3];
+                
+                CCSprite *champs2 = [CCSprite spriteWithFile:@"Connexion_champsTxt.png"];
+                [champs2 setPosition:ccp(size.width/2 +80 , size.height/2 - 152)];
+                
+                [self addChild:champs2];
+                
+                CCSprite *champs3 = [CCSprite spriteWithFile:@"Connexion_champsTxt.png"];
+                [champs3 setPosition:ccp(size.width/2 +80 , size.height/2 - 222)];
+                
+                [self addChild:champs3];
+                
                 
                 // Table View
-                tableView = [[UITableView alloc]initWithFrame:CGRectMake( 210, 350, 600, 200) style:UITableViewStyleGrouped];
+                tableView = [[UITableView alloc]initWithFrame:CGRectMake( 332, 469, 450, 200) style:UITableViewStyleGrouped];
+                tableView.backgroundColor = [UIColor clearColor];
+                tableView.separatorColor = [UIColor clearColor];
+                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+                tableView.opaque = NO;
+                tableView.backgroundView = nil;
+                tableView.scrollEnabled = NO;
+                
                 tableView.delegate = self;
                 tableView.dataSource = self;
                 
@@ -173,15 +271,15 @@
                 
                 [self addChild:tableViewWrapper];
                 
-                //textfield
-                textField = [[UITextField alloc]init];
-                textField.frame = CGRectMake(size.width/2 - 140, size.height/2 - 220, 400, 40);
-                [textField  setBackgroundColor:[UIColor grayColor]];
-                textField.delegate = self;
+                //bouton play
+                CCMenuItemImage *button_play = [CCMenuItemImage itemWithNormalImage:@"jouer_btn.png" selectedImage:@"jouer_btn.png" target:self selector:@selector(buttonPressedPlay:)];
                 
-                textFieldWrapper = [CCUIViewWrapper wrapperForUIView:textField];
+                CCMenu *menu_play = [CCMenu menuWithItems:button_play, nil];
+                [menu_play setPosition:ccp( size.width/2, size.height/2 - 360)];
                 
-                [self addChild:textFieldWrapper];
+                
+                // Add the menu to the layer
+                [self addChild:menu_play];
             }
         }
 
@@ -196,7 +294,7 @@
 
 //Taille de la cellule
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 30;
+    return 70;
 }
 
 //Nombres de cellules
@@ -224,6 +322,10 @@
     
 	NSString *peerID = [_matchmakingServer peerIDForConnectedClientAtIndex:indexPath.row];
 	cell.textLabel.text = [_matchmakingServer displayNameForPeerID:peerID];
+    cell.textLabel.font = [UIFont fontWithName:@"Economica-Regular" size:26];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
 	return cell;
 }

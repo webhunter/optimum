@@ -56,6 +56,8 @@ typedef enum
     PacketUnitRight5,
     
     PacketTypeBack,
+    
+    PacketTypeArchipelago,
 }
 PacketType;
 
