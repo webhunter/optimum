@@ -16,6 +16,7 @@
 #import "JoinLayer.h"
 #import "GameLayer.h"
 #import "CreditLayer.h"
+#import "RegleLayer.h"
 
 
 // HelloWorldLayer

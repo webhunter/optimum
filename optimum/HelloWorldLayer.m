@@ -16,7 +16,12 @@
 #pragma mark - HelloWorldLayer
 
 // HelloWorldLayer implementation
-@implementation HelloWorldLayer
+@implementation HelloWorldLayer{
+    CCMenuItemImage *musique;
+    CCMenuItemImage *bruit;
+    BOOL music;
+    BOOL bruitage;
+}
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -189,9 +194,23 @@
                 [menu alignItemsHorizontallyWithPadding:150];
                 [menu setPosition:ccp( size.width/2, size.height/2)];
                 
-                
                 // Add the menu to the layer
                 [self addChild:menu];
+                
+                bruit = [CCMenuItemImage itemWithNormalImage:@"Bruit_Menu_ON_btn-hd.png" selectedImage:@"Bruit_Menu_OFF_btn-hd.png" target:self selector:@selector(buttonPressedBruit:)];
+                
+                CCMenuItemImage *button_note = [CCMenuItemImage itemWithNormalImage:@"Noter_App_btn-hd.png" selectedImage:@"Noter_App_btn-hd.png" target:self selector:@selector(buttonPressedNote:)];
+                
+                musique = [CCMenuItemImage itemWithNormalImage:@"Music_Menu_ON_btn-hd.png" selectedImage:@"Music_Menu_OFF_btn-hd.png" target:self selector:@selector(buttonPressedMusic:)];
+                
+                CCMenu *menuReglage = [CCMenu menuWithItems:bruit, button_note, musique, nil];
+                [menuReglage alignItemsHorizontallyWithPadding:-15];
+                [menuReglage setPosition:ccp( size.width/2, size.height/2 - 361)];
+                
+                [self addChild:menuReglage];
+                music = YES;
+                bruitage = YES;
+                
             }
             else
             {
@@ -220,6 +239,21 @@
                 
                 // Add the menu to the layer
                 [self addChild:menu];
+                
+                bruit = [CCMenuItemImage itemWithNormalImage:@"Bruit_Menu_ON_btn.png" selectedImage:@"Bruit_Menu_OFF_btn.png" target:self selector:@selector(buttonPressedBruit:)];
+                
+                CCMenuItemImage *button_note = [CCMenuItemImage itemWithNormalImage:@"Noter_App_btn.png" selectedImage:@"Noter_App_btn.png" target:self selector:@selector(buttonPressedNote:)];
+                
+                musique = [CCMenuItemImage itemWithNormalImage:@"Music_Menu_ON_btn.png" selectedImage:@"Music_Menu_OFF_btn.png" target:self selector:@selector(buttonPressedMusic:)];
+                
+                CCMenu *menuReglage = [CCMenu menuWithItems:bruit, button_note, musique, nil];
+                [menuReglage alignItemsHorizontallyWithPadding:-15];
+                [menuReglage setPosition:ccp( size.width/2, size.height/2 - 361)];
+                
+                [self addChild:menuReglage];
+                
+                music = YES;
+                bruitage = YES;
             }
             
         }
@@ -240,7 +274,7 @@
 
 - (void) buttonPressedRegle: (id) sender
 {
-    
+    [[CCDirector sharedDirector] replaceScene:[RegleLayer scene]];
 }
 
 - (void) buttonPressedCredit: (id) sender
@@ -251,6 +285,41 @@
 - (void) buttonPressed: (id) sender
 {
     [[CCDirector sharedDirector] replaceScene:[JoinLayer scene]];
+}
+
+- (void) buttonPressedBruit: (id) sender
+{
+    if (bruitage == YES) {
+        bruit.opacity = 125;
+        bruitage = NO;
+    }
+    else
+    {
+        
+        bruit.opacity = 255;
+        bruitage = YES;
+    }
+}
+
+- (void) buttonPressedNote: (id) sender
+{
+    
+}
+
+- (void) buttonPressedMusic: (id) sender
+{
+    if (music == YES) {
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        musique.opacity = 125;
+        music = NO;
+    }
+    else
+    {
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Intro_loop.aif" loop:YES];
+        musique.opacity = 255;
+        music = YES;
+    }
+
 }
 
 

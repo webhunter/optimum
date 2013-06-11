@@ -99,7 +99,7 @@
 
 - (void) buttonPressedBack: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer node]];
+    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
 }
 
 
