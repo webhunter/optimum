@@ -127,7 +127,7 @@
                         [champs2 setPosition:ccp(size.width/2 + 60, size.height/2 - 151)];
                         
                         [self addChild:champs2];
-
+                        
                         // Bouton back
                         CCMenuItemImage *button_back = [CCMenuItemImage itemWithNormalImage:@"back_btn_iph-hd.png" selectedImage:@"back_btn_iph-hd.png" target:self selector:@selector(buttonPressedBack:)];
                         
@@ -152,7 +152,9 @@
                         [self addChild:tableViewWrapper];
                         
                         // Bouton rejoindre
-                        button_rejoindre = [CCMenuItemImage itemWithNormalImage:@"rejoindre_btn_off-hd.png" selectedImage:@"rejoindre_btn_off-hd.png" target:self selector:@selector(buttonPressedBack:)];
+                        button_rejoindre = [CCMenuItemImage itemWithNormalImage:@"rejoindre_btn_on-hd.png" selectedImage:@"rejoindre_btn_on-hd.png" target:self selector:@selector(buttonPressedJoin:)];
+                        
+                        button_rejoindre.opacity = 75;
                         
                         CCMenu *menu_rejoindre = [CCMenu menuWithItems:button_rejoindre, nil];
                         [menu_rejoindre setPosition:ccp( size.width/2, size.height/2 - 266)];
@@ -250,7 +252,9 @@
                         [self addChild:tableViewWrapper];
                         
                         // Bouton rejoindre
-                        button_rejoindre = [CCMenuItemImage itemWithNormalImage:@"rejoindre_btn_off.png" selectedImage:@"rejoindre_btn_off.png" target:self selector:@selector(buttonPressedBack:)];
+                        button_rejoindre = [CCMenuItemImage itemWithNormalImage:@"rejoindre_btn_on.png" selectedImage:@"rejoindre_btn_on.png" target:self selector:@selector(buttonPressedJoin:)];
+                        
+                        button_rejoindre.opacity = 75;
                         
                         CCMenu *menu_rejoindre = [CCMenu menuWithItems:button_rejoindre, nil];
                         [menu_rejoindre setPosition:ccp( size.width/2, size.height/2 - 224)];
@@ -267,7 +271,7 @@
 
 - (void) dealloc
 {
-
+    
 }
 
 //Taille de la cellule
@@ -279,7 +283,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (_matchmakingClient != nil)
-            return [_matchmakingClient availableServerCount];
+        return [_matchmakingClient availableServerCount];
 	else
 		return 0;
 }
@@ -298,6 +302,9 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    
+    
+    
 	return cell;
 }
 
@@ -308,34 +315,33 @@
     [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer node]];
 }
 
-#pragma mark - MatchmakingClientDelegate
-
-- (void)matchmakingClient:(MatchmakingClient *)client serverBecameAvailable:(NSString *)peerID
+- (void) buttonPressedJoin: (id) sender
 {
-	[tableView reloadData];
-}
-
-- (void)matchmakingClient:(MatchmakingClient *)client serverBecameUnavailable:(NSString *)peerID
-{
-	[tableView reloadData];
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	[self->tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-	if (_matchmakingClient != nil)
+	if (_matchmakingClient != nil && _matchmakingClient.availableServerCount != nil)
 	{
 		[[CCDirector sharedDirector] pushScene:[WaitLayer node]];
         [self->tableView setHidden:YES];
         [self->textField setHidden:YES];
         
-        NSString *peerID = [_matchmakingClient peerIDForAvailableServerAtIndex:indexPath.row];
+        NSString *peerID = [_matchmakingClient peerIDForAvailableServerAtIndex:0];
 		[_matchmakingClient connectToServerWithPeerID:peerID];
         
     }
+}
+
+#pragma mark - MatchmakingClientDelegate
+
+- (void)matchmakingClient:(MatchmakingClient *)client serverBecameAvailable:(NSString *)peerID
+{
+	[tableView reloadData];
+    button_rejoindre.opacity = 255;
+    
+}
+
+- (void)matchmakingClient:(MatchmakingClient *)client serverBecameUnavailable:(NSString *)peerID
+{
+	[tableView reloadData];
+    button_rejoindre.opacity = 75;
 }
 
 - (void)matchmakingClient:(MatchmakingClient *)client didDisconnectFromServer:(NSString *)peerID
@@ -348,9 +354,9 @@
     [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer node]];
     // Mode avion
     /* if (_quitReason == QuitReasonNoNetwork)
-	{
-        [self showNoNetworkAlert];
-	}*/
+     {
+     [self showNoNetworkAlert];
+     }*/
     //Si le serveur se deconnecte
     if (_quitReason == QuitReasonConnectionDropped)
 	{
@@ -361,7 +367,7 @@
         {
             //nothing
         }
-
+        
 	}
     
 }
